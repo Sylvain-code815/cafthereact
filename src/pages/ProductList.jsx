@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import ProductCard from "../components/ProductCard.jsx";
 
 const ProductList = () => {
     const [produits, setProduits] = useState([]);
@@ -9,6 +10,7 @@ const ProductList = () => {
     useEffect(() => {
         const fetchProduits = async () => {
             try {
+                setIsLoading(true);
                 setError(null);
 
                 const response = await fetch(
@@ -74,7 +76,7 @@ const ProductList = () => {
         <div>
             <div className="product-list">
                 {produits.map((produit) => (
-                    <p>{produit.nom_produit}</p>
+                    <ProductCard key={produit.code_produit} produit={produit}/>
                 ))}
             </div>
         </div>
