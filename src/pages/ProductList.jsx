@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import ProductCard from "../components/ProductCard.jsx";
+// Pour le filtre de prix, le faire en front
 
 const ProductList = () => {
     const [produits, setProduits] = useState([]);

@@ -3,9 +3,9 @@ import ProductCard from "./ProductCard.jsx";
 
 const Footer = () => {
     return (
-        <div>
-            <h2>Footer</h2>
-        </div>
+        <footer className="footer">
+            <p> {new Date().getFullYear()} CafThé - Tous droits réservés</p>
+        </footer>
     )
 }
 

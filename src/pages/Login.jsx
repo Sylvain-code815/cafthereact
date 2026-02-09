@@ -6,7 +6,7 @@ const Login = () => {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [motDePasse, setMotDePasse] = useState('');
+    const [mdp, setmdp] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
 
     const handelSubmit = async (e) => {
@@ -21,7 +21,7 @@ const Login = () => {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
                         email,
-                        mdp: motDePasse,
+                        mdp,
                     })
                 }
             );
@@ -60,7 +60,7 @@ const Login = () => {
 
                 <div className="form-group">
                     <label htmlFor="password">Mot de passe :</label>
-                    <input value={motDePasse} required type="password" className="form-control" id="password" placeholder="Votre mot de passe" onChange={(e) => setMotDePasse(e.target.value)}/>
+                    <input value={mdp} required type="password" className="form-control" id="password" placeholder="Votre mot de passe" onChange={(e) => setmdp(e.target.value)}/>
                 </div>
 
             {/*    Affichage conditionnel du message d'erreur */}
