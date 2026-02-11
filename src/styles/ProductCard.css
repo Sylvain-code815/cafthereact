@@ -12,8 +12,9 @@
     background-image: url("");
 }
 
-p.product-card {
-
+.product-card-bottom {
+    display: flex;
+    justify-content: space-between;
 }
 
 h3.product-card {

@@ -72,9 +72,20 @@ const ProductList = () => {
         );
     }
 
+    // Création de la liste promo en gardant seulement ceux qui ont 1
+    const produitsEnPromo = produits.filter((produit) => {
+        return produit.produit_promotion === 1;
+    });
+
     // Affichage normal (si tout est OK)
     return (
         <div>
+            <div className="product-list">
+                {produitsEnPromo.map((produit) => (
+                    <ProductCard key={produit.code_produit} produit={produit}/>
+                ))}
+            </div>
+
             <div className="product-list">
                 {produits.map((produit) => ( // Transforme chaque produit en un composant ProductCard
                     <ProductCard key={produit.code_produit} produit={produit}/>

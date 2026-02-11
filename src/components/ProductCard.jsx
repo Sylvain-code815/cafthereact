@@ -6,9 +6,10 @@ const ProductCard = ({ produit }) => {
 
     const imageURL = produit.image ? `${import.meta.env.VITE_API_URL}/images/${produit.image}` :
         "https://placehold.co/600x400";
+    const productReduct = produit.produit_promotion === 1 ? "card-promo" : "";
 
     return (
-        <div className="product-card">
+        <div className={`product-card ${productReduct}`}>
 
             <Link to={`/produit/${produit.code_produit}`} className="details-btn">
                 <img
@@ -19,7 +20,16 @@ const ProductCard = ({ produit }) => {
             </Link>
 
             <h3>{produit.nom_produit}</h3>
-            <p>{produit.prix_HT} €</p>
+            <p>{produit.origine}</p>
+            <div className="product-card-bottom">
+                <p>{produit.prix_ttc}€</p>
+                <p>/100g</p>
+                <div className="product-card-panier">
+                    <Link to="cart" path="/cart">
+                        <img src="/Images/Icons/Button-ajout-panier.svg" alt="btn-ajout-panier" />
+                    </Link>
+                </div>
+            </div>
 
         </div>
     );
