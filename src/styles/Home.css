@@ -1,0 +1,58 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+.hero-section {
+    height: calc(100vh - 100px);
+    display: flex;
+    text-transform: uppercase;
+    width: 100%;
+    color: var(--color-bg-light);
+}
+
+.hero-left, .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    background-position: center;
+    background-size: cover;
+}
+
+.hero-section button {
+    bottom: 0;
+    text-transform: uppercase;
+    padding: 21px 15px;
+    margin-bottom: 88px;
+    font-size: 18px;
+    color: var(--color-bg-light);
+    border: none;
+}
+
+.hero-section h2 {
+    margin-top: auto;
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.hero-left {
+    background-image: url('/Images/The-Home.jpg');
+}
+
+.hero-left button {
+    background-color: var(--color-the);
+}
+
+.hero-right {
+    background-image: "attendre image";
+}
+
+.hero-right button {
+    background-color: var(--color-cafe);
+}
+

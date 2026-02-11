@@ -1,56 +1,64 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext(null);
 
-export function AuthProvider ({children}) { // Permet qu'on soit soit logé, soit pas logé ou qu'on soit dans la page
+export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Au montage du composant, on restauration la session si elle existe
-    // du localStorage (pas secure), on met le token dedans
-
+    // Verifie si un cookie de session valide existe
     useEffect(() => {
-        const storedToken = localStorage.getItem("token");
-        const storedUsed = localStorage.getItem("user");
+        const checkSession = async () => {
+            try {
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_URL}/api/clients/me`,
+                    { credentials: "include" }
+                );
 
-        if (storedUsed && storedToken) {
-            setToken(storedToken)
-            setUser(storedUsed)
-        }
+                if (response.ok) {
+                    const data = await response.json();
+                    setUser(data.client);
+                }
+            } catch (error) {
+                console.error("Erreur vérification session:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        checkSession();
     }, []);
 
-// Synchronise le localStorage pour chaque changement de token ou user
-    useEffect(() => {
-        if (token && user) {
-            localStorage.setItem("token");
-            localStorage.setItem("user", JSON.stringify(user));
-        } else {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-        }
-    }, [user, token]);
-
-    const login = (jwt, userData) => {
-        setToken(jwt);
+    const login = (userData) => {
         setUser(userData);
-    }
+    };
 
-    const logout = () => {
-        setToken(null);
+    const logout = async () => {
+        try {
+            await fetch(
+                `${import.meta.env.VITE_API_URL}/api/clients/logout`,
+                {
+                    method: "POST",
+                    credentials: "include"
+                }
+            );
+        } catch (error) {
+            console.error("Erreur lors de la déconnexion:", error);
+        }
         setUser(null);
-    }
+    };
 
     const value = {
-        token,
         user,
         login,
         logout,
-        isAuthenticated: !!token, // Booléan, qu'il y est un token ou non
+        loading,
+        isAuthenticated: !!user,
     };
 
     return (
         <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }

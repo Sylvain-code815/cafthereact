@@ -19,6 +19,7 @@ const Login = () => {
                 {
                     method: 'POST',
                     headers: {"Content-Type": "application/json"},
+                    credentials: 'include',
                     body: JSON.stringify({
                         email,
                         mdp,
@@ -33,16 +34,14 @@ const Login = () => {
                 return;
             }
 
-            const {token, client} = data;
-
             // Appel au login via le contexte
-            login(token, client);
+            login(data.client);
 
             // Puis retour à l'accueil
             navigate('/');
 
         } catch (err) {
-            console.err("Erreur lors de la connexion", err);
+            console.error("Erreur lors de la connexion", error);
             setErrorMsg("Une erreur s'est produit lors de la connexion");
         }
     }

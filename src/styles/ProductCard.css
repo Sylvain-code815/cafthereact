@@ -1,0 +1,21 @@
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 350px;
+    border: 1px solid var(--border-color);
+}
+
+.product-card-img {
+    max-width: 100%;
+    height: auto;
+    background-image: url("");
+}
+
+p.product-card {
+
+}
+
+h3.product-card {
+
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import '../styles/ProductCard.css';
 
 const ProductCard = ({ produit }) => {
 
@@ -9,18 +10,17 @@ const ProductCard = ({ produit }) => {
     return (
         <div className="product-card">
 
-            <img
-                src={imageURL}
-                alt={produit.nom_produit}
-                className="product-card-img"
-            />
+            <Link to={`/produit/${produit.code_produit}`} className="details-btn">
+                <img
+                    src={imageURL}
+                    alt={produit.nom_produit}
+                    className="product-card-img"
+                />
+            </Link>
 
             <h3>{produit.nom_produit}</h3>
             <p>{produit.prix_HT} €</p>
 
-            <Link to={`/produit/${produit.code_produit}`} className="details-btn">
-                Voir détails
-            </Link>
         </div>
     );
 };

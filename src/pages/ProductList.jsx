@@ -76,7 +76,7 @@ const ProductList = () => {
     return (
         <div>
             <div className="product-list">
-                {produits.map((produit) => (
+                {produits.map((produit) => ( // Transforme chaque produit en un composant ProductCard
                     <ProductCard key={produit.code_produit} produit={produit}/>
                 ))}
             </div>
