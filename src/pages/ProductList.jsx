@@ -4,95 +4,99 @@ import ProductCard from "../components/ProductCard.jsx";
 // Pour le filtre de prix, le faire en front
 
 const ProductList = () => {
-    const [produits, setProduits] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [produits, setProduits] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchProduits = async () => {
-            try {
-                setIsLoading(true);
-                setError(null);
+  useEffect(() => {
+    const fetchProduits = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
 
-                const response = await fetch(
-                    `${import.meta.env.VITE_API_URL}/api/articles`,
-                );
-
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP ${response.status}`);
-                }
-
-                const data = await response.json();
-                setProduits(data.articles);
-            } catch (err) {
-                console.error("Erreur lors du chargement des produits :", err);
-                setError("Impossible de charger les produits");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        void fetchProduits();
-    }, []);
-
-    // Chargement : Skeleton
-    if (isLoading) {
-        return (
-            <div className="product-list">
-                {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="product-skeleton">
-                        <Skeleton height={200} width={300} />
-                        <div style={{ marginTop: "0.5rem" }}>
-                            <Skeleton height={20} width="70%" />
-                        </div>
-                        <div style={{ marginTop: "0.3rem" }}>
-                            <Skeleton height={20} width="40%" />
-                        </div>
-                    </div>
-                ))}
-            </div>
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/articles`,
         );
-    }
 
-    // Erreur
-    if (error) {
-        return (
-            <div className="product-list-error">
-                <div className="error-container">
-                    <h3> Une erreur est survenue</h3>
-                    <p>{error}</p>
-                    <button
-                        onClick={() => window.location.reload()}
-                        className="retry-button"
-                    >
-                        Réessayer
-                    </button>
-                </div>
-            </div>
-        );
-    }
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}`);
+        }
 
-    // Création de la liste promo en gardant seulement ceux qui ont 1
-    const produitsEnPromo = produits.filter((produit) => {
-        return produit.produit_promotion === 1;
-    });
+        const data = await response.json();
+        setProduits(data.articles);
+      } catch (err) {
+        console.error("Erreur lors du chargement des produits :", err);
+        setError("Impossible de charger les produits");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    // Affichage normal (si tout est OK)
+    void fetchProduits();
+  }, []);
+
+  // Chargement : Skeleton
+  if (isLoading) {
     return (
-        <div>
-            <div className="product-list">
-                {produitsEnPromo.map((produit) => (
-                    <ProductCard key={produit.code_produit} produit={produit}/>
-                ))}
+      <div className="product-list">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="product-skeleton">
+            <Skeleton height={200} width={300} />
+            <div style={{ marginTop: "0.5rem" }}>
+              <Skeleton height={20} width="70%" />
             </div>
-
-            <div className="product-list">
-                {produits.map((produit) => ( // Transforme chaque produit en un composant ProductCard
-                    <ProductCard key={produit.code_produit} produit={produit}/>
-                ))}
+            <div style={{ marginTop: "0.3rem" }}>
+              <Skeleton height={20} width="40%" />
             </div>
-        </div>
+          </div>
+        ))}
+      </div>
     );
+  }
+
+  // Erreur
+  if (error) {
+    return (
+      <div className="product-list-error">
+        <div className="error-container">
+          <h3> Une erreur est survenue</h3>
+          <p>{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="retry-button"
+          >
+            Réessayer
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Création de la liste promo en gardant seulement ceux qui ont 1
+  const produitsEnPromo = produits.filter((produit) => {
+    return produit.produit_promotion === 1;
+  });
+
+  // Affichage normal (si tout est OK)
+  return (
+    <div>
+      <div className="product-list">
+        {produitsEnPromo.map((produit) => (
+          <ProductCard key={produit.code_produit} produit={produit} />
+        ))}
+      </div>
+
+      <div className="product-list">
+        {produits.map(
+          (
+            produit, // Transforme chaque produit en un composant ProductCard
+          ) => (
+            <ProductCard key={produit.code_produit} produit={produit} />
+          ),
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ProductList;
