@@ -26,7 +26,7 @@ const ProductCard = ({ produit }) => {
         <div className="product-card-panier">
           <Link to="cart" path="/cart">
             <img
-              src="/Images/Icons/Button-ajout-panier.svg"
+              src="/src/Images/Icon/Button-ajout-panier.webp"
               alt="btn-ajout-panier"
             />
           </Link>

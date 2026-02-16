@@ -15,11 +15,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="container-nav">
-        <div className="nav-left">
+        <picture className="nav-left">
           <Link to="/" className="navbar-brand">
-            <img src="/Images/Logo.png" alt="Logo" />
+            <img src="/src/Images/Logo-CafThe-en-couleur.webp" alt="Logo" />
           </Link>
-        </div>
+        </picture>
 
         <div className="navbar-burger">
           <ul>
@@ -36,7 +36,7 @@ const Navbar = () => {
         </div>
 
         <div className="nav-right">
-          <img src="/Images/Icons/Loupe.svg" />
+          <img src="/src/Images/Icon/header-Loupe.svg" alt="Logo" />
 
           {isAuthenticated ? (
             // Utilisation de (<> ... </>) pour emballer les deux éléments
@@ -48,12 +48,12 @@ const Navbar = () => {
             </>
           ) : (
             <Link to="/login" className="navbar-login">
-              <img src="/Images/Icons/Login.svg" alt="Login" />
+              <img src="/src/Images/Icon/header-Login.svg" alt="Login" />
               <span>Se connecter</span>
             </Link>
           )}
           <Link to="/Cart" className="navbar-Cart">
-            <img src="/Images/Icons/Cart.svg" alt="Cart" />
+            <img src="/src/Images/Icon/header-Cart.svg" alt="Cart" />
             <span>{totalArticles}</span>
           </Link>
         </div>

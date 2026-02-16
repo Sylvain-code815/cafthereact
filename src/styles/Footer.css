@@ -1,0 +1,17 @@
+.footer {
+    background: var(--color-text);
+    height: 643px;
+    width: 100%;
+    color: var(--color-bg-light);
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 394px;
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+

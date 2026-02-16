@@ -42,7 +42,7 @@ main {
 }
 
 .hero-left {
-  background-image: url("/Images/The-Home.jpg");
+  background-image: url("/src/Images/The-Home.jpg");
 }
 
 .hero-left button {
@@ -50,7 +50,7 @@ main {
 }
 
 .hero-right {
-  background-image: "attendre image";
+  background-image: url("/src/Images/Cafe-Home.jpg");
 }
 
 .hero-right button {
