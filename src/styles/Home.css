@@ -42,7 +42,7 @@ main {
 }
 
 .hero-left {
-  background-image: url("/src/Images/The-Home.jpg");
+  background-image: url("/src/Images/The-Home.webp");
 }
 
 .hero-left button {
@@ -50,9 +50,94 @@ main {
 }
 
 .hero-right {
-  background-image: url("/src/Images/Cafe-Home.jpg");
+  background-image: url("/src/Images/Cafe-Home.webp");
 }
 
 .hero-right button {
   background-color: var(--color-cafe);
+}
+
+/* Section Promotions & Produits phares */
+.products-section {
+  display: flex;
+  gap: 40px;
+  padding: 40px 100px;
+  background: linear-gradient(
+    to right,
+    rgba(76, 130, 89, 0.7) 0%,
+    #F5F1ED 50%,
+    rgba(107, 68, 35, 0.7) 100%
+  );
+}
+
+.btn-section {
+  display: inline-block;
+  padding: 8px 40px;
+  background-color: var(--color-bg-light);
+  color: var(--color-text);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  border: 1px solid var(--color-text);
+}
+
+/* Section Engagements */
+.engagements-section {
+  background-color: rgba(209, 187, 168, 0.7);
+  padding: 64px 96px 32px;
+}
+
+.engagements-section h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.p-engagement {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 48px;
+}
+
+.engagements-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.engagement-item {
+  text-align: center;
+  gap: 12px;
+}
+
+.engagement-item h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.engagement-item p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Section Témoignages */
+.testimonials-section {
+  padding: 0 100px;
+}
+
+.testimonials-section h2 {
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: var(--weight-home);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 24px;
 }

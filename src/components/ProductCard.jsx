@@ -17,19 +17,22 @@ const ProductCard = ({ produit }) => {
           className="product-card-img"
         />
       </Link>
-
+        <div className="product-card-info">
       <h3>{produit.nom_produit}</h3>
       <p>{produit.origine}</p>
       <div className="product-card-bottom">
-        <p>{produit.prix_ttc}€</p>
-        <p>/100g</p>
-        <div className="product-card-panier">
-          <Link to="cart" path="/cart">
-            <img
-              src="/src/Images/Icon/Button-ajout-panier.webp"
-              alt="btn-ajout-panier"
-            />
-          </Link>
+          <div className="product-infos-left">
+            <p>{produit.prix_ttc}€</p>
+            <p>/100g</p>
+          </div>
+            <div className="product-card-panier">
+              <Link to="cart" path="/cart">
+                <img
+                  src="/src/Images/Icon/Button-ajout-panier.svg"
+                  alt="btn-ajout-panier"
+                />
+              </Link>
+            </div>
         </div>
       </div>
     </div>
