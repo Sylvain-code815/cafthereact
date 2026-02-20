@@ -1,0 +1,25 @@
+.customer-review {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background-color: var(--color-bg-light);
+  border: 1px solid var(--color-text);
+}
+
+.review-rating {
+  color: var(--color-cafe);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.review-text {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.review-author {
+  font-weight: var(--weight-under-Title);
+  font-size: 14px;
+}

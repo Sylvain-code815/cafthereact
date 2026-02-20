@@ -1,0 +1,46 @@
+.product-carousel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.product-carousel h2 {
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: var(--weight-home);
+  margin-bottom: 24px;
+}
+
+.carousel-image-link {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.carousel-btn img {
+  width: 32px;
+  height: 32px;
+}
