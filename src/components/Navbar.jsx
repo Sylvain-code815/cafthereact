@@ -1,64 +1,103 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
-import "../styles/Navbar.css";
 import { CartContext } from "../context/CartContext.jsx";
+import { SearchContext } from "../context/SearchContext.jsx";
+import "./styles/Navbar.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useContext(AuthContext);
   const { totalArticles } = useContext(CartContext);
+  const { isSearchOpen, openSearch, closeSearch } = useContext(SearchContext);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-  const handleLogout = () => {
-    logout();
-  };
+  // Fermer le menu mobile à chaque navigation
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
-    <nav className="navbar">
-      <div className="container-nav">
-        <picture className="nav-left">
-          <Link to="/" className="navbar-brand">
-            <img src="/src/Images/Logo-CafThe-en-couleur.webp" alt="Logo" />
+    <header className="header">
+      <nav className="navbar">
+        <div className="nav-container">
+          <Link to="/" className="nav-logo">
+            <img src="/src/Images/Logo-CafThe-en-couleur.webp" alt="CafThé" />
           </Link>
-        </picture>
 
-        <div className="navbar-burger">
-          <ul>
+          <ul className={`nav-links${menuOpen ? " nav-links-open" : ""}`}>
             <li>
-              <Link to="/Cafe">Cafés</Link>
+              <Link to="/the">Thés</Link>
             </li>
             <li>
-              <Link to="/The">Thés</Link>
+              <Link to="/cafe">Cafés</Link>
             </li>
             <li>
-              <Link to="/Accessory">Accessoires</Link>
+              <Link to="/accessory">Accessoires</Link>
+            </li>
+
+            {/* Login/logout dupliqué dans le menu mobile */}
+            <li className="nav-mobile-auth">
+              {isAuthenticated ? (
+                <>
+                  <span className="nav-user">Bonjour, {user?.prenom}</span>
+                  <button className="nav-logout" onClick={logout}>
+                    Se déconnecter
+                  </button>
+                </>
+              ) : (
+                <Link to="/login" className="nav-mobile-login">
+                  Se connecter
+                </Link>
+              )}
             </li>
           </ul>
-        </div>
 
-        <div className="nav-right">
-          <img src="/src/Images/Icon/header-Loupe.svg" alt="Logo" />
+          <div className="nav-actions">
+            <button
+              className={`nav-action-btn${isSearchOpen ? " nav-action-active" : ""}`}
+              aria-label="Rechercher"
+              onClick={isSearchOpen ? closeSearch : openSearch}
+            >
+              <img src="/src/Images/Icon/header-Loupe.svg" alt="Rechercher" />
+            </button>
 
-          {isAuthenticated ? (
-            // Utilisation de (<> ... </>) pour emballer les deux éléments
-            <>
-              <span className="navbar-user">Bonjour, {user?.prenom}</span>
-              <button className="navbar-logout-button" onClick={handleLogout}>
-                <span> Se déconnecter </span>
-              </button>
-            </>
-          ) : (
-            <Link to="/login" className="navbar-login">
-              <img src="/src/Images/Icon/header-Login.svg" alt="Login" />
-              <span>Se connecter</span>
+            <div className="nav-auth-desktop">
+              {isAuthenticated ? (
+                <>
+                  <span className="nav-user">Bonjour, {user?.prenom}</span>
+                  <button className="nav-logout" onClick={logout}>
+                    Se déconnecter
+                  </button>
+                </>
+              ) : (
+                <Link to="/login" className="nav-action-btn nav-login">
+                  <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
+                  <span>Se connecter</span>
+                </Link>
+              )}
+            </div>
+
+            <Link to="/panier" className="nav-action-btn nav-cart">
+              <img src="/src/Images/Icon/header-Cart.svg" alt="Panier" />
+              {totalArticles > 0 && (
+                <span className="cart-badge">{totalArticles}</span>
+              )}
             </Link>
-          )}
-          <Link to="/Cart" className="navbar-Cart">
-            <img src="/src/Images/Icon/header-Cart.svg" alt="Cart" />
-            <span>{totalArticles}</span>
-          </Link>
+
+            <button
+              className={`nav-burger${menuOpen ? " nav-burger-open" : ""}`}
+              aria-label="Menu"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 

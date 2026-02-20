@@ -8,24 +8,31 @@ import Cafe from "./pages/Cafe.jsx";
 import Accessory from "./pages/Accessory.jsx";
 import The from "./pages/The.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
+import { SearchProvider } from "./context/SearchContext.jsx";
+import Cart from "./pages/Cart.jsx";
+import Phare from "./pages/Phare.jsx";
+import Promotion from "./pages/Promotion.jsx";
 
 function App() {
   return (
-    // AuthProvider enveloppe toute l'app pour partager l'état de l'authentification
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
+          <SearchProvider>
           <Routes>
-            {/* Route parent : Layout contient navbar + outlet + footer */}
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="produit/:id" element={<ProductDetails />} />
               <Route path="login" element={<Login />} />
               <Route path="cafe" element={<Cafe />} />
               <Route path="the" element={<The />} />
-              <Route path="accessoires" element={<Accessory />} />
+              <Route path="accessory" element={<Accessory />} />
+              <Route path="panier" element={<Cart />} />
+              <Route path="promotions" element={<Promotion />} />
+              <Route path="produits-phares" element={<Phare />} />
             </Route>
           </Routes>
+          </SearchProvider>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>

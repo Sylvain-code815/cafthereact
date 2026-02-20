@@ -1,10 +1,12 @@
 import React from 'react';
+import ProductList from "../components/ProductList.jsx";
 
 const Phare = () => {
     return (
-        <div>
-            
-        </div>
+        <main>
+            <h1>Nos meilleures ventes</h1>
+            <ProductList categorie="produit_phare" />
+        </main>
     );
 };
 

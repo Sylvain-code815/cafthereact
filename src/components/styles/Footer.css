@@ -1,6 +1,6 @@
 .footer {
     background: var(--color-text);
-    min-height: 643px;
+    min-height: clamp(400px, calc(308px + 23.29vw), 643px);
     width: 100%;
     color: var(--color-bg-light);
     display: flex;
@@ -11,8 +11,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 394px;
-    font-size: 32px;
+    height: clamp(200px, calc(132px + 18.22vw), 394px);
+    font-size: var(--fs-section-title);
     text-transform: uppercase;
     font-weight: var(--weight-home);
     color: var(--color-bg-light);
@@ -24,7 +24,7 @@
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    padding: 0 100px;
+    padding: 0 clamp(16px, calc(-8px + 7.5vw), 100px);
 }
 
 .footer-container {
@@ -49,7 +49,7 @@
 .title-footer {
     text-transform: uppercase;
     font-weight: var(--weight-under-Title);
-    font-size: 16px;
+    font-size: var(--fs-footer-title);
     margin-bottom: 20px;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .footer-item {
-    font-size: 12px;
+    font-size: var(--fs-small);
     font-weight: var(--weight-under-line);
     text-transform: none;
     color: var(--color-footer);
@@ -74,19 +74,14 @@
 @media (max-width: 768px) {
     .footer-content {
         grid-template-columns: 1fr;
-        padding: 0 40px;
-        gap: 40px;
+        padding: 0 clamp(16px, calc(9px + 2.14vw), 40px);
+        gap: clamp(20px, calc(14px + 1.79vw), 40px);
     }
 
     .footer-container:first-child,
     .footer-container:nth-child(2),
     .footer-container:last-child {
         justify-self: start;
-    }
-
-    .footer-brand {
-        height: 200px;
-        font-size: 24px;
     }
 
     .footer {

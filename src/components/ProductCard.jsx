@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/ProductCard.css";
+import "./styles/ProductCard.css";
 
 const ProductCard = ({ produit }) => {
   const imageURL = produit.image
@@ -26,7 +26,7 @@ const ProductCard = ({ produit }) => {
             <p>/100g</p>
           </div>
             <div className="product-card-panier">
-              <Link to="cart" path="/cart">
+              <Link to="/panier">
                 <img
                   src="/src/Images/Icon/Button-ajout-panier.svg"
                   alt="btn-ajout-panier"

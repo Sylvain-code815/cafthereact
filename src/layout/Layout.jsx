@@ -1,18 +1,30 @@
-// Pour que le footer soit toujours footer, pareil pour header etc, c'est la structure
-
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-
-// But d'avoir une structure : Navbar, Outlet (contenu variable), Footer
+import SearchOverlay from "../components/SearchOverlay.jsx";
+import { SearchContext } from "../context/SearchContext.jsx";
 
 const Layout = () => {
+  const { isSearchOpen, closeSearch } = useContext(SearchContext);
+  const location = useLocation();
+
+  // Fermer la recherche quand l'utilisateur navigue
+  useEffect(() => {
+    closeSearch();
+  }, [location.pathname]);
+
   return (
     <>
       <Navbar />
-      <Outlet />
-      <Footer />
+      {isSearchOpen ? (
+        <SearchOverlay />
+      ) : (
+        <>
+          <Outlet />
+          <Footer />
+        </>
+      )}
     </>
   );
 };

@@ -1,0 +1,272 @@
+/* ── Header ── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--color-bg-light);
+}
+
+.header::before {
+  content: "";
+  display: block;
+  height: clamp(6px, calc(5px + 0.38vw), 10px);
+  background-color: var(--color-text);
+}
+
+/* ── Navbar ── */
+.navbar {
+  height: clamp(70px, calc(63px + 1.88vw), 90px);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(16px, calc(9px + 2.14vw), 40px);
+}
+
+/* ── Logo ── */
+.nav-logo img {
+  height: clamp(56px, calc(48px + 2.25vw), 80px);
+  width: clamp(56px, calc(48px + 2.25vw), 80px);
+}
+
+/* ── Links ── */
+.nav-links {
+  display: flex;
+  gap: clamp(20px, calc(14px + 1.79vw), 40px);
+}
+
+.nav-links li a {
+  font-size: var(--fs-nav-link);
+  text-transform: uppercase;
+  font-weight: var(--weight-under-Title);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ── Actions (recherche, login, panier) ── */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, calc(9px + 1.07vw), 24px);
+}
+
+.nav-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.nav-action-btn:hover {
+  opacity: 0.6;
+}
+
+.nav-action-btn img {
+  width: clamp(20px, calc(19px + 0.38vw), 24px);
+  height: clamp(20px, calc(19px + 0.38vw), 24px);
+  opacity: 0.6;
+}
+
+.nav-action-active img {
+  opacity: 1;
+}
+
+/* ── Login ── */
+.nav-login span {
+  font-size: var(--fs-subtitle);
+  font-weight: var(--weight-under-line);
+  white-space: nowrap;
+  opacity: 0.6;
+}
+
+.nav-login:hover span {
+  opacity: 1;
+}
+
+/* ── User connecté ── */
+.nav-user {
+  font-size: var(--fs-subtitle);
+  font-weight: var(--weight-under-Title);
+  white-space: nowrap;
+}
+
+.nav-logout {
+  background: none;
+  border: 1px solid var(--color-text);
+  padding: 6px 16px;
+  font-size: var(--fs-small);
+  font-family: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-logout:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg-light);
+}
+
+/* ── Panier + badge ── */
+.nav-cart {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--color-cafe);
+  color: var(--color-bg-light);
+  font-size: var(--fs-badge);
+  font-weight: var(--weight-title);
+  width: clamp(16px, calc(15px + 0.19vw), 18px);
+  height: clamp(16px, calc(15px + 0.19vw), 18px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* ── Auth desktop wrapper ── */
+.nav-auth-desktop {
+  display: contents;
+}
+
+/* ── Burger (masqué en desktop) ── */
+.nav-burger {
+  display: none;
+}
+
+/* ── Mobile auth dans le menu (masqué en desktop) ── */
+.nav-mobile-auth {
+  display: none;
+}
+
+/* ══════════════════════════════════════════
+   ── Responsive ≤ 768px ──
+   ══════════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+
+  .nav-container {
+    padding: 0 20px;
+  }
+
+  /* ── Cacher les liens desktop ── */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-bg-light);
+    border-top: 1px solid rgba(4, 4, 4, 0.1);
+    padding: 24px 20px;
+    gap: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-links-open {
+    display: flex;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 14px 0;
+    font-size: var(--fs-nav-link);
+    border-bottom: 1px solid rgba(4, 4, 4, 0.06);
+  }
+
+  .nav-links li:last-child a {
+    border-bottom: none;
+  }
+
+  .nav-links li a::after {
+    display: none;
+  }
+
+  /* ── Auth dans le menu mobile ── */
+  .nav-mobile-auth {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(4, 4, 4, 0.1);
+  }
+
+  .nav-mobile-login {
+    font-size: var(--fs-nav-link);
+    font-weight: var(--weight-under-Title);
+    text-transform: uppercase;
+  }
+
+  /* ── Cacher l'auth desktop ── */
+  .nav-auth-desktop {
+    display: none;
+  }
+
+  /* ── Burger visible ── */
+  .nav-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-burger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+
+  /* ── Animation burger → croix ── */
+  .nav-burger-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-burger-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-burger-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}

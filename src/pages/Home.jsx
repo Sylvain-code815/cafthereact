@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CustomerReview from "../components/CustomerReview.jsx";
 import ProductCarousel from "../components/ProductCarousel.jsx";
-import "../styles/Home.css";
+import "./styles/Home.css";
 
 const Home = () => {
   const [promoProducts, setPromoProducts] = useState([]);
@@ -11,16 +11,18 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/articles`
-        );
-        if (!response.ok) throw new Error("Erreur");
-        const data = await response.json();
+        const [promoRes, allRes] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_URL}/api/articles/promo`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/articles`),
+        ]);
 
-        const promos = data.articles.filter((p) => p.produit_promotion === 1);
-        const featured = data.articles.filter((p) => p.produit_promotion !== 1).slice(0, 5);
+        if (!promoRes.ok || !allRes.ok) throw new Error("Erreur");
 
-        setPromoProducts(promos);
+        const promoData = await promoRes.json();
+        const allData = await allRes.json();
+
+        setPromoProducts(promoData.articles);
+        const featured = allData.articles.filter((p) => p.produit_promotion !== 1).slice(0, 5);
         setFeaturedProducts(featured);
       } catch (err) {
         console.error("Erreur chargement produits:", err);
@@ -43,11 +45,15 @@ const Home = () => {
       <section className="hero-section">
         <div className="hero-left">
           <h2>nos thés</h2>
+          <Link to="/the">
           <button>découvrir</button>
+          </Link>
         </div>
         <div className="hero-right">
           <h2>nos cafés</h2>
-          <button>découvrir</button>
+          <Link to="/cafe">
+            <button>découvrir</button>
+          </Link>
         </div>
       </section>
 
@@ -55,7 +61,7 @@ const Home = () => {
         <ProductCarousel
           products={promoProducts}
           title="Promotions"
-          linkTo="/Promotion"
+          linkTo="/promotions"
           linkText="en voir plus"
         />
         <ProductCarousel
@@ -71,18 +77,22 @@ const Home = () => {
         <p className="p-engagement">Des valeurs qui guident notre sélection et notre service</p>
         <div className="engagements-grid">
           <div className="engagement-item">
+            <img src="/src/Images/Icon/engagement-agriculture.svg" alt="agriculture" />
             <h3>Agriculture Durable</h3>
             <p>Produits issus de l'agriculture biologique et du commerce équitable</p>
           </div>
           <div className="engagement-item">
+            <img src="/src/Images/Icon/engagement-qualite.svg" alt="qualité" />
             <h3>Qualité Premium</h3>
             <p>Sélection rigoureuse des meilleurs terroirs mondiaux</p>
           </div>
           <div className="engagement-item">
+            <img src="/src/Images/Icon/engagement-passion.svg" alt="passion" />
             <h3>Passion & Expertise</h3>
             <p>Plus de 20 ans d'expérience dans l'art du thé et du café</p>
           </div>
           <div className="engagement-item">
+            <img src="/src/Images/Icon/engagement-livraison.svg" alt="livraison" />
             <h3>Livraison Gratuite</h3>
             <p>Dès 50€ d'achat, partout en France métropolitaine</p>
           </div>

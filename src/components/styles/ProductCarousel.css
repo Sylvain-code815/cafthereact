@@ -1,0 +1,82 @@
+.product-carousel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(20px, calc(14px + 1.79vw), 40px);
+}
+
+.product-carousel h2 {
+  text-transform: uppercase;
+  font-size: var(--fs-section-title);
+  font-weight: var(--weight-home);
+  margin-bottom: clamp(12px, calc(9px + 1.07vw), 24px);
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  max-width: clamp(280px, calc(255px + 6.57vw), 350px);
+}
+
+.carousel-track {
+  display: flex;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+/* Slide left: [current, next] -> animate from 0 to -100% */
+.carousel-track.slide-left {
+  transition: transform 0.4s ease;
+  transform: translateX(-100%);
+}
+
+/* Slide right init: [target, current] -> position at -100% instantly (no transition) */
+.carousel-track.slide-right-init {
+  transform: translateX(-100%);
+}
+
+/* Slide right: [target, current] -> animate from -100% to 0 */
+.carousel-track.slide-right {
+  transition: transform 0.4s ease;
+  transform: translateX(0);
+}
+
+.carousel-image-link {
+  display: block;
+  width: 100%;
+}
+
+.carousel-image {
+  width: 100%;
+  height: clamp(230px, calc(216px + 4.46vw), 280px);
+  object-fit: cover;
+  object-position: top left;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, calc(9px + 1.07vw), 24px);
+  margin: clamp(12px, calc(9px + 1.07vw), 24px) 0;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.carousel-btn img {
+  width: clamp(24px, calc(21px + 0.75vw), 32px);
+  height: clamp(24px, calc(21px + 0.75vw), 32px);
+}

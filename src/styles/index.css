@@ -12,6 +12,19 @@
   --weight-title: 700;
   --weight-under-Title: 500;
   --weight-under-line: 300;
+
+  /* -- Header height (pour body padding-top & hero) -- */
+  --header-height: clamp(76px, calc(68px + 2.25vw), 100px);
+
+  /* -- Font sizes fluides (mobile 320px -> desktop 1440px) -- */
+  --fs-hero:          clamp(1.75rem, 1.31rem + 1.88vw, 3rem);      /* 28px -> 48px */
+  --fs-section-title: clamp(1.5rem, 1.32rem + 0.75vw, 2rem);       /* 24px -> 32px */
+  --fs-nav-link:      clamp(1rem, 0.91rem + 0.38vw, 1.25rem);      /* 16px -> 20px */
+  --fs-subtitle:      clamp(0.94rem, 0.87rem + 0.28vw, 1.13rem);   /* 15px -> 18px */
+  --fs-footer-title:  clamp(0.875rem, 0.83rem + 0.19vw, 1rem);     /* 14px -> 16px */
+  --fs-body:          clamp(0.75rem, 0.71rem + 0.19vw, 0.875rem);   /* 12px -> 14px */
+  --fs-small:         clamp(0.688rem, 0.67rem + 0.09vw, 0.75rem);   /* 11px -> 12px */
+  --fs-badge:         clamp(0.625rem, 0.6rem + 0.09vw, 0.688rem);   /* 10px -> 11px */
 }
 
 * {
@@ -29,7 +42,7 @@ body {
   background-color: var(--color-bg-light);
   color: var(--color-text);
   line-height: 1.6;
-  padding-top: 100px;
+  padding-top: var(--header-height);
 }
 
 a {
