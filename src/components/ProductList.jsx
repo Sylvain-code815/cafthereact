@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import ProductCard from "./ProductCard.jsx";
+import "./styles/ProductList.css";
 
 // Ajout de la prop pour filtrer par catégorie
 const ProductList = ({ categorie }) => {
@@ -87,6 +88,58 @@ const ProductList = ({ categorie }) => {
               <ProductCard key={produit.code_produit} produit={produit} />
           ))}
         </div>
+
+        <div className="category-page-container">
+
+          {/* ZONE 1 : Fil d'Ariane */}
+          <nav className="breadcrumb">
+            <span>Accueil</span> &gt; <span>Cafés</span>
+          </nav>
+
+          {/* ZONE 2 : L'en-tête (Titre + Outils) */}
+          <header className="category-header">
+            <h1 className="category-title">Cafés</h1>
+
+            <div className="category-toolbar">
+              <div className="toolbar-filters">
+                <span className="filter-label">Filtres</span>
+
+                {/* Le curseur de prix */}
+                <div className="price-slider-container">
+                  <span className="price-label">Prix (€)</span>
+                  {/* Ton input range ira ici */}
+                  <div className="price-values">
+                    <span>0€</span>
+                    <span>100€</span>
+                  </div>
+                </div>
+
+                <button className="reset-filters-btn">Réinitialiser les filtres</button>
+              </div>
+
+              <div className="toolbar-actions">
+                <span className="product-count">4 produits</span>
+                <button className="main-filter-btn">FILTRES</button>
+              </div>
+            </div>
+          </header>
+
+          {/* ZONE 3 : La Grille (Tu l'as déjà !) */}
+          <section className="product-grid">
+            {/* Tes <ProductCard /> viendront se boucler ici */}
+          </section>
+
+          {/* ZONE 4 : La Pagination */}
+          <nav className="pagination">
+            <button className="page-nav">← Précédent</button>
+            <button className="page-number active">1</button>
+            <button className="page-number">2</button>
+            <button className="page-number">3</button>
+            <button className="page-nav">Suivant →</button>
+          </nav>
+
+        </div>
+
       </div>
   );
 };

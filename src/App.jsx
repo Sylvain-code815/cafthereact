@@ -12,6 +12,8 @@ import { SearchProvider } from "./context/SearchContext.jsx";
 import Cart from "./pages/Cart.jsx";
 import Phare from "./pages/Phare.jsx";
 import Promotion from "./pages/Promotion.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import SignUp from "./pages/SignUp.jsx";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
               <Route path="panier" element={<Cart />} />
               <Route path="promotions" element={<Promotion />} />
               <Route path="produits-phares" element={<Phare />} />
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="signup" element={<SignUp />} />
             </Route>
           </Routes>
           </SearchProvider>

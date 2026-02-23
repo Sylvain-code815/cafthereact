@@ -1,0 +1,46 @@
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.category-title {
+    font-size: 3rem;
+    margin: 0;
+}
+
+/* --- LA BARRE D'OUTILS --- */
+.category-toolbar {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.toolbar-filters, .toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* --- LA PAGINATION (ZONE 4) --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+.pagination .page-number.active {
+    background-color: #333;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

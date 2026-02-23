@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import "/src/pages/styles/Login.css"
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -46,45 +47,52 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Connexion</h2>
+    <div className="container">
+      <div className="login-container">
+        <h2>Connexion</h2>
 
-      <form onSubmit={handelSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email :</label>
-          <input
-            value={email}
-            required
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Votre email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+        <form onSubmit={handelSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+                value={email}
+                required
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="votre@email.com"
+                onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Mot de passe :</label>
-          <input
-            value={mdp}
-            required
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Votre mot de passe"
-            onChange={(e) => setmdp(e.target.value)}
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="password">Mot de passe</label>
+            <input
+                value={mdp}
+                required
+                type="password"
+                className="form-control"
+                id="password"
+                placeholder="••••••••"
+                onChange={(e) => setmdp(e.target.value)}
+            />
 
-        {/*    Affichage conditionnel du message d'erreur */}
-        {errorMsg && <div className="error-message">{errorMsg}</div>}
+            <div className="forgot-password">
+              <Link to="/forgot-password">Mot de passe oublié ?</Link>
+            </div>
+          </div>
 
-        <button type="submit" className="login-button">
-          Se connecter
-        </button>
+          {errorMsg && <div className="error-message">{errorMsg}</div>}
 
+          <button type="submit" className="login-button">
+            Se connecter
+          </button>
 
-      </form>
+          <p className="signup-link">
+            Vous n'avez pas encore de compte ? <Link to="/signup">Créer un compte</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
