@@ -8,7 +8,7 @@ const ProductList = ({ categorie }) => {
   const [produits, setProduits] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  //contexte
   useEffect(() => {
     const fetchProduits = async () => {
       try {
@@ -77,26 +77,23 @@ const ProductList = ({ categorie }) => {
             <div className="product-list promo-list">
               <h2>Découvrez nos promotions sur le {categorie}</h2>
               {produitsEnPromo.map((produit) => (
-                  <ProductCard key={`promo-${produit.code_produit}`} produit={produit} />
+                  <ProductCard key={`promo-${produit.code_produit}`} produit={produit}  />
               ))}
             </div>
         )}
 
-        {/* Affichage de tous les produits de la catégorie */}
         <div className="product-list">
           {produits.map((produit) => (
-              <ProductCard key={produit.code_produit} produit={produit} />
+              <ProductCard key={produit.code_produit} produit={produit}  />
           ))}
         </div>
 
         <div className="category-page-container">
 
-          {/* ZONE 1 : Fil d'Ariane */}
           <nav className="breadcrumb">
             <span>Accueil</span> &gt; <span>Cafés</span>
           </nav>
 
-          {/* ZONE 2 : L'en-tête (Titre + Outils) */}
           <header className="category-header">
             <h1 className="category-title">Cafés</h1>
 
@@ -104,10 +101,8 @@ const ProductList = ({ categorie }) => {
               <div className="toolbar-filters">
                 <span className="filter-label">Filtres</span>
 
-                {/* Le curseur de prix */}
                 <div className="price-slider-container">
                   <span className="price-label">Prix (€)</span>
-                  {/* Ton input range ira ici */}
                   <div className="price-values">
                     <span>0€</span>
                     <span>100€</span>
@@ -124,12 +119,9 @@ const ProductList = ({ categorie }) => {
             </div>
           </header>
 
-          {/* ZONE 3 : La Grille (Tu l'as déjà !) */}
           <section className="product-grid">
-            {/* Tes <ProductCard /> viendront se boucler ici */}
           </section>
 
-          {/* ZONE 4 : La Pagination */}
           <nav className="pagination">
             <button className="page-nav">← Précédent</button>
             <button className="page-number active">1</button>

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./styles/ProductCard.css";
 
-const ProductCard = ({ produit }) => {
+const ProductCard = ({ produit, addCart }) => {
   const imageURL = produit.image
     ? `${import.meta.env.VITE_API_URL}/images/${produit.image}`
     : "https://placehold.co/600x400";
@@ -26,6 +26,7 @@ const ProductCard = ({ produit }) => {
             <p>/100g</p>
           </div>
             <div className="product-card-panier">
+                <button onClick={addCart}></button>
               <Link to="/panier">
                 <img
                   src="/src/Images/Icon/Button-ajout-panier.svg"

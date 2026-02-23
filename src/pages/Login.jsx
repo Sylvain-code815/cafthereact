@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import "/src/pages/styles/Login.css"
+import "./styles/Login.css"
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -51,9 +51,9 @@ const Login = () => {
       <div className="login-container">
         <h2>Connexion</h2>
 
-        <form onSubmit={handelSubmit}>
+        <form  className="form-container" onSubmit={handelSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email *</label>
             <input
                 value={email}
                 required
@@ -66,7 +66,7 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>
+            <label htmlFor="password">Mot de passe *</label>
             <input
                 value={mdp}
                 required
