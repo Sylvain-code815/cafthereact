@@ -28,3 +28,10 @@
   display: flex;
   gap: 10px;
 }
+
+.btn-add-cart {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}

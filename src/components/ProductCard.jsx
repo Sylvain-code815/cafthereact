@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext.jsx";
 import "./styles/ProductCard.css";
 
-const ProductCard = ({ produit, addCart }) => {
+const ProductCard = ({ produit }) => {
+  const { addToCart } = useContext(CartContext);
   const imageURL = produit.image
     ? `${import.meta.env.VITE_API_URL}/images/${produit.image}`
     : "https://placehold.co/600x400";
@@ -26,13 +28,12 @@ const ProductCard = ({ produit, addCart }) => {
             <p>/100g</p>
           </div>
             <div className="product-card-panier">
-                <button onClick={addCart}></button>
-              <Link to="/panier">
+              <button onClick={() => addToCart(produit)} className="btn-add-cart">
                 <img
                   src="/src/Images/Icon/Button-ajout-panier.svg"
                   alt="btn-ajout-panier"
                 />
-              </Link>
+              </button>
             </div>
         </div>
       </div>
