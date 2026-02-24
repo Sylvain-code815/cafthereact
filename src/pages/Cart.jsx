@@ -34,6 +34,8 @@ const Cart = () => {
                         src={item.image ? `${import.meta.env.VITE_API_URL}/images/${item.image}` : "https://placehold.co/100x100"}
                         alt={item.nom_produit}
                         className="cart-image"
+                        loading="lazy"
+                        role="img"
                     />
                     <div>
                       <h3>{item.nom_produit}</h3>
@@ -45,12 +47,15 @@ const Cart = () => {
                     <button
                         className="quantity-btn"
                         onClick={() => decreaseQuantity(item.code_produit)}
+                        aria-label={`Diminuer la quantité de ${item.nom_produit}`}
                     >
+                      −
                     </button>
                     <span className="quantity-display">{item.quantite}</span>
                     <button
                         className="quantity-btn"
                         onClick={() => addToCart(item)}
+                        aria-label={`Augmenter la quantité de ${item.nom_produit}`}
                     >
                       +
                     </button>
@@ -63,8 +68,9 @@ const Cart = () => {
                     <button
                         className="remove-btn"
                         onClick={() => removeFromCart(item.code_produit)}
+                        aria-label={`Supprimer ${item.nom_produit} du panier`}
                     >
-                        <img src="/src/Images/Icon/cart-trash.svg" />
+                        <img src="/src/Images/Icon/cart-trash.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
 

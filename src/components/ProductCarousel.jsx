@@ -125,12 +125,12 @@ const ProductCarousel = ({ products, title, linkTo, linkText }) => {
 
       {products.length > 1 && (
         <div className="carousel-controls">
-          <button onClick={handlePrev} className="carousel-btn" disabled={isAnimating}>
-            <img src="/src/Images/Icon/carousel-left.svg" alt="Précédent" />
+          <button onClick={handlePrev} className="carousel-btn" disabled={isAnimating} aria-label="Produit précédent">
+            <img src="/src/Images/Icon/carousel-left.svg" alt="" aria-hidden="true" />
           </button>
 
-          <button onClick={handleNext} className="carousel-btn" disabled={isAnimating}>
-            <img src="/src/Images/Icon/carousel-right.svg" alt="Suivant" />
+          <button onClick={handleNext} className="carousel-btn" disabled={isAnimating} aria-label="Produit suivant">
+            <img src="/src/Images/Icon/carousel-right.svg" alt="" aria-hidden="true" />
           </button>
         </div>
       )}

@@ -42,12 +42,18 @@
   gap: clamp(20px, calc(14px + 1.79vw), 40px);
 }
 
-.nav-links link a {
+.nav-links li a {
   font-size: var(--fs-nav-link);
   text-transform: uppercase;
   font-weight: var(--weight-under-Title);
   position: relative;
   padding-bottom: 4px;
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.nav-links li a:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 0.5px currentColor;
 }
 
 .nav-links li a::after {
@@ -100,13 +106,15 @@
 
 /* ── Login ── */
 .nav-login span {
-  font-size: var(--fs-subtitle);
+  font-size: var(--fs-login-text);
   font-weight: var(--weight-under-line);
   white-space: nowrap;
   opacity: 0.6;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .nav-login:hover span {
+  transform: scale(1.03);
   opacity: 1;
 }
 

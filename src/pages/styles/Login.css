@@ -74,17 +74,41 @@ input {
     text-align: center;
 }
 
+.success-text {
+    color: var(--color-the);
+    font-size: 14px;
+    text-align: center;
+    margin: 16px 0;
+    padding: 12px;
+    background-color: rgba(84, 106, 42, 0.1);
+    border-radius: 4px;
+}
+
+.error-text {
+    color: #c0392b;
+    font-size: 14px;
+    text-align: center;
+    margin: 16px 0;
+    padding: 12px;
+    background-color: rgba(192, 57, 43, 0.1);
+    border-radius: 4px;
+}
+
 .login-button {
     width: 100%;
-    background-color: var(--color-text);
-    color: var(--color-bg-light);
+    background-color: var(--color-btn-primary);
+    color: var(--color-btn-primary-text);
     padding: 8px;
     cursor: pointer;
+    border: none;
+    font-weight: var(--weight-btn);
+    box-shadow: 0 2px 8px var(--color-btn-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .login-button:hover {
-    background-color: var(--color-green);
-    transition: 0.3s;
+    background-color: var(--color-btn-primary-hover);
+    box-shadow: 0 4px 16px var(--color-btn-shadow);
 }
 
 /* --- S'inscrire --- */
@@ -157,12 +181,68 @@ input {
 }
 
 .valid-btn {
-    background-color: var(--color-text);
-    color: var(--color-bg-light);
+    background-color: var(--color-btn-primary);
+    color: var(--color-btn-primary-text);
     margin-top: 16px;
-    font-weight: bold;
+    font-weight: var(--weight-btn);
+    border: none;
+    box-shadow: 0 2px 8px var(--color-btn-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .valid-btn:hover {
-    background-color: var(--color-green);
+    background-color: var(--color-btn-primary-hover);
+    box-shadow: 0 4px 16px var(--color-btn-shadow);
+}
+
+/* --- Floating labels --- */
+
+.floating-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.floating-input-wrapper input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 6px 0 2px;
+    font-size: 14px;
+    background: transparent;
+}
+
+.floating-input-wrapper label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #999;
+    pointer-events: none;
+    transform-origin: left center;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.floating-input-wrapper input:focus ~ label,
+.floating-input-wrapper input:not(:placeholder-shown) ~ label {
+    transform: translateY(-120%) scale(0.75);
+    color: var(--color-the);
+}
+
+/* --- Password toggle --- */
+
+.password-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #999;
+    transition: color 0.2s;
+}
+
+.password-toggle-btn:hover {
+    color: #333;
 }

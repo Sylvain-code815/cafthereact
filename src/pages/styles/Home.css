@@ -50,6 +50,14 @@ main {
   color: var(--color-bg-light);
   border: none;
   cursor: pointer;
+  font-weight: var(--weight-btn);
+  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  transition: filter 0.3s, box-shadow 0.3s;
+}
+
+.hero-section button:hover {
+  filter: brightness(0.85);
+  box-shadow: 0 4px 16px var(--color-btn-shadow);
 }
 
 .hero-section h2 {
@@ -93,7 +101,15 @@ main {
   text-decoration: none;
   text-transform: uppercase;
   font-size: var(--fs-body);
-  border: 1px solid var(--color-text);
+  font-weight: var(--weight-btn);
+  border: none;
+  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn-section:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px var(--color-btn-shadow);
 }
 
 /* Section Engagements */

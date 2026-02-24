@@ -13,13 +13,20 @@
   --weight-under-Title: 500;
   --weight-under-line: 300;
 
+  --color-btn-primary: var(--color-text);
+  --color-btn-primary-hover: var(--color-the);
+  --color-btn-primary-text: var(--color-bg-light);
+  --color-btn-shadow: rgba(0, 0, 0, 0.15);
+  --weight-btn: 600;
+
   /* -- Header height (pour body padding-top & hero) -- */
   --header-height: clamp(76px, calc(68px + 2.25vw), 100px);
 
   /* -- Font sizes fluides (mobile 320px -> desktop 1440px) -- */
   --fs-hero:          clamp(1.75rem, 1.31rem + 1.88vw, 3rem);      /* 28px -> 48px */
   --fs-section-title: clamp(1.5rem, 1.32rem + 0.75vw, 2rem);       /* 24px -> 32px */
-  --fs-nav-link:      clamp(1rem, 0.91rem + 0.38vw, 1.25rem);      /* 16px -> 20px */
+  --fs-nav-link:      clamp(1.06rem, 0.95rem + 0.45vw, 1.38rem);    /* ~17px -> ~22px */
+  --fs-login-text:    clamp(0.81rem, 0.76rem + 0.22vw, 0.94rem);   /* ~13px -> ~15px */
   --fs-subtitle:      clamp(0.94rem, 0.87rem + 0.28vw, 1.13rem);   /* 15px -> 18px */
   --fs-footer-title:  clamp(0.875rem, 0.83rem + 0.19vw, 1rem);     /* 14px -> 16px */
   --fs-body:          clamp(0.75rem, 0.71rem + 0.19vw, 0.875rem);   /* 12px -> 14px */

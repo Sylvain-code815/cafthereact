@@ -140,13 +140,17 @@
 }
 
 .black-btn {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--color-btn-primary);
+    color: var(--color-btn-primary-text);
     border: none;
+    font-weight: var(--weight-btn);
+    box-shadow: 0 2px 8px var(--color-btn-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .black-btn:hover {
-    background-color: #333;
+    background-color: var(--color-btn-primary-hover);
+    box-shadow: 0 4px 16px var(--color-btn-shadow);
 }
 
 .outline-btn {

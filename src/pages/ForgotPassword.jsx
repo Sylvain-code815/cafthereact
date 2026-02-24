@@ -13,21 +13,21 @@ const ForgotPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setIsLoading(true);
         setMessage('');
-        setIsError(true);
+        setIsError(false);
 
         if (!email) {
-            setIsLoading(false);
-            setIsLoading(true);
+            setIsError(true);
             setMessage('Veuillez saisir une adresse mail');
             return;
         }
 
+        setIsLoading(true);
+
         setTimeout(() => {
             setIsLoading(false);
             setIsError(false);
-            setMessage("Si l'email existe, le lien de réinitialisation a été envoyé.");
+            setMessage("Si un compte est associé à cet email, vous recevrez un mail pour changer votre mot de passe");
             setEmail("");
         }, 2000);
 

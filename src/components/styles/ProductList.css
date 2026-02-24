@@ -1,46 +1,374 @@
-.category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #eaeaea;
+/* ===== ProductList — préfixe pl- ===== */
+
+.pl-container {
+  width: 100%;
+  padding: 0 96px;
 }
 
-.category-title {
-    font-size: 3rem;
-    margin: 0;
+/* Breadcrumb */
+.pl-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0;
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* --- LA BARRE D'OUTILS --- */
-.category-toolbar {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
+.pl-breadcrumb a {
+  color: var(--color-footer);
+  transition: color 0.2s;
 }
 
-.toolbar-filters, .toolbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+.pl-breadcrumb a:hover {
+  color: var(--color-text);
 }
 
-/* --- LA PAGINATION (ZONE 4) --- */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 3rem;
+.pl-breadcrumb span {
+  color: var(--color-text);
+  font-weight: var(--weight-under-Title);
 }
 
-.pagination .page-number.active {
-    background-color: #333;
-    color: white;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+/* Top section : titre + contrôles */
+.pl-top-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 0 0;
+}
+
+.pl-title {
+  font-size: clamp(1.5rem, 1.32rem + 0.75vw, 2.25rem);
+  font-weight: var(--weight-title);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Contrôles à droite */
+.pl-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Filter bar desktop (slider) */
+.pl-filter-bar {
+  display: flex;
+  align-items: center;
+}
+
+/* Select (catégorie + tri) */
+.pl-select {
+  padding: 8px 12px;
+  font-family: "Jost", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: var(--weight-under-Title);
+  color: var(--color-text);
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-text);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231A1A1A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+/* Range Slider */
+.pl-range-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+  flex: 1;
+  max-width: 280px;
+}
+
+.pl-range-label {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-btn);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.pl-range-track-wrap {
+  position: relative;
+  height: 28px;
+  cursor: pointer;
+}
+
+.pl-range-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%);
+}
+
+.pl-range-fill {
+  position: absolute;
+  top: 50%;
+  height: 4px;
+  background: var(--color-the);
+  transform: translateY(-50%);
+}
+
+.pl-range-thumb {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-the);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  z-index: 2;
+  transition: box-shadow 0.15s;
+}
+
+.pl-range-thumb:hover {
+  box-shadow: 0 0 0 4px rgba(84, 106, 42, 0.15);
+}
+
+.pl-range-bounds {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+}
+
+.pl-reset-btn {
+  padding: 8px 16px;
+  font-size: var(--fs-body);
+  font-family: "Jost", sans-serif;
+  font-weight: var(--weight-under-Title);
+  color: var(--color-text);
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.pl-reset-btn:hover {
+  border-color: var(--color-text);
+}
+
+.pl-product-count {
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+  white-space: nowrap;
+}
+
+.pl-filters-toggle {
+  display: none;
+  font-family: "Jost", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: var(--weight-btn);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: none;
+  border: 1px solid var(--color-text);
+  padding: 8px 12px;
+  cursor: pointer;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.pl-filters-toggle:hover {
+  color: var(--color-the);
+}
+
+/* Mobile filter panel */
+.pl-mobile-filter-panel {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  margin-top: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pl-mobile-filter-panel.open {
+  display: flex;
+}
+
+/* Grille produits */
+.pl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, clamp(280px, 22vw, 380px));
+  justify-content: center;
+  gap: clamp(24px, 3vw, 56px);
+  padding: 32px 0 48px;
+}
+
+/* No results */
+.pl-no-results {
+  text-align: center;
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+  padding: 48px 0;
+}
+
+/* Pagination */
+.pl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 0 60px;
+}
+
+.pl-page-btn {
+  padding: 8px 14px;
+  font-size: var(--fs-body);
+  font-family: "Jost", sans-serif;
+  font-weight: var(--weight-under-Title);
+  color: var(--color-footer);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.pl-page-btn:hover:not(:disabled) {
+  color: var(--color-text);
+}
+
+.pl-page-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pl-page-num {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-body);
+  font-family: "Jost", sans-serif;
+  font-weight: var(--weight-btn);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--color-footer);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.pl-page-num:hover {
+  background-color: var(--color-brown);
+  color: var(--color-text);
+}
+
+.pl-page-num.active {
+  background-color: var(--color-text);
+  color: var(--color-bg-light);
+}
+
+/* Skeleton */
+.product-skeleton {
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  padding: 0;
+}
+
+/* Erreur */
+.product-list-error {
+  display: flex;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+.error-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.error-container h3 {
+  font-size: var(--fs-section-title);
+}
+
+.error-container p {
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+}
+
+.retry-button {
+  padding: 8px 24px;
+  background-color: var(--color-btn-primary);
+  color: var(--color-btn-primary-text);
+  border: none;
+  cursor: pointer;
+  font-family: "Jost", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: var(--weight-btn);
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.retry-button:hover {
+  background-color: var(--color-btn-primary-hover);
+  box-shadow: 0 4px 16px var(--color-btn-shadow);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .pl-container {
+    padding: 0 48px;
+  }
+
+  .pl-grid {
+    grid-template-columns: repeat(2, clamp(240px, 30vw, 320px));
+    gap: clamp(20px, 3vw, 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .pl-container {
+    padding: 0 24px;
+  }
+
+  .pl-top-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .pl-controls .pl-filter-bar,
+  .pl-controls .pl-select,
+  .pl-controls .pl-reset-btn,
+  .pl-controls .pl-product-count {
+    display: none;
+  }
+
+  .pl-filters-toggle {
     display: flex;
-    justify-content: center;
-    align-items: center;
+  }
+
+  .pl-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pl-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: 20px;
+  }
 }
