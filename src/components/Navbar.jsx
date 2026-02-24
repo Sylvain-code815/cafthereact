@@ -36,45 +36,50 @@ const Navbar = () => {
               <Link to="/accessory">Accessoires</Link>
             </li>
 
-            {/* Login/logout dupliqué dans le menu mobile */}
             <li className="nav-mobile-auth">
               {isAuthenticated ? (
-                <>
-                  <span className="nav-user">Bonjour, {user?.prenom}</span>
-                  <button className="nav-logout" onClick={logout}>
-                    Se déconnecter
-                  </button>
-                </>
+                  <>
+                    {/* --- MODIFICATION ICI (Mobile) --- */}
+                    <Link to="/account" className="nav-action-btn nav-account">
+                      <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
+                    </Link>
+                    <button className="nav-logout" onClick={logout}>
+                      Se déconnecter
+                    </button>
+                  </>
               ) : (
-                <Link to="/login" className="nav-mobile-login">
-                  Se connecter
-                </Link>
+                  <Link to="/login" className="nav-mobile-login">
+                    Se connecter
+                  </Link>
               )}
             </li>
           </ul>
 
           <div className="nav-actions">
             <button
-              className={`nav-action-btn${isSearchOpen ? " nav-action-active" : ""}`}
-              aria-label="Rechercher"
-              onClick={isSearchOpen ? closeSearch : openSearch}
+                className={`nav-action-btn${isSearchOpen ? " nav-action-active" : ""}`}
+                aria-label="Rechercher"
+                onClick={isSearchOpen ? closeSearch : openSearch}
             >
               <img src="/src/Images/Icon/header-Loupe.svg" alt="Rechercher" />
             </button>
 
             <div className="nav-auth-desktop">
               {isAuthenticated ? (
-                <>
-                  <span className="nav-user">Bonjour, {user?.prenom}</span>
-                  <button className="nav-logout" onClick={logout}>
-                    Se déconnecter
-                  </button>
-                </>
+                  <>
+                    {/* --- MODIFICATION ICI (Desktop) --- */}
+                    <Link to="/account" className="nav-action-btn nav-account">
+                      <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
+                    </Link>
+                    <button className="nav-logout" onClick={logout}>
+                      Se déconnecter
+                    </button>
+                  </>
               ) : (
-                <Link to="/login" className="nav-action-btn nav-login">
-                  <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
-                  <span>Se connecter</span>
-                </Link>
+                  <Link to="/login" className="nav-action-btn nav-login">
+                    <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
+                    <span>Se connecter</span>
+                  </Link>
               )}
             </div>
 

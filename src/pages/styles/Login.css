@@ -156,13 +156,13 @@ input {
     font-size: 14px;
 }
 
-.black-btn {
-    background-color: #000;
-    color: #fff;
+.valid-btn {
+    background-color: var(--color-text);
+    color: var(--color-bg-light);
     margin-top: 16px;
     font-weight: bold;
 }
 
-.black-btn:hover {
-    background-color: #333;
+.valid-btn:hover {
+    background-color: var(--color-green);
 }

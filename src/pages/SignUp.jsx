@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import "./styles/Login.css";
-import Loader from "../components/Loader.jsx";
-import { Link } from "react-router-dom";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -10,9 +9,46 @@ const SignUp = () => {
     const [telephone, setTelephone] = useState("");
     const [mdp, setMdp] = useState("");
     const [confirmMdp, setConfirmMdp] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    // Vérification du double mot de passe identique et envoi à l'API
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (mdp !== confirmMdp) {
+            setErrorMsg("Veuillez indiquer deux mots de passe identiques.");
+            return;
+        }
+
+        setErrorMsg("");
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email,
+                    prenom,
+                    nom,
+                    telephone,
+                    mdp
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setErrorMsg(data.message || "Échec de l'inscription");
+                return;
+            }
+
+            navigate("/login");
+
+        } catch (error) {
+            console.error("Erreur réseau :", error);
+            setErrorMsg("Une erreur s'est produite lors de l'inscription.");
+        }
     };
 
     return (
@@ -25,6 +61,7 @@ const SignUp = () => {
                 </div>
 
                 <form className="signup-form" onSubmit={handleSubmit}>
+                    {errorMsg && <div className="error-message">{errorMsg}</div>}
 
                     <div className="form-group">
                         <label htmlFor="email">Email *</label>
@@ -76,7 +113,7 @@ const SignUp = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className="login-button black-btn">
+                    <button type="submit" className="login-button valid-btn">
                         Créer mon compte
                     </button>
 

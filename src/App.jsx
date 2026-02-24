@@ -18,6 +18,7 @@ import SignUp from "./pages/SignUp.jsx";
 import Sitemap from "./pages/Sitemap.jsx";
 import CGV from "./pages/CGV.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import Account from "./pages/Account.jsx";
 
 function App() {
   return (
@@ -78,6 +79,7 @@ function App() {
                   <Route path="plan-du-site" element={<Sitemap />} />
                   <Route path="conditions-generales" element={<CGV />} />
                   <Route path="politique-confidentialite" element={<PrivacyPolicy />} />
+                  <Route path="account" element={<Account />} />
                 </Route>
               </Routes>
             </SearchProvider>

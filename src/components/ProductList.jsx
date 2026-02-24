@@ -113,7 +113,7 @@ const ProductList = ({ categorie }) => {
               </div>
 
               <div className="toolbar-actions">
-                <span className="product-count">4 produits</span>
+                <span className="product-count">{}</span>
                 <button className="main-filter-btn">FILTRES</button>
               </div>
             </div>

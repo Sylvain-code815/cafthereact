@@ -1,3 +1,8 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .cart-empty {
   display: flex;
   flex-direction: column;
@@ -17,7 +22,6 @@
   color: var(--color-footer);
 }
 
-/* Container principal */
 .cart-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -31,7 +35,6 @@
   text-transform: uppercase;
 }
 
-/* Liste des items */
 .cart-items {
   display: flex;
   flex-direction: column;
@@ -71,7 +74,6 @@
   color: var(--color-footer);
 }
 
-/* Contrôles quantité */
 .cart-quantity-controls {
   display: flex;
   align-items: center;
@@ -104,7 +106,6 @@
   text-align: center;
 }
 
-/* Actions par item */
 .cart-item-actions {
   display: flex;
   align-items: center;
@@ -136,7 +137,6 @@
   height: 20px;
 }
 
-/* Récapitulatif */
 .cart-summary {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,216 @@
+/* --- LAYOUT GLOBAL --- */
+.account-page {
+    padding-top: 40px;
+    padding-bottom: 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+    color: #000;
+}
+
+.breadcrumb {
+    font-size: 12px;
+    margin-bottom: 32px;
+}
+
+.breadcrumb a {
+    color: #000;
+    text-decoration: none;
+}
+
+.breadcrumb span {
+    color: #666;
+}
+
+/* --- EN-TÊTE --- */
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.account-titles h1 {
+    font-family: "Playfair Display", "Times New Roman", serif; /* Pour l'effet élégant */
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.account-titles p {
+    font-size: 14px;
+    color: #333;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background: #f5f5f5;
+}
+
+/* --- ONGLETS --- */
+.account-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+.tab-button {
+    background: transparent;
+    border: none;
+    padding: 8px 32px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-button.active {
+    background: #f0f0f0;
+    font-weight: bold;
+}
+
+/* --- GRILLE INFOS / SÉCURITÉ --- */
+.account-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.info-card, .security-card {
+    border: 1px solid #ccc; /* Bordure légère comme sur la maquette */
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card h3, .security-card h3 {
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.info-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    margin-bottom: 32px;
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 120px;
+    margin-bottom: 16px;
+}
+
+.info-group.full-width {
+    min-width: 100%;
+}
+
+.info-group .label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.info-group .value {
+    font-size: 14px;
+}
+
+/* --- BOUTONS --- */
+.full-width-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: auto; /* Pousse le bouton en bas de la carte */
+}
+
+.black-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+}
+
+.black-btn:hover {
+    background-color: #333;
+}
+
+.outline-btn {
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.outline-btn:hover {
+    background-color: #f5f5f5;
+}
+
+/* --- ADRESSES --- */
+.section-title {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.address-card {
+    border: 1px solid #000; /* Bordure plus marquée ici */
+    padding: 24px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.address-info h4 {
+    font-size: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badge {
+    background-color: #000;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+.address-info p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.address-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.text-btn {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.text-btn:hover {
+    text-decoration: underline;
+}
