@@ -1,5 +1,3 @@
-/* ===== ProductDetails — préfixe pd- ===== */
-
 .pd-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -9,31 +7,7 @@
   gap: clamp(32px, calc(23px + 2.86vw), 64px);
 }
 
-/* Breadcrumb */
-.pd-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: var(--fs-body);
-  color: var(--color-footer);
-  flex-wrap: wrap;
-}
 
-.pd-breadcrumb a {
-  color: var(--color-footer);
-  transition: color 0.2s;
-}
-
-.pd-breadcrumb a:hover {
-  color: var(--color-text);
-}
-
-.pd-breadcrumb span {
-  color: var(--color-text);
-  font-weight: var(--weight-under-Title);
-}
-
-/* Bouton retour */
 .pd-back-btn {
   display: inline-flex;
   align-items: center;
@@ -53,7 +27,6 @@
   color: var(--color-the);
 }
 
-/* Section produit — grid 2 colonnes */
 .pd-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -61,7 +34,6 @@
   align-items: start;
 }
 
-/* Galerie */
 .pd-gallery {
   display: flex;
   flex-direction: column;
@@ -75,7 +47,6 @@
   border: 2px solid var(--color-text);
 }
 
-/* Infos */
 .pd-info {
   display: flex;
   flex-direction: column;
@@ -96,7 +67,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Rating */
 .pd-rating-row {
   display: flex;
   align-items: center;
@@ -118,7 +88,6 @@
   color: var(--color-footer);
 }
 
-/* Prix */
 .pd-price-row {
   display: flex;
   align-items: baseline;
@@ -135,7 +104,6 @@
   color: var(--color-footer);
 }
 
-/* Description */
 .pd-description-block {
   display: flex;
   flex-direction: column;
@@ -154,7 +122,6 @@
   color: var(--color-text);
 }
 
-/* Stock */
 .pd-stock {
   font-size: var(--fs-small);
   color: var(--color-footer);
@@ -165,7 +132,6 @@
   font-weight: var(--weight-under-Title);
 }
 
-/* Box achat (quantité + total + bouton) */
 .pd-purchase-box {
   border: 1px solid var(--color-text);
   padding: 24px;
@@ -174,7 +140,6 @@
   gap: 20px;
 }
 
-/* Quantité */
 .pd-quantity-row {
   display: flex;
   align-items: center;
@@ -212,6 +177,22 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+.pd-weight-select {
+  padding: 8px 12px;
+  font-family: "Jost", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: var(--weight-under-Title);
+  color: var(--color-text);
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-text);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231A1A1A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
 .pd-qty-value {
   width: 48px;
   height: 36px;
@@ -224,7 +205,6 @@
   font-weight: var(--weight-under-Title);
 }
 
-/* Total */
 .pd-total-row {
   display: flex;
   align-items: center;
@@ -243,7 +223,6 @@
   font-weight: var(--weight-title);
 }
 
-/* Bouton ajouter au panier — style login-button */
 .pd-add-to-cart {
   width: 100%;
   padding: 8px;
@@ -255,13 +234,13 @@
   font-size: var(--fs-body);
   font-weight: var(--weight-btn);
   text-transform: uppercase;
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .pd-add-to-cart:hover {
   background-color: var(--color-btn-primary-hover);
-  box-shadow: 0 4px 16px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 .pd-add-to-cart:disabled {
@@ -271,10 +250,9 @@
 
 .pd-add-to-cart:disabled:hover {
   background-color: var(--color-btn-primary);
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
 }
 
-/* ===== Suggestions ===== */
 .pd-suggested-section {
   display: flex;
   flex-direction: column;
@@ -302,7 +280,7 @@
 
 .pd-sg-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 20px var(--color-btn-shadow);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .pd-sg-image-wrap {
@@ -353,7 +331,6 @@
   margin-top: 4px;
 }
 
-/* ===== Skeleton ===== */
 .pd-skeleton {
   max-width: 1200px;
   margin: 0 auto;
@@ -376,7 +353,6 @@
   gap: 16px;
 }
 
-/* Erreur */
 .pd-error {
   display: flex;
   flex-direction: column;
@@ -403,16 +379,15 @@
   font-size: var(--fs-body);
   font-weight: var(--weight-btn);
   text-transform: uppercase;
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .pd-error-link:hover {
   background-color: var(--color-btn-primary-hover);
-  box-shadow: 0 4px 16px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn-hover);
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .pd-section {
     grid-template-columns: 1fr;

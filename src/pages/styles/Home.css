@@ -16,12 +16,30 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   height: 100%;
   width: 50%;
+  overflow: hidden;
+}
+
+.hero-left::before,
+.hero-right::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
   background-position: center;
   background-size: cover;
+  filter: blur(3px);
+  z-index: 0;
+}
+
+.hero-left::before {
+  background-image: url("/src/Images/The-Home.webp");
+}
+
+.hero-right::before {
+  background-image: url("/src/Images/Cafe-Home.webp");
 }
 
 .hero-left::after,
@@ -29,14 +47,15 @@ main {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.30);
-  transition: opacity 0.4s ease;
+  background: rgba(0, 0, 0, 0.45);
+  transition: background 0.4s ease;
   pointer-events: none;
+  z-index: 0;
 }
 
 .hero-left:hover::after,
 .hero-right:hover::after {
-  opacity: 0;
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .hero-section button {
@@ -50,25 +69,20 @@ main {
   border: none;
   cursor: pointer;
   font-weight: var(--weight-btn);
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
   transition: ease-in-out 0.2s;
 }
 
 .hero-section button:hover {
-  box-shadow: 0 4px 16px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 .hero-section h2 {
   position: relative;
   z-index: 1;
-  margin-top: auto;
   font-size: var(--fs-hero);
   font-weight: 900;
   margin-bottom: 15px;
-}
-
-.hero-left {
-  background-image: url("/src/Images/The-Home.webp");
 }
 
 .hero-left button {
@@ -78,10 +92,6 @@ main {
 .hero-left button:hover {
   background-color: var(--color-bg-light);
   color: var(--color-the);
-}
-
-.hero-right {
-  background-image: url("/src/Images/Cafe-Home.webp");
 }
 
 .hero-right button {
@@ -110,7 +120,7 @@ main {
   font-size: var(--fs-body);
   font-weight: var(--weight-btn);
   border: none;
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
   transition: background-color 0.2s, box-shadow 0.2s;
 }
 
@@ -159,7 +169,6 @@ main {
   line-height: 1.6;
 }
 
-/* Section Témoignages */
 .testimonials-section {
   padding: clamp(24px, calc(17px + 2.14vw), 48px) clamp(16px, calc(-8px + 7.5vw), 100px);
 }

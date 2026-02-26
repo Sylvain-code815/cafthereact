@@ -1,0 +1,29 @@
+/* ===== Breadcrumb — préfixe bc- ===== */
+
+.bc-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0;
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+  flex-wrap: wrap;
+}
+
+.bc-link {
+  color: var(--color-footer);
+  transition: color 0.2s;
+}
+
+.bc-link:hover {
+  color: var(--color-text);
+}
+
+.bc-separator {
+  color: var(--color-footer);
+}
+
+.bc-current {
+  color: var(--color-text);
+  font-weight: var(--weight-under-Title);
+}

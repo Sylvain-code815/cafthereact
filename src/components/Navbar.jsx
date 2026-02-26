@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { CartContext } from "../context/CartContext.jsx";
 import { SearchContext } from "../context/SearchContext.jsx";
@@ -27,13 +27,13 @@ const Navbar = () => {
 
           <ul className={`nav-links${menuOpen ? " nav-links-open" : ""}`}>
             <li>
-              <Link to="/the">Thés</Link>
+              <NavLink to="/the" className={({isActive}) => isActive ? 'active' : ''}>Thés</NavLink>
             </li>
             <li>
-              <Link to="/cafe">Cafés</Link>
+              <NavLink to="/cafe" className={({isActive}) => isActive ? 'active' : ''}>Cafés</NavLink>
             </li>
             <li>
-              <Link to="/accessory">Accessoires</Link>
+              <NavLink to="/accessory" className={({isActive}) => isActive ? 'active' : ''}>Accessoires</NavLink>
             </li>
 
             <li className="nav-mobile-auth">

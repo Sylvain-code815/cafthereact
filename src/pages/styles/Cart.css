@@ -92,13 +92,13 @@
   font-size: var(--fs-subtitle);
   font-family: "Jost", sans-serif;
   font-weight: var(--weight-btn);
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
   transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .quantity-btn:hover {
   background-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 16px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 .quantity-display {
@@ -167,13 +167,13 @@
   font-family: "Jost", sans-serif;
   font-weight: var(--weight-btn);
   text-transform: uppercase;
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
   transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .clear-btn:hover {
   background-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 16px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 .black-btn {
@@ -186,13 +186,13 @@
   font-family: "Jost", sans-serif;
   font-weight: var(--weight-btn);
   text-transform: uppercase;
-  box-shadow: 0 2px 8px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .black-btn:hover {
   background-color: var(--color-btn-primary-hover);
-  box-shadow: 0 4px 16px var(--color-btn-shadow);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 @media (max-width: 768px) {

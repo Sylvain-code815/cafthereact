@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: clamp(200px, calc(132px + 18.22vw), 394px);
+    height: clamp(100px, calc(70px + 8vw), 180px);
     font-size: var(--fs-section-title);
     text-transform: uppercase;
     font-weight: var(--weight-home);

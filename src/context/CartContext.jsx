@@ -1,7 +1,3 @@
-// Même méthode que pour l'authContext sauf qu'ici on se sert du produit et du token
-// 3 fonctions : ajouter, ajouter la quantité, supprimer la ligne
-// Prendre en compte que si on ajoute 2 fois le même produit, on ajoute juste 1 quantité
-
 import { useState, useEffect, createContext } from "react";
 
 export const CartContext = createContext(null);
@@ -20,52 +16,66 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
 
   // Je cherche le produit, soit je mets à jour la quantité, soit j'ajoute un produit différent au panier
-  const addToCart = (produit) => {
-    const newCart = cart.find((p) => p.code_produit === produit.code_produit);
-    if (newCart) {
+  // Pour le vrac, on passe un poids optionnel (100, 200, 500, 1000)
+  const addToCart = (produit, poids = null) => {
+    const isVrac = produit.type_vente === "Vrac";
+    const cartKey = isVrac
+      ? `${produit.code_produit}_${poids}`
+      : produit.code_produit;
+
+    const existing = cart.find((p) => p._cartKey === cartKey);
+
+    if (existing) {
       setCart(
         cart.map((item) =>
-          item.code_produit === produit.code_produit
-            ? {
-                // Retour de la copie de l'objet avec une quantité modifiée
-                ...item,
-                quantite: item.quantite + 1,
-              }
+          item._cartKey === cartKey
+            ? { ...item, quantite: item.quantite + 1 }
             : item,
         ),
       );
     } else {
-      setCart([...cart, { ...produit, quantite: 1 }]);
+      setCart([
+        ...cart,
+        {
+          ...produit,
+          quantite: 1,
+          _cartKey: cartKey,
+          ...(isVrac ? { poids } : {}),
+        },
+      ]);
     }
   };
 
   // Si L'utilisateur veut modifier la quantité, prévoir si je supprime la ligne ou non
-  const decreaseQuantity = (code_produit) => {
-    const itemToChange = cart.find((p) => p.code_produit === code_produit);
+  const decreaseQuantity = (cartKey) => {
+    const itemToChange = cart.find((p) => (p._cartKey || p.code_produit) === cartKey);
+    if (!itemToChange) return;
     if (itemToChange.quantite > 1) {
       setCart(
         cart.map((item) =>
-          item.code_produit === code_produit
-            ? { ...item, quantite: item.quantite - 1 } // Retour de la copie de l'objet avec une quantité modifiée
+          (item._cartKey || item.code_produit) === cartKey
+            ? { ...item, quantite: item.quantite - 1 }
             : item,
         ),
       );
     } else {
-      removeFromCart(code_produit);
+      removeFromCart(cartKey);
     }
   };
 
-  const removeFromCart = (code_produit) => {
-    const newCart = cart.filter((item) => item.code_produit !== code_produit);
+  const removeFromCart = (cartKey) => {
+    const newCart = cart.filter((item) => (item._cartKey || item.code_produit) !== cartKey);
     setCart(newCart);
   };
 
   // Calculs automatiques
   const totalArticles = cart.reduce((acc, item) => acc + item.quantite, 0);
-  const totalPrix = cart.reduce(
-    (acc, item) => acc + item.prix_ttc * item.quantite,
-    0,
-  );
+  const totalPrix = cart.reduce((acc, item) => {
+    if (item.type_vente === "Vrac" && item.poids) {
+      return acc + item.prix_ttc * (item.poids / 100) * item.quantite;
+    }
+    return acc + item.prix_ttc * item.quantite;
+  }, 0);
 
   // Vider le panier
   const clearCart = () => {

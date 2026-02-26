@@ -28,18 +28,15 @@
   flex-shrink: 0;
 }
 
-/* Slide left: [current, next] -> animate from 0 to -100% */
 .carousel-track.slide-left {
   transition: transform 0.4s ease;
   transform: translateX(-100%);
 }
 
-/* Slide right init: [target, current] -> position at -100% instantly (no transition) */
 .carousel-track.slide-right-init {
   transform: translateX(-100%);
 }
 
-/* Slide right: [target, current] -> animate from -100% to 0 */
 .carousel-track.slide-right {
   transition: transform 0.4s ease;
   transform: translateX(0);

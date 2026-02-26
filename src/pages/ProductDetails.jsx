@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { CartContext } from "../context/CartContext";
 import CustomerReview from "../components/CustomerReview.jsx";
+import Breadcrumb from "../components/Breadcrumb.jsx";
 import "./styles/ProductDetails.css";
 
 const reviews = [
@@ -14,6 +15,23 @@ const reviews = [
   { id: 6, name: "Lucas T.", review: "Qualité premium, on sent la différence avec les produits du commerce.", rating: 5 },
 ];
 
+const WEIGHT_OPTIONS = [
+  { value: 100, label: "100g" },
+  { value: 200, label: "200g" },
+  { value: 500, label: "500g" },
+  { value: 1000, label: "1kg" },
+];
+
+const getUnitLabel = (typeVente) => {
+  switch (typeVente) {
+    case "Vrac": return "/ 100g";
+    case "Sachet": return "/ sachet";
+    case "Boite": return "/ boîte";
+    case "Unité": return "/ unité";
+    default: return "/ 100g";
+  }
+};
+
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -24,6 +42,7 @@ const ProductDetails = () => {
   const [error, setError] = useState(null);
   const [suggested, setSuggested] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [selectedWeight, setSelectedWeight] = useState(100);
 
   // Fetch produit principal
   useEffect(() => {
@@ -32,6 +51,7 @@ const ProductDetails = () => {
         setIsLoading(true);
         setError(null);
         setQuantity(1);
+        setSelectedWeight(100);
 
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/articles/${id}`
@@ -117,28 +137,31 @@ const ProductDetails = () => {
     );
   }
 
+  const isVrac = produit.type_vente === "Vrac";
   const imageUrl = getImageUrl(produit.image, produit.nom_produit);
-  const totalPrice = (produit.prix_ttc * quantity).toFixed(2);
+
+  const totalPrice = isVrac
+    ? (produit.prix_ttc * (selectedWeight / 100)).toFixed(2)
+    : (produit.prix_ttc * quantity).toFixed(2);
 
   const handleAddToCart = () => {
     if (!produit) return;
-    for (let i = 0; i < quantity; i++) {
-      addToCart(produit);
+    if (isVrac) {
+      addToCart(produit, selectedWeight);
+    } else {
+      for (let i = 0; i < quantity; i++) {
+        addToCart(produit);
+      }
     }
   };
 
   return (
     <div className="pd-container">
       {/* Breadcrumb */}
-      <nav className="pd-breadcrumb">
-        <Link to="/">Accueil</Link>
-        <span>/</span>
-        <Link to={`/${produit.categorie.toLowerCase()}`}>
-          {produit.categorie}
-        </Link>
-        <span>/</span>
-        <span>{produit.nom_produit}</span>
-      </nav>
+      <Breadcrumb items={[
+        { label: produit.categorie, to: `/${produit.categorie.toLowerCase()}` },
+        { label: produit.nom_produit },
+      ]} />
 
       {/* Bouton retour */}
       <button className="pd-back-btn" onClick={() => navigate(-1)}>
@@ -176,7 +199,7 @@ const ProductDetails = () => {
 
           <div className="pd-price-row">
             <span className="pd-price">{produit.prix_ttc}€</span>
-            <span className="pd-unit">/ 100g</span>
+            <span className="pd-unit">{getUnitLabel(produit.type_vente)}</span>
           </div>
 
           {produit.description && (
@@ -194,29 +217,47 @@ const ProductDetails = () => {
               : "Rupture de stock"}
           </p>
 
-          {/* Box achat : quantité + total + bouton */}
+          {/* Box achat : quantité/poids + total + bouton */}
           <div className="pd-purchase-box">
-            {/* Quantité */}
-            <div className="pd-quantity-row">
-              <span className="pd-quantity-label">Quantité</span>
-              <div className="pd-qty-control">
-                <button
-                  className="pd-qty-btn"
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  aria-label="Diminuer la quantité"
+            {isVrac ? (
+              /* Sélecteur de poids pour le vrac */
+              <div className="pd-quantity-row">
+                <span className="pd-quantity-label">Poids</span>
+                <select
+                  className="pd-weight-select"
+                  value={selectedWeight}
+                  onChange={(e) => setSelectedWeight(Number(e.target.value))}
                 >
-                  −
-                </button>
-                <span className="pd-qty-value">{quantity}</span>
-                <button
-                  className="pd-qty-btn"
-                  onClick={() => setQuantity((q) => q + 1)}
-                  aria-label="Augmenter la quantité"
-                >
-                  +
-                </button>
+                  {WEIGHT_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </div>
+            ) : (
+              /* Quantité classique pour sachet/boite/unité */
+              <div className="pd-quantity-row">
+                <span className="pd-quantity-label">Quantité</span>
+                <div className="pd-qty-control">
+                  <button
+                    className="pd-qty-btn"
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    aria-label="Diminuer la quantité"
+                  >
+                    −
+                  </button>
+                  <span className="pd-qty-value">{quantity}</span>
+                  <button
+                    className="pd-qty-btn"
+                    onClick={() => setQuantity((q) => q + 1)}
+                    aria-label="Augmenter la quantité"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Total */}
             <div className="pd-total-row">
@@ -224,7 +265,7 @@ const ProductDetails = () => {
               <span className="pd-total-price">{totalPrice}€</span>
             </div>
 
-            {/* Bouton ajouter au panier — style login-button */}
+            {/* Bouton ajouter au panier */}
             <button
               className="pd-add-to-cart"
               onClick={handleAddToCart}

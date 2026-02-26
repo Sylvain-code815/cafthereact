@@ -1,4 +1,3 @@
-// Créé un contexte pour le panier comme pour le login, avec un vrai ou faux pour savoir s'il y a des choses à l'intérieur ou non
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext.jsx";
@@ -26,8 +25,15 @@ const Cart = () => {
           <h1>Votre Panier ({totalArticles} articles)</h1>
 
           <div className="cart-items">
-            {cart.map((item) => (
-                <div key={item.code_produit} className="cart-item">
+            {cart.map((item) => {
+              const cartKey = item._cartKey || item.code_produit;
+              const isVrac = item.type_vente === "Vrac" && item.poids;
+              const itemTotal = isVrac
+                ? (item.prix_ttc * (item.poids / 100) * item.quantite).toFixed(2)
+                : (item.prix_ttc * item.quantite).toFixed(2);
+
+              return (
+                <div key={cartKey} className="cart-item">
 
                   <div className="cart-item-info">
                     <img
@@ -38,15 +44,15 @@ const Cart = () => {
                         role="img"
                     />
                     <div>
-                      <h3>{item.nom_produit}</h3>
-                      <p className="item-price">{item.prix_ttc} €</p>
+                      <h3>{item.nom_produit}{isVrac ? ` — ${item.poids >= 1000 ? `${item.poids / 1000}kg` : `${item.poids}g`}` : ""}</h3>
+                      <p className="item-price">{item.prix_ttc} €{isVrac ? " / 100g" : ""}</p>
                     </div>
                   </div>
 
                   <div className="cart-quantity-controls">
                     <button
                         className="quantity-btn"
-                        onClick={() => decreaseQuantity(item.code_produit)}
+                        onClick={() => decreaseQuantity(cartKey)}
                         aria-label={`Diminuer la quantité de ${item.nom_produit}`}
                     >
                       −
@@ -54,7 +60,7 @@ const Cart = () => {
                     <span className="quantity-display">{item.quantite}</span>
                     <button
                         className="quantity-btn"
-                        onClick={() => addToCart(item)}
+                        onClick={() => addToCart(item, isVrac ? item.poids : null)}
                         aria-label={`Augmenter la quantité de ${item.nom_produit}`}
                     >
                       +
@@ -63,11 +69,11 @@ const Cart = () => {
 
                   <div className="cart-item-actions">
                     <p className="item-total-price">
-                      {(item.prix_ttc * item.quantite).toFixed(2)} €
+                      {itemTotal} €
                     </p>
                     <button
                         className="remove-btn"
-                        onClick={() => removeFromCart(item.code_produit)}
+                        onClick={() => removeFromCart(cartKey)}
                         aria-label={`Supprimer ${item.nom_produit} du panier`}
                     >
                         <img src="/src/Images/Icon/cart-trash.svg" alt="" aria-hidden="true" />
@@ -75,7 +81,8 @@ const Cart = () => {
                   </div>
 
                 </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="cart-summary">

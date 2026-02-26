@@ -13,7 +13,7 @@
 
 .product-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--color-btn-shadow);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .product-card-link {
@@ -88,9 +88,20 @@
 }
 
 .btn-add-cart {
-  background: none;
+  background-color: var(--color-text);
   border: none;
-  padding: 0;
+  padding: 8px;
   cursor: pointer;
   flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+
+.btn-add-cart:hover {
+  background-color: var(--color-the);
+}
+
+.btn-add-cart img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
 }

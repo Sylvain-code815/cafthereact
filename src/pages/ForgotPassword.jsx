@@ -3,7 +3,6 @@ import Loader from '../components/Loader';
 import "./styles/Login.css";
 
 
-// Mdp oublié, écran de chargement, vérification mdp remplis, simulation
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);

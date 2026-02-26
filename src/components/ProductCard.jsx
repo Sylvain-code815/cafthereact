@@ -2,6 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./styles/ProductCard.css";
 
+const getUnitLabel = (typeVente) => {
+  switch (typeVente) {
+    case "Vrac": return "/ 100g";
+    case "Sachet": return "/ sachet";
+    case "Boite": return "/ boîte";
+    case "Unité": return "/ unité";
+    default: return "/ 100g";
+  }
+};
+
 const ProductCard = ({ produit, onAddToCart = () => {}, index = 0 }) => {
   const imageURL = produit.image
     ? `${import.meta.env.VITE_API_URL}/images/${produit.image}`
@@ -30,7 +40,7 @@ const ProductCard = ({ produit, onAddToCart = () => {}, index = 0 }) => {
           )}
           <div className="product-card-price-row">
             <span className="product-card-price">{produit.prix_ttc}€</span>
-            <span className="product-card-unit">/ 100g</span>
+            <span className="product-card-unit">{getUnitLabel(produit.type_vente)}</span>
           </div>
         </div>
         <button

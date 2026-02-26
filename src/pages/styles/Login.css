@@ -102,22 +102,20 @@ input {
     cursor: pointer;
     border: none;
     font-weight: var(--weight-btn);
-    box-shadow: 0 2px 8px var(--color-btn-shadow);
+    box-shadow: var(--shadow-btn);
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .login-button:hover {
     background-color: var(--color-btn-primary-hover);
-    box-shadow: 0 4px 16px var(--color-btn-shadow);
+    box-shadow: var(--shadow-btn-hover);
 }
-
-/* --- S'inscrire --- */
 
 .signup-box {
     display: flex;
     flex-direction: column;
     width: 448px;
-    background-color: white;
+    background-color: var(--color-bg-light);
     border: 2px solid var(--color-text);
     padding-bottom: 24px;
 }
@@ -163,7 +161,7 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 8px 12px;
-    background-color: #fff;
+    background-color: var(--color-bg-light);
 }
 
 .input-with-icon .icon {
@@ -186,16 +184,14 @@ input {
     margin-top: 16px;
     font-weight: var(--weight-btn);
     border: none;
-    box-shadow: 0 2px 8px var(--color-btn-shadow);
+    box-shadow: var(--shadow-btn);
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .valid-btn:hover {
     background-color: var(--color-btn-primary-hover);
-    box-shadow: 0 4px 16px var(--color-btn-shadow);
+    box-shadow: var(--shadow-btn-hover);
 }
-
-/* --- Floating labels --- */
 
 .floating-input-wrapper {
     position: relative;
@@ -228,8 +224,6 @@ input {
     transform: translateY(-120%) scale(0.75);
     color: var(--color-the);
 }
-
-/* --- Password toggle --- */
 
 .password-toggle-btn {
     display: flex;

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState, useRef, useCallback } from "react";
-import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { CartContext } from "../context/CartContext.jsx";
 import ProductCard from "./ProductCard.jsx";
+import Breadcrumb from "./Breadcrumb.jsx";
 import "./styles/ProductList.css";
 
 const ITEMS_PER_PAGE = 6;
@@ -191,11 +191,7 @@ const ProductList = ({ categorie }) => {
   return (
     <div className="pl-container">
       {/* Breadcrumb */}
-      <nav className="pl-breadcrumb">
-        <Link to="/">Accueil</Link>
-        <span>/</span>
-        <span>{label}</span>
-      </nav>
+      <Breadcrumb items={[{ label: label }]} />
 
       {/* Header : titre + contrôles */}
       <div className="pl-top-section">
