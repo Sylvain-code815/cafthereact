@@ -10,6 +10,8 @@ const Account = () => {
     const nom = user?.nom || "Dupont";
     const email = user?.email || "jean.dupont@example.com";
 
+    console.log(window.history)
+
     return (
         <div className="account-page container">
 
@@ -32,13 +34,15 @@ const Account = () => {
                     className={`tab-button ${activeTab === 'profil' ? 'active' : ''}`}
                     onClick={() => setActiveTab('profil')}
                 >
-                    👤 Profil
+                    <img src="/src/Images/Icon/header-Login.svg" alt="onglet-profil" />
+                    <span className="tab-profil">Profil</span>
                 </button>
                 <button
                     className={`tab-button ${activeTab === 'commandes' ? 'active' : ''}`}
                     onClick={() => setActiveTab('commandes')}
                 >
-                    📦 Commandes
+                    <img src="/src/Images/Icon/commande.svg" alt="onglet-commande" />
+                    <span> Commandes</span>
                 </button>
             </nav>
 
@@ -79,7 +83,8 @@ const Account = () => {
                                 <span className="value">••••••••</span>
                             </div>
                             <button className="outline-btn full-width-btn">
-                                🔒 Changer mon mot de passe
+                                <img src="/src/Images/Icon/signup-mdp.svg" alt="mot de passe bouton"/>
+                                <span> Changer mon mot de passe </span>
                             </button>
                         </div>
                     </div>

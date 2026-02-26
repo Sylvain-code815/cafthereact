@@ -1,4 +1,3 @@
-/* ── Header ── */
 .header {
   position: fixed;
   top: 0;
@@ -15,7 +14,6 @@
   background-color: var(--color-text);
 }
 
-/* ── Navbar ── */
 .navbar {
   height: clamp(70px, calc(63px + 1.88vw), 90px);
 }
@@ -30,13 +28,11 @@
   padding: 0 clamp(16px, calc(9px + 2.14vw), 40px);
 }
 
-/* ── Logo ── */
 .nav-logo img {
   height: clamp(56px, calc(48px + 2.25vw), 80px);
   width: clamp(56px, calc(48px + 2.25vw), 80px);
 }
 
-/* ── Links ── */
 .nav-links {
   display: flex;
   gap: clamp(20px, calc(14px + 1.79vw), 40px);
@@ -72,7 +68,6 @@
   left: 0;
 }
 
-/* ── Actions (recherche, login, panier) ── */
 .nav-actions {
   display: flex;
   align-items: center;
@@ -104,7 +99,6 @@
   opacity: 1;
 }
 
-/* ── Login ── */
 .nav-login span {
   font-size: var(--fs-login-text);
   font-weight: var(--weight-under-line);
@@ -118,7 +112,6 @@
   opacity: 1;
 }
 
-/* ── User connecté ── */
 .nav-user {
   font-size: var(--fs-subtitle);
   font-weight: var(--weight-under-Title);
@@ -141,7 +134,6 @@
   color: var(--color-bg-light);
 }
 
-/* ── Panier + badge ── */
 .nav-cart {
   position: relative;
 }
@@ -163,31 +155,25 @@
   pointer-events: none;
 }
 
-/* ── Auth desktop wrapper ── */
 .nav-auth-desktop {
   display: contents;
 }
 
-/* ── Burger (masqué en desktop) ── */
 .nav-burger {
   display: none;
 }
 
-/* ── Mobile auth dans le menu (masqué en desktop) ── */
 .nav-mobile-auth {
   display: none;
 }
 
-/* ══════════════════════════════════════════
-   ── Responsive ≤ 768px ──
-   ══════════════════════════════════════════ */
+/* responsive 768px */
 @media screen and (max-width: 768px) {
 
   .nav-container {
     padding: 0 20px;
   }
 
-  /* ── Cacher les liens desktop ── */
   .nav-links {
     display: none;
     flex-direction: column;
@@ -221,7 +207,11 @@
     display: none;
   }
 
-  /* ── Auth dans le menu mobile ── */
+
+  .nav-links li a:active {
+    display: none;
+  }
+
   .nav-mobile-auth {
     display: flex;
     align-items: center;
@@ -237,12 +227,10 @@
     text-transform: uppercase;
   }
 
-  /* ── Cacher l'auth desktop ── */
   .nav-auth-desktop {
     display: none;
   }
 
-  /* ── Burger visible ── */
   .nav-burger {
     display: flex;
     flex-direction: column;
@@ -265,7 +253,6 @@
     transform-origin: center;
   }
 
-  /* ── Animation burger → croix ── */
   .nav-burger-open span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }

@@ -96,7 +96,7 @@ const ProductCarousel = ({ products, title, linkTo, linkText }) => {
         </>
       );
     }
-    // "right-init" or "right": track is [target, current]
+
     return (
       <>
         {renderSlide(products[targetIndex])}

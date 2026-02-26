@@ -228,7 +228,6 @@ const ProductList = ({ categorie }) => {
             </select>
           )}
 
-          {/* Tri par prix */}
           <select
             className="pl-select"
             value={sortOrder}
@@ -245,7 +244,6 @@ const ProductList = ({ categorie }) => {
             Réinitialiser
           </button>
 
-          {/* Toggle filtres mobile */}
           <button
             className="pl-filters-toggle"
             onClick={() => setFiltersOpen(!filtersOpen)}

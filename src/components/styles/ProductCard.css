@@ -65,7 +65,7 @@
 }
 
 .product-card-origin {
-  font-size: var(--fs-small);
+  font-size: var(--fs-subtitle);
   color: var(--color-footer);
   margin-top: 2px;
 }

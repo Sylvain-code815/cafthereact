@@ -8,7 +8,6 @@ main {
   height: calc(100vh - var(--header-height));
   display: flex;
   text-transform: uppercase;
-  width: 100%;
   color: var(--color-bg-light);
 }
 
@@ -52,11 +51,10 @@ main {
   cursor: pointer;
   font-weight: var(--weight-btn);
   box-shadow: 0 2px 8px var(--color-btn-shadow);
-  transition: filter 0.3s, box-shadow 0.3s;
+  transition: ease-in-out 0.2s;
 }
 
 .hero-section button:hover {
-  filter: brightness(0.85);
   box-shadow: 0 4px 16px var(--color-btn-shadow);
 }
 
@@ -77,6 +75,11 @@ main {
   background-color: var(--color-the);
 }
 
+.hero-left button:hover {
+  background-color: var(--color-bg-light);
+  color: var(--color-the);
+}
+
 .hero-right {
   background-image: url("/src/Images/Cafe-Home.webp");
 }
@@ -85,7 +88,11 @@ main {
   background-color: var(--color-cafe);
 }
 
-/* Section Promotions & Produits phares */
+.hero-right button:hover {
+  background-color: var(--color-bg-light);
+  color: var(--color-cafe);
+}
+
 .products-section {
   display: flex;
   gap: clamp(20px, calc(14px + 1.79vw), 40px);
@@ -108,11 +115,10 @@ main {
 }
 
 .btn-section:hover {
-  background-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 16px var(--color-btn-shadow);
+  background-color: rgba(248, 248, 248, 0.8);
+  box-shadow: 2px 2px 8px 2px var(--color-btn-shadow);
 }
 
-/* Section Engagements */
 .engagements-section {
   background-color: rgba(209, 187, 168, 0.7);
   padding: clamp(32px, calc(23px + 2.86vw), 64px) clamp(16px, calc(-7px + 7.14vw), 96px) clamp(16px, calc(11px + 1.43vw), 32px);

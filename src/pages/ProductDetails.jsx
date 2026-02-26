@@ -5,25 +5,6 @@ import { CartContext } from "../context/CartContext";
 import CustomerReview from "../components/CustomerReview.jsx";
 import "./styles/ProductDetails.css";
 
-import etoileFill from "../Images/Icon/etoile-fill.svg";
-import etoileUnfill from "../Images/Icon/etoile-unfill.svg";
-
-const Stars = ({ rating }) => {
-  const full = Math.round(rating);
-  return (
-    <div className="pd-stars">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <img
-          key={i}
-          src={i <= full ? etoileFill : etoileUnfill}
-          alt=""
-          aria-hidden="true"
-        />
-      ))}
-    </div>
-  );
-};
-
 const reviews = [
   { id: 1, name: "Marie L.", review: "Un thé d'une qualité exceptionnelle, les arômes sont incroyables. Je recommande vivement !", rating: 5 },
   { id: 2, name: "Pierre D.", review: "Le café est torréfié à la perfection. Un vrai plaisir chaque matin.", rating: 5 },
