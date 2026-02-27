@@ -76,7 +76,7 @@ const Cart = () => {
                         onClick={() => removeFromCart(cartKey)}
                         aria-label={`Supprimer ${item.nom_produit} du panier`}
                     >
-                        <img src="/src/Images/Icon/cart-trash.svg" alt="" aria-hidden="true" />
+                        <img src="/src/Images/Icon/cart-trash.svg" alt="suppression ligne du panier" aria-hidden="true" />
                     </button>
                   </div>
 
