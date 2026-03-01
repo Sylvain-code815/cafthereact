@@ -30,7 +30,7 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (!response.error) {
+      if (!response.ok) {
         setErrorMsg(data.message || "Erreur de connexion");
         return;
       }

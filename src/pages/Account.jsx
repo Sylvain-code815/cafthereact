@@ -13,7 +13,7 @@ const Account = () => {
     const email = user?.email || "jean.dupont@example.com";
 
     return (
-        <div className="account-page container">
+        <div className="account-page">
 
             <Breadcrumb items={[{ label: "Mon compte" }]} />
 

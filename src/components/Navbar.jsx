@@ -21,7 +21,7 @@ const Navbar = () => {
     <header className="header">
       <nav className="navbar">
         <div className="nav-container">
-          <Link to="/" className="nav-logo">
+          <Link to="/" className="nav-logo" onClick={closeSearch}>
             <img src="/src/Images/Logo-CafThe-en-couleur.webp" alt="CafThé" />
           </Link>
 
@@ -59,7 +59,7 @@ const Navbar = () => {
             <button
                 className={`nav-action-btn${isSearchOpen ? " nav-action-active" : ""}`}
                 aria-label="Rechercher"
-                onClick={isSearchOpen ? closeSearch : openSearch}
+                onClick={() => { isSearchOpen ? closeSearch() : openSearch(); setMenuOpen(false); }}
             >
               <img src="/src/Images/Icon/header-Loupe.svg" alt="Rechercher" />
             </button>

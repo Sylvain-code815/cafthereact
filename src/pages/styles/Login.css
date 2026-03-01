@@ -42,7 +42,7 @@ input {
 }
 
 .forgot-password a {
-    font-size: 13px;
+    font-size: var(--fs-small);
     font-weight: bold;
     color: var(--color-green);
     text-decoration: none;
@@ -56,7 +56,7 @@ input {
 .signup-link {
     text-align: center;
     margin-top: 25px;
-    font-size: 14px;
+    font-size: var(--fs-body);
     color: #333;
 }
 
@@ -68,15 +68,15 @@ input {
 }
 
 .error-message {
-    color: var(--color-the);
-    font-size: 14px;
+    color: var(--color-error);
+    font-size: var(--fs-body);
     margin-bottom: 15px;
     text-align: center;
 }
 
 .success-text {
     color: var(--color-the);
-    font-size: 14px;
+    font-size: var(--fs-body);
     text-align: center;
     margin: 16px 0;
     padding: 12px;
@@ -85,8 +85,8 @@ input {
 }
 
 .error-text {
-    color: #c0392b;
-    font-size: 14px;
+    color: var(--color-error);
+    font-size: var(--fs-body);
     text-align: center;
     margin: 16px 0;
     padding: 12px;
@@ -175,7 +175,7 @@ input {
     outline: none;
     width: 100%;
     padding: 0;
-    font-size: 14px;
+    font-size: var(--fs-body);
 }
 
 .valid-btn {
@@ -203,7 +203,7 @@ input {
     outline: none;
     width: 100%;
     padding: 6px 0 2px;
-    font-size: 14px;
+    font-size: var(--fs-body);
     background: transparent;
 }
 
@@ -212,7 +212,7 @@ input {
     top: 50%;
     left: 0;
     transform: translateY(-50%);
-    font-size: 14px;
+    font-size: var(--fs-body);
     color: #999;
     pointer-events: none;
     transform-origin: left center;

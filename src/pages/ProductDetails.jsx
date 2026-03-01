@@ -4,6 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import { CartContext } from "../context/CartContext";
 import CustomerReview from "../components/CustomerReview.jsx";
 import Breadcrumb from "../components/Breadcrumb.jsx";
+import { categoryToRoute, CATEGORY_LABELS } from "../utils/categories.js";
 import "./styles/ProductDetails.css";
 
 const reviews = [
@@ -149,9 +150,7 @@ const ProductDetails = () => {
     if (isVrac) {
       addToCart(produit, selectedWeight);
     } else {
-      for (let i = 0; i < quantity; i++) {
-        addToCart(produit);
-      }
+      addToCart(produit, null, quantity);
     }
   };
 
@@ -159,7 +158,7 @@ const ProductDetails = () => {
     <div className="pd-container">
       {/* Breadcrumb */}
       <Breadcrumb items={[
-        { label: produit.categorie, to: `/${produit.categorie.toLowerCase()}` },
+        { label: CATEGORY_LABELS[produit.categorie] || produit.categorie, to: categoryToRoute(produit.categorie) },
         { label: produit.nom_produit },
       ]} />
 

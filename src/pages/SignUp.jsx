@@ -98,7 +98,7 @@ const SignUp = () => {
                             <div className="input-with-icon">
                                 <img src="/src/Images/Icon/header-Login.svg" alt="" aria-hidden="true" />
                                 <div className="floating-input-wrapper">
-                                    <input value={prenom} onChange={(e) => setPrenom(e.target.value)} required type="text" id="prenom" placeholder=" " />
+                                    <input value={prenom} onChange={(e) => setPrenom(e.target.value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, ""))} required type="text" id="prenom" placeholder=" " />
                                     <label htmlFor="prenom">Prénom *</label>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@ const SignUp = () => {
                             <div className="input-with-icon">
                                 <img src="/src/Images/Icon/header-Login.svg" alt="" aria-hidden="true" />
                                 <div className="floating-input-wrapper">
-                                    <input value={nom} onChange={(e) => setNom(e.target.value)} required type="text" id="nom" placeholder=" " />
+                                    <input value={nom} onChange={(e) => setNom(e.target.value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, ""))} required type="text" id="nom" placeholder=" " />
                                     <label htmlFor="nom">Nom *</label>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@ const SignUp = () => {
                         <div className="input-with-icon">
                             <img src="/src/Images/Icon/signup-telephone.svg" alt="" aria-hidden="true" />
                             <div className="floating-input-wrapper">
-                                <input value={telephone} onChange={(e) => setTelephone(e.target.value)} type="tel" id="telephone" placeholder=" " />
+                                <input value={telephone} onChange={(e) => setTelephone(e.target.value.replace(/[^0-9]/g, "").slice(0, 10))} type="tel" id="telephone" placeholder=" " pattern="[0-9]{10}" maxLength={10} />
                                 <label htmlFor="telephone">Téléphone</label>
                             </div>
                         </div>

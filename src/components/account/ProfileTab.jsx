@@ -67,7 +67,12 @@ const ProfileTab = ({ prenom, nom, email }) => {
       </div>
 
       <div className="addresses-section">
-        <h3 className="section-title">Mes adresses</h3>
+        <div className="addresses-header">
+          <h3 className="section-title">Mes adresses</h3>
+          <button className="outline-btn add-address-btn">
+            + Ajouter une adresse
+          </button>
+        </div>
         {mockAddresses.map((addr) => (
           <AddressCard
             key={addr.id_adresse}

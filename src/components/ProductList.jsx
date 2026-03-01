@@ -3,17 +3,10 @@ import Skeleton from "react-loading-skeleton";
 import { CartContext } from "../context/CartContext.jsx";
 import ProductCard from "./ProductCard.jsx";
 import Breadcrumb from "./Breadcrumb.jsx";
+import { CATEGORY_LABELS } from "../utils/categories.js";
 import "./styles/ProductList.css";
 
 const ITEMS_PER_PAGE = 6;
-
-const CATEGORY_LABELS = {
-  the: "Thés",
-  Cafe: "Cafés",
-  Accessory: "Accessoires",
-  produit_phare: "Produits phares",
-  produit_promotion: "Promotions",
-};
 
 function RangeSlider({ min, max, value, onChange }) {
   const trackRef = useRef(null);
@@ -101,9 +94,16 @@ const ProductList = ({ categorie }) => {
         setIsLoading(true);
         setError(null);
 
-        const fetchUrl = categorie
-          ? `${import.meta.env.VITE_API_URL}/api/articles/categorie/${categorie}`
-          : `${import.meta.env.VITE_API_URL}/api/articles`;
+        let fetchUrl;
+        if (categorie === "produit_promotion") {
+          fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles/promo`;
+        } else if (categorie === "produit_phare") {
+          fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles/phares`;
+        } else if (categorie) {
+          fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles/categorie/${categorie}`;
+        } else {
+          fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles`;
+        }
 
         const response = await fetch(fetchUrl);
 

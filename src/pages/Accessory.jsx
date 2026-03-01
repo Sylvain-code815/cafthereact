@@ -4,7 +4,7 @@ import ProductList from "../components/ProductList.jsx";
 const Accessory = () => {
   return (
       <main>
-        <ProductList categorie="Accessory" />
+        <ProductList categorie="Accessoire" />
       </main>
   );
 };
