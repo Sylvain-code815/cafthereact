@@ -52,7 +52,6 @@ const Cart = () => {
       <div className="cart-container">
         <h1>Votre Panier ({totalArticles} articles)</h1>
 
-        {/* Toolbar sélection */}
         <div className="cart-toolbar">
           <label className="cart-select-all">
             <input

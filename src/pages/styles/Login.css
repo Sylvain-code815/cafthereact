@@ -95,6 +95,9 @@ input {
 }
 
 .login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     background-color: var(--color-btn-primary);
     color: var(--color-btn-primary-text);
