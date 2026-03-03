@@ -1,0 +1,26 @@
+.btn-filled {
+  background-color: var(--color-btn-primary);
+  color: var(--color-btn-primary-text);
+  border: none;
+  cursor: pointer;
+  font-family: "Jost", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: var(--weight-btn);
+  box-shadow: var(--shadow-btn);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-filled:hover {
+  background-color: var(--color-btn-primary-hover);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.btn-filled:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-filled:disabled:hover {
+  background-color: var(--color-btn-primary);
+  box-shadow: var(--shadow-btn);
+}

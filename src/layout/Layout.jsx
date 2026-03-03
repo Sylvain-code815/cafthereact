@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer.jsx";
-import SearchOverlay from "../components/SearchOverlay.jsx";
+import Navbar from "../components/Navbar/Navbar.jsx";
+import Footer from "../components/Footer/Footer.jsx";
+import SearchOverlay from "../components/SearchOverlay/SearchOverlay.jsx";
 import { SearchContext } from "../context/SearchContext.jsx";
 
 const Layout = () => {
@@ -16,12 +16,15 @@ const Layout = () => {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">Aller au contenu principal</a>
       <Navbar />
       {isSearchOpen ? (
         <SearchOverlay />
       ) : (
         <>
-          <Outlet />
+          <main id="main-content">
+            <Outlet />
+          </main>
           <Footer />
         </>
       )}

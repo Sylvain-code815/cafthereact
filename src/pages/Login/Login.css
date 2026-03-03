@@ -1,0 +1,221 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    width: 448px;
+    padding: 24px;
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    gap: 32px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+input {
+    padding: 8px;
+}
+
+.forgot-password {
+    text-align: right;
+    margin: 16px 0px 5px 0px;
+}
+
+.forgot-password a {
+    font-size: var(--fs-small);
+    font-weight: bold;
+    color: var(--color-green);
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+    color: var(--color-text);
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: var(--fs-body);
+    color: var(--color-footer);
+}
+
+.signup-link a {
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.error-message {
+    color: var(--color-error);
+    font-size: var(--fs-body);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.success-text {
+    color: var(--color-the);
+    font-size: var(--fs-body);
+    text-align: center;
+    margin: 16px 0;
+    padding: 12px;
+    background-color: rgba(84, 106, 42, 0.1);
+    border-radius: 4px;
+}
+
+.error-text {
+    color: var(--color-error);
+    font-size: var(--fs-body);
+    text-align: center;
+    margin: 16px 0;
+    padding: 12px;
+    background-color: rgba(192, 57, 43, 0.1);
+    border-radius: 4px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 8px;
+}
+
+.valid-btn-local {
+    margin-top: 16px;
+}
+
+.signup-box {
+    display: flex;
+    flex-direction: column;
+    width: 448px;
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    padding-bottom: 24px;
+}
+
+.signup-header {
+    text-align: center;
+    border-bottom: 2px solid var(--color-border);
+    padding: 32px 24px;
+    margin-bottom: 24px;
+}
+
+.signup-header h1 {
+    font-size: 22px;
+    margin-bottom: 24px;
+}
+
+.signup-header h2 {
+    font-size: 24px;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+    gap: 16px;
+}
+
+
+.form-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.half-width {
+    flex: 1;
+}
+
+.input-with-icon {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid rgba(var(--color-text-rgb), 0.2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    background-color: var(--color-surface);
+}
+
+.input-with-icon .icon {
+    margin-right: 12px;
+    font-size: 16px;
+    color: var(--color-footer);
+}
+
+.input-with-icon input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0;
+    font-size: var(--fs-body);
+}
+
+
+.floating-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.floating-input-wrapper input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 6px 0 2px;
+    font-size: var(--fs-body);
+    background: transparent;
+}
+
+.floating-input-wrapper label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: var(--fs-body);
+    color: rgba(var(--color-text-rgb), 0.4);
+    pointer-events: none;
+    transform-origin: left center;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.floating-input-wrapper input:focus ~ label,
+.floating-input-wrapper input:not(:placeholder-shown) ~ label {
+    transform: translateY(-120%) scale(0.75);
+    color: var(--color-the);
+}
+
+.password-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: rgba(var(--color-text-rgb), 0.4);
+    transition: color 0.2s;
+}
+
+.password-toggle-btn:hover {
+    color: var(--color-text);
+}

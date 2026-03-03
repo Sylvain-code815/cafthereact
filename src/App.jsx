@@ -1,16 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CookieManager } from "react-cookie-manager";
-import ProductDetails from "./pages/ProductDetails.jsx";
+import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
 import Layout from "./layout/Layout.jsx";
-import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
+import Home from "./pages/Home/Home.jsx";
+import Login from "./pages/Login/Login.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 import Cafe from "./pages/Cafe.jsx";
 import Accessory from "./pages/Accessory.jsx";
 import The from "./pages/The.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { SearchProvider } from "./context/SearchContext.jsx";
-import Cart from "./pages/Cart.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
 import Phare from "./pages/Phare.jsx";
 import Promotion from "./pages/Promotion.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
@@ -18,8 +19,8 @@ import SignUp from "./pages/SignUp.jsx";
 import Sitemap from "./pages/Sitemap.jsx";
 import CGV from "./pages/CGV.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
-import Account from "./pages/Account.jsx";
-import Order from "./pages/Order.jsx";
+import Account from "./pages/Account/Account.jsx";
+import Order from "./pages/Order/Order.jsx";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
         displayType="popup"
         showManageButton={true}
       >
+        <ThemeProvider>
         <AuthProvider>
           <CartProvider>
             <SearchProvider>
@@ -87,6 +89,7 @@ function App() {
             </SearchProvider>
           </CartProvider>
         </AuthProvider>
+        </ThemeProvider>
       </CookieManager>
     </BrowserRouter>
   );

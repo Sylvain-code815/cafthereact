@@ -19,7 +19,7 @@ const Confirmation = ({ orderData }) => {
       <p className="confirmation-text">
         Un email de confirmation sera envoyé à <strong>{orderData?.email || "votre adresse"}</strong>.
       </p>
-      <Link to="/" className="step-btn confirmation-link">
+      <Link to="/" className="btn-filled step-btn confirmation-link">
         Retour à l'accueil
       </Link>
     </div>
