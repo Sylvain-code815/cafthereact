@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import "./styles/Login.css";
+import SEO from "../components/SEO.jsx";
+import "./Login/Login.css";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -73,6 +74,7 @@ const SignUp = () => {
 
     return (
         <div className="container">
+            <SEO title="Inscription" description="Créez votre compte CafThé pour commander vos thés et cafés préférés et suivre vos commandes." />
             <div className="signup-box">
 
                 <div className="signup-header">
@@ -151,7 +153,7 @@ const SignUp = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className="login-button valid-btn">
+                    <button type="submit" className="btn-filled login-button valid-btn-local">
                         Créer mon compte
                     </button>
 

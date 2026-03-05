@@ -1,8 +1,10 @@
+import SEO from "../components/SEO.jsx";
 import "./styles/LegalPage.css";
 
 const PrivacyPolicy = () => {
   return (
     <div className="legal-page">
+      <SEO title="Politique de Confidentialité" description="Politique de confidentialité de CafThé. Découvrez comment nous protégeons vos données personnelles." />
       <h1>Politique de Confidentialité</h1>
       <p className="legal-updated">Dernière mise à jour : 23 février 2026</p>
 

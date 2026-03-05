@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 
@@ -14,6 +14,19 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
 
   const nameRegex = /[^a-zA-ZÀ-ÿ\s'-]/g;
 
+  // Auto-fill orderData when authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setOrderData((prev) => ({
+        ...prev,
+        prenom: user.prenom,
+        nom: user.nom,
+        email: user.email,
+        telephone: user.telephone || "",
+      }));
+    }
+  }, [isAuthenticated, user, setOrderData]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "prenom" || name === "nom") {
@@ -25,15 +38,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isAuthenticated) {
-      setOrderData((prev) => ({
-        ...prev,
-        prenom: user.prenom,
-        nom: user.nom,
-        email: user.email,
-        telephone: user.telephone || "",
-      }));
-    } else {
+    if (!isAuthenticated) {
       setOrderData((prev) => ({ ...prev, ...form }));
     }
     onNext();
@@ -50,7 +55,8 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
           <p><strong>Email :</strong> {user.email}</p>
           {user.telephone && <p><strong>Téléphone :</strong> {user.telephone}</p>}
         </div>
-        <button className="step-btn" onClick={handleSubmit}>
+        <Link to="/login" className="step-change-account">Changer de compte</Link>
+        <button className="btn-filled step-btn" onClick={handleSubmit}>
           Continuer
         </button>
       </div>
@@ -114,7 +120,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
             placeholder="0612345678"
           />
         </div>
-        <button className="step-btn" type="submit">
+        <button className="btn-filled step-btn" type="submit">
           Continuer
         </button>
       </form>

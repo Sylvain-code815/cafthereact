@@ -48,7 +48,7 @@ const ProfileTab = ({ prenom, nom, email }) => {
               <span className="value">+33 6 12 34 56 78</span>
             </div>
           </div>
-          <button className="black-btn full-width-btn">
+          <button className="btn-filled full-width-btn">
             Modifier mes informations
           </button>
         </div>

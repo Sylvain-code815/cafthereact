@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Loader from '../components/Loader';
-import "./styles/Login.css";
+import SEO from "../components/SEO.jsx";
+import "./Login/Login.css";
 
 
 const ForgotPassword = () => {
@@ -34,6 +35,7 @@ const ForgotPassword = () => {
 
     return (
         <div className="container">
+            <SEO title="Mot de passe oublié" description="Réinitialisez votre mot de passe CafThé. Entrez votre adresse email pour recevoir un lien de réinitialisation." />
             {isLoading && <Loader />}
 
             <div className="login-container">
@@ -59,7 +61,7 @@ const ForgotPassword = () => {
                         </div>
                     )}
 
-                    <button type="submit" className="login-button">
+                    <button type="submit" className="btn-filled login-button">
                         Réinitialiser mon mot de passe
                     </button>
                 </form>

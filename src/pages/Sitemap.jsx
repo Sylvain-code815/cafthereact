@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO.jsx";
 import "./styles/LegalPage.css";
 
 const Sitemap = () => {
   return (
     <div className="legal-page">
+      <SEO title="Plan du site" description="Plan du site CafThé. Retrouvez facilement toutes les pages de notre boutique en ligne de thés et cafés." />
       <h1>Plan du site</h1>
 
       <div className="sitemap-section">

@@ -1,3 +1,5 @@
+@import "./buttons.css";
+
 :root {
   --color-cafe: #6f4e37;
   --color-the: #546a2a;
@@ -5,8 +7,20 @@
   --color-brown: rgba(209, 187, 168, 0.55);
   --color-bg-light: rgba(255, 255, 255, 0.96);
   --color-text: rgb(4, 4, 4);
+  --color-text-rgb: 4, 4, 4;
   --color-footer: #a1a1a1;
   --color-error: #c0392b;
+
+  --color-surface: var(--color-bg-light);
+  --color-surface-high: #ffffff;
+  --color-border: rgba(var(--color-text-rgb), 0.12);
+  --color-border-subtle: rgba(var(--color-text-rgb), 0.06);
+  --color-footer-bg: var(--color-text);
+  --color-footer-text: var(--color-bg-light);
+  --color-footer-muted: var(--color-footer);
+  --icon-filter: none;
+  --color-the-rgb: 84, 106, 42;
+  --color-cafe-rgb: 111, 78, 55;
 
   --weight-main: 400;
   --weight-home: 900;
@@ -23,7 +37,7 @@
   --shadow-btn: 0 2px 8px var(--color-btn-shadow);
   --shadow-btn-hover: 0 4px 16px var(--color-btn-shadow);
   --shadow-card-hover: 0 6px 20px var(--color-btn-shadow);
-  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0 8px 24px rgba(var(--color-text-rgb), 0.08);
 
   --header-height: clamp(76px, calc(68px + 2.25vw), 100px);
 
@@ -36,6 +50,46 @@
   --fs-body:          clamp(0.875rem, 0.83rem + 0.19vw, 1rem);
   --fs-small:         clamp(0.75rem, 0.71rem + 0.19vw, 0.875rem);
   --fs-badge:         clamp(0.688rem, 0.66rem + 0.09vw, 0.75rem);
+}
+
+[data-theme="dark"] {
+  /* Page — le plus sombre */
+  --color-bg-light: #1A1510;
+  --color-text: #E8E0D8;
+  --color-text-rgb: 232, 224, 216;
+
+  /* Surfaces élevées — progressivement plus claires */
+  --color-surface: #221D18;
+  --color-surface-high: #2C2520;
+
+  /* Bordures */
+  --color-border: rgba(232, 224, 216, 0.12);
+  --color-border-subtle: rgba(232, 224, 216, 0.06);
+
+  /* Couleurs de marque désaturées */
+  --color-the: #6B8A3E;
+  --color-cafe: #8B6B52;
+  --color-green: rgba(107, 138, 62, 0.65);
+  --color-brown: rgba(139, 107, 82, 0.45);
+  --color-the-rgb: 107, 138, 62;
+  --color-cafe-rgb: 139, 107, 82;
+
+  /* Footer — reste sombre, pas inversé */
+  --color-footer-bg: #151210;
+  --color-footer-text: #E8E0D8;
+  --color-footer-muted: #888;
+
+  /* Boutons & ombres */
+  --color-btn-primary: #E8E0D8;
+  --color-btn-primary-hover: #6B8A3E;
+  --color-btn-primary-text: #1A1510;
+  --color-btn-shadow: rgba(0, 0, 0, 0.4);
+
+  --color-error: #e74c3c;
+  --color-footer: #888;
+
+  /* Filtre pour icônes SVG noires */
+  --icon-filter: invert(0.9) sepia(0.1) hue-rotate(10deg);
 }
 
 * {
@@ -89,6 +143,32 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-the);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--color-text);
+  color: var(--color-bg-light);
+  font-size: var(--fs-body);
+  font-weight: var(--weight-btn);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 8px;
 }
 
 h1,

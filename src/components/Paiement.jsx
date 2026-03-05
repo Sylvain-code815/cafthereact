@@ -52,7 +52,7 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
           </div>
         )}
 
-        <button className="step-btn" type="submit">
+        <button className="btn-filled step-btn" type="submit">
           Confirmer la commande
         </button>
       </form>

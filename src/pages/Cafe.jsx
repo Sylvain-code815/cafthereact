@@ -1,16 +1,13 @@
 import React from "react";
-import ProductList from "../components/ProductList.jsx";
-import SEO from "../components/seo.js";
+import ProductList from "../components/ProductList/ProductList.jsx";
+import SEO from "../components/SEO.jsx";
 
 const Cafe = () => {
   return (
-      <main>
-          <SEO
-              title="Ventes de cafés"
-              description="Découvrez notre sélection de cafés torréfiés."
-          />
-        <ProductList categorie="Cafe" />
-      </main>
+    <>
+      <SEO title="Nos Cafés" description="Explorez notre sélection de cafés torréfiés avec soin. Des origines variées pour satisfaire tous les palais." />
+      <ProductList categorie="Cafe" />
+    </>
   );
 };
 
