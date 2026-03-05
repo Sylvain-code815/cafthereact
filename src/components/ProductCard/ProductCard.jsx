@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 
+
 const getUnitLabel = (typeVente) => {
   switch (typeVente) {
     case "Vrac": return "/ 100g";

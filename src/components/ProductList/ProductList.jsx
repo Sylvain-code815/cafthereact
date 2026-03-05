@@ -1,79 +1,15 @@
-import React, { useContext, useEffect, useState, useRef, useCallback } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { CartContext } from "../../context/CartContext.jsx";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import Breadcrumb from "../Breadcrumb/Breadcrumb.jsx";
 import { CATEGORY_LABELS } from "../../utils/categories.js";
+import RangeSlider from "./RangeSlider.jsx";
+import QuickView from "./QuickView.jsx";
 import "./ProductList.css";
 
 const ITEMS_PER_PAGE = 6;
 
-function RangeSlider({ min, max, value, onChange }) {
-  const trackRef = useRef(null);
-
-  const getPercent = useCallback(
-    (v) => ((v - min) / (max - min)) * 100,
-    [min, max]
-  );
-
-  const handlePointer = (index) => (e) => {
-    e.preventDefault();
-    const track = trackRef.current;
-    const move = (ev) => {
-      const rect = track.getBoundingClientRect();
-      const clientX = ev.touches ? ev.touches[0].clientX : ev.clientX;
-      let pct = ((clientX - rect.left) / rect.width) * 100;
-      pct = Math.max(0, Math.min(100, pct));
-      const val = Math.round(min + (pct / 100) * (max - min));
-      const next = [...value];
-      next[index] = val;
-      if (next[0] > next[1]) return;
-      onChange(next);
-    };
-    const up = () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mouseup", up);
-      window.removeEventListener("touchmove", move);
-      window.removeEventListener("touchend", up);
-    };
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseup", up);
-    window.addEventListener("touchmove", move);
-    window.addEventListener("touchend", up);
-  };
-
-  return (
-    <div className="pl-range-slider">
-      <span className="pl-range-label">Prix (€)</span>
-      <div className="pl-range-track-wrap" ref={trackRef}>
-        <div className="pl-range-track" />
-        <div
-          className="pl-range-fill"
-          style={{
-            left: `${getPercent(value[0])}%`,
-            width: `${getPercent(value[1]) - getPercent(value[0])}%`,
-          }}
-        />
-        <div
-          className="pl-range-thumb"
-          style={{ left: `${getPercent(value[0])}%` }}
-          onMouseDown={handlePointer(0)}
-          onTouchStart={handlePointer(0)}
-        />
-        <div
-          className="pl-range-thumb"
-          style={{ left: `${getPercent(value[1])}%` }}
-          onMouseDown={handlePointer(1)}
-          onTouchStart={handlePointer(1)}
-        />
-      </div>
-      <div className="pl-range-bounds">
-        <span>{value[0]}€</span>
-        <span>{value[1]}€</span>
-      </div>
-    </div>
-  );
-}
 
 const ProductList = ({ categorie }) => {
   const { addToCart } = useContext(CartContext);
@@ -85,6 +21,7 @@ const ProductList = ({ categorie }) => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("default");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [quickViewProduct, setQuickViewProduct] = useState(null);
 
   const label = CATEGORY_LABELS[categorie] || categorie;
 
@@ -170,6 +107,12 @@ const ProductList = ({ categorie }) => {
             </div>
           ))}
         </div>
+        {quickViewProduct && (
+            <QuickView
+                produit={quickViewProduct}
+                onClose={() => setQuickViewProduct(null)}
+            />
+        )};
       </div>
     );
   }
@@ -190,15 +133,12 @@ const ProductList = ({ categorie }) => {
 
   return (
     <div className="pl-container">
-      {/* Breadcrumb */}
       <Breadcrumb items={[{ label: label }]} />
 
-      {/* Header : titre + contrôles */}
       <div className="pl-top-section">
         <h1 className="pl-title">{label}</h1>
 
         <div className="pl-controls">
-          {/* Filtre prix desktop */}
           <div className="pl-filter-bar">
             <RangeSlider
               min={0}
@@ -208,7 +148,6 @@ const ProductList = ({ categorie }) => {
             />
           </div>
 
-          {/* Filtre catégorie */}
           {categories.length > 1 && (
             <select
               className="pl-select"
@@ -254,7 +193,6 @@ const ProductList = ({ categorie }) => {
         </div>
       </div>
 
-      {/* Filtres mobile */}
       <div className={`pl-mobile-filter-panel ${filtersOpen ? "open" : ""}`}>
         <RangeSlider
           min={0}
@@ -290,13 +228,13 @@ const ProductList = ({ categorie }) => {
         </button>
       </div>
 
-      {/* Grille produits */}
       <div className="pl-grid">
         {paged.map((produit, index) => (
           <ProductCard
             key={produit.code_produit}
             produit={produit}
             onAddToCart={addToCart}
+            onQuickView={() => setQuickViewProduct(produit)}
             index={index}
           />
         ))}
@@ -306,7 +244,6 @@ const ProductList = ({ categorie }) => {
         <p className="pl-no-results">Aucun produit ne correspond à vos filtres.</p>
       )}
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <nav className="pl-pagination" aria-label="Pagination">
           <button

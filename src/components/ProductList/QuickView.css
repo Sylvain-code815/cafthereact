@@ -1,0 +1,112 @@
+/* Le fond noir semi-transparent qui prend tout l'écran */
+.quickview-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Assure que c'est au-dessus de tout le reste */
+    padding: 20px;
+}
+
+/* La boîte blanche centrale */
+.quickview-content {
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    position: relative; /* Pour positionner la croix en absolu par rapport à la boîte */
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Le bouton "X" pour fermer */
+.quickview-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #333;
+    z-index: 2;
+}
+
+.quickview-close:hover {
+    color: #000;
+}
+
+/* L'intérieur divisé en 2 colonnes (Image / Infos) */
+.quickview-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.quickview-image-container {
+    flex: 1;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.quickview-image {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.quickview-info {
+    flex: 1;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.quickview-title {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.quickview-category {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.quickview-price {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.quickview-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: auto; /* Pousse le bouton vers le bas */
+    padding-bottom: 20px;
+}
+
+.quickview-add-btn {
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+}
+
+/* Adaptation pour mobile */
+@media (max-width: 768px) {
+    .quickview-body {
+        flex-direction: column;
+    }
+    .quickview-image {
+        max-height: 250px;
+    }
+}
