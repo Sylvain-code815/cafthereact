@@ -59,6 +59,7 @@ const Home = () => {
         </div>
       </section>
 
+      // à modifier
       <section className="products-section">
         <ProductCarousel
           products={promoProducts}
