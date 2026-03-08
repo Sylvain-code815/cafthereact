@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { CartContext } from "../../context/CartContext.jsx";
-import OrderSummary from "../../components/OrderSummary.jsx";
-import Identification from "../../components/Identification.jsx";
-import Livraison from "../../components/Livraison.jsx";
-import Paiement from "../../components/Paiement.jsx";
-import Confirmation from "../../components/Confirmation.jsx";
+import OrderSummary from "../../components/Order/OrderSummary.jsx";
+import Identification from "../../components/Order/Identification.jsx";
+import Livraison from "../../components/Order/Livraison.jsx";
+import Paiement from "../../components/Order/Paiement.jsx";
+import Confirmation from "../../components/Order/Confirmation.jsx";
 import SEO from "../../components/SEO.jsx";
 import "./Order.css";
 
@@ -18,6 +18,7 @@ const STEPS = [
 
 const Order = () => {
   const { cart } = useContext(CartContext);
+  // modifie l'URL pour rester à l'étape actuelle quand il y a un refresh
   const [searchParams, setSearchParams] = useSearchParams();
   const stepParam = parseInt(searchParams.get("step"), 10);
   const currentStep = (stepParam >= 1 && stepParam <= 4) ? stepParam : 1;
@@ -37,7 +38,7 @@ const Order = () => {
     methodePaiement: "cb",
   });
 
-  // Redirige si panier vide et pas encore en confirmation
+  // Redirige si panier vide + empêche de taper directement /order dans url
   if (cart.length === 0 && currentStep < 4) {
     return <Navigate to="/panier" replace />;
   }
@@ -65,7 +66,8 @@ const Order = () => {
   return (
     <div className="order-container">
       <SEO title="Commande" description="Finalisez votre commande CafThé. Livraison rapide et paiement sécurisé." />
-      {/* Indicateur d'étapes */}
+
+      {/*Barre de progression dans le tunnel d'achat*/}
       <nav className="order-steps" aria-label="Étapes de commande">
         {STEPS.map((step, i) => {
           const isCompleted = currentStep > step.number;

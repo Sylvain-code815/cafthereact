@@ -15,8 +15,8 @@ const AddressCard = ({ type, nom, prenom, rue, codePostal, ville, pays, telephon
         <p>{telephone}</p>
       </div>
       <div className="address-actions">
-        <button className="text-btn" onClick={onEdit}>Modifier</button>
-        <button className="text-btn" onClick={onDelete}>Supprimer</button>
+        <button className="btn-text text-btn" onClick={onEdit}>Modifier</button>
+        <button className="btn-text text-btn" onClick={onDelete}>Supprimer</button>
       </div>
     </div>
   );

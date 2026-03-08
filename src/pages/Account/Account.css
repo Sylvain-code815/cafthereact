@@ -28,20 +28,13 @@
 }
 
 .logout-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: transparent;
-    border: 1px solid var(--color-border);
-    cursor: pointer;
-    font-size: var(--fs-body);
-    font-family: "Jost", sans-serif;
-    transition: background-color 0.2s;
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-color: var(--color-border);
+    text-transform: none; font-weight: normal;
 }
-
 .logout-button:hover {
-    background: rgba(var(--color-text-rgb), 0.04);
+    background-color: rgba(var(--color-text-rgb), 0.04);
+    color: var(--color-text);
 }
 
 .account-tabs {
@@ -231,18 +224,8 @@
     gap: 16px;
 }
 
-.text-btn {
-    background: transparent;
-    border: none;
-    font-size: var(--fs-small);
-    font-family: "Jost", sans-serif;
-    cursor: pointer;
-    padding: 0;
-}
-
-.text-btn:hover {
-    text-decoration: underline;
-}
+.text-btn { font-size: var(--fs-small); }
+.text-btn:hover { color: var(--color-text); text-decoration: underline; }
 
 .orders-list {
     display: flex;

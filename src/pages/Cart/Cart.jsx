@@ -6,8 +6,8 @@ import "./Cart.css";
 
 const Cart = () => {
   const { cart, addToCart, decreaseQuantity, removeFromCart, removeMultiple, totalArticles, totalPrix, clearCart } = useContext(CartContext);
+  // Permet de stocker les identifications uniques des produits cochés dans faire de doublons
   const [selectedKeys, setSelectedKeys] = useState(new Set());
-
   const allKeys = cart.map((item) => item._cartKey || item.code_produit);
   const allSelected = cart.length > 0 && selectedKeys.size === cart.length;
 
@@ -109,7 +109,7 @@ const Cart = () => {
 
                   <div className="cart-quantity-controls">
                     <button
-                      className="quantity-btn"
+                      className="btn-qty quantity-btn"
                       onClick={() => decreaseQuantity(cartKey)}
                       aria-label={`Diminuer la quantité de ${item.nom_produit}`}
                     >
@@ -117,7 +117,7 @@ const Cart = () => {
                     </button>
                     <span className="quantity-display">{item.quantite}</span>
                     <button
-                      className="quantity-btn"
+                      className="btn-qty quantity-btn"
                       onClick={() => addToCart(item, isVrac ? item.poids : null)}
                       aria-label={`Augmenter la quantité de ${item.nom_produit}`}
                     >

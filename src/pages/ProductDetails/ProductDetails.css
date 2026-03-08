@@ -8,24 +8,7 @@
 }
 
 
-.pd-back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: "Jost", sans-serif;
-  font-size: var(--fs-body);
-  font-weight: var(--weight-btn);
-  color: var(--color-text);
-  padding: 0;
-  transition: color 0.2s;
-}
-
-.pd-back-btn:hover {
-  color: var(--color-the);
-}
+.pd-back-btn { font-weight: var(--weight-btn); }
 
 .pd-section {
   display: grid;
@@ -160,24 +143,8 @@
   gap: 0;
 }
 
-.pd-qty-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: 2px solid var(--color-text);
-  cursor: pointer;
-  font-family: "Jost", sans-serif;
-  font-size: var(--fs-subtitle);
-  font-weight: var(--weight-btn);
-  transition: background-color 0.2s;
-}
-
-.pd-qty-btn:hover {
-  background-color: rgba(var(--color-text-rgb), 0.05);
-}
+.pd-qty-btn { width: 36px; height: 36px; border: 2px solid var(--color-text); }
+.pd-qty-btn:hover { background-color: rgba(var(--color-text-rgb), 0.05); }
 
 .pd-weight-select {
   padding: 8px 12px;

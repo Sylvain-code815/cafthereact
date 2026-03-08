@@ -4,74 +4,35 @@ import ProductCard from "../ProductCard/ProductCard.jsx";
 import "./SearchOverlay.css";
 
 const SearchOverlay = () => {
-  const {
-    isSearchOpen,
-    closeSearch,
-    allProducts,
-    productsLoaded,
-    isLoadingProducts,
-  } = useContext(SearchContext);
+  const { isSearchOpen, closeSearch, allProducts, productsLoaded, isLoadingProducts } = useContext(SearchContext);
 
+  // Un seul state pour la recherche (plus de debounce)
   const [query, setQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
   const inputRef = useRef(null);
-  const overlayRef = useRef(null);
 
-  // Auto-focus à l'ouverture
+  // 1. Auto-focus à l'ouverture et remise à zéro à la fermeture
   useEffect(() => {
     if (isSearchOpen && inputRef.current) {
       inputRef.current.focus();
     }
     if (!isSearchOpen) {
       setQuery("");
-      setDebouncedQuery("");
     }
   }, [isSearchOpen]);
 
-  // Debounce 300ms
+  // 2. Fermeture simple avec la touche "Échap" (fini le Focus Trap complexe !)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(query);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [query]);
-
-  // Fermeture par Escape + focus trap
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape" && isSearchOpen) {
-        closeSearch();
-        return;
-      }
-
-      if (e.key === "Tab" && isSearchOpen && overlayRef.current) {
-        const focusable = overlayRef.current.querySelectorAll(
-          'input, button, [href], [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusable.length === 0) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
+    const handleEscape = (e) => {
+      if (e.key === "Escape" && isSearchOpen) closeSearch();
     };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isSearchOpen, closeSearch]);
 
   if (!isSearchOpen) return null;
 
-  const trimmed = debouncedQuery.trim().toLowerCase();
+  // 3. Filtrage direct et ultra simple
+  const trimmed = query.trim().toLowerCase();
   const filteredProducts = trimmed
     ? allProducts.filter((p) => {
         const nom = (p.nom_produit || "").toLowerCase();
@@ -80,13 +41,8 @@ const SearchOverlay = () => {
       })
     : [];
 
-  const showHint = !trimmed && productsLoaded;
-  const showLoading = isLoadingProducts;
-  const showNoResults = trimmed && productsLoaded && filteredProducts.length === 0;
-  const showResults = trimmed && filteredProducts.length > 0;
-
   return (
-    <div className="search-overlay" role="dialog" aria-modal="true" aria-label="Recherche" ref={overlayRef}>
+    <div className="search-overlay" role="dialog" aria-modal="true" aria-label="Recherche">
       <div className="search-overlay-header">
         <div className="search-input-wrapper">
           <input
@@ -97,49 +53,35 @@ const SearchOverlay = () => {
             onChange={(e) => setQuery(e.target.value)}
           />
           {query && (
-            <button
-              className="search-clear-btn"
-              onClick={() => setQuery("")}
-              aria-label="Effacer"
-            >
-              &times;
-            </button>
+            <button className="search-clear-btn" onClick={() => setQuery("")}>&times;</button>
           )}
         </div>
-        <button className="search-close-btn" onClick={closeSearch}>
+        <button className="btn-outline search-close-btn" onClick={closeSearch}>
           Fermer
         </button>
       </div>
 
       <div className="search-overlay-body">
-        {showLoading && (
-          <p className="search-message">Chargement des produits...</p>
+        {/* Affichage conditionnel simplifié au maximum */}
+
+        {isLoadingProducts && <p className="search-message">Chargement des produits...</p>}
+
+        {!trimmed && productsLoaded && (
+          <p className="search-message">Tapez votre recherche pour trouver un produit</p>
         )}
 
-        {showHint && (
-          <p className="search-message">
-            Tapez votre recherche pour trouver un produit
-          </p>
+        {trimmed && productsLoaded && filteredProducts.length === 0 && (
+          <p className="search-message">Aucun produit ne correspond à &laquo; {query} &raquo;</p>
         )}
 
-        {showNoResults && (
-          <p className="search-message">
-            Aucun produit ne correspond à &laquo; {debouncedQuery} &raquo;
-          </p>
-        )}
-
-        {showResults && (
+        {trimmed && filteredProducts.length > 0 && (
           <>
             <p className="search-results-count">
-              {filteredProducts.length} résultat
-              {filteredProducts.length > 1 ? "s" : ""}
+              {filteredProducts.length} résultat{filteredProducts.length > 1 ? "s" : ""}
             </p>
             <div className="product-list">
               {filteredProducts.map((produit) => (
-                <ProductCard
-                  key={produit.code_produit}
-                  produit={produit}
-                />
+                <ProductCard key={produit.code_produit} produit={produit} />
               ))}
             </div>
           </>

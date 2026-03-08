@@ -124,21 +124,7 @@
   white-space: nowrap;
 }
 
-.nav-logout {
-  background: none;
-  border: 1px solid var(--color-text);
-  padding: 6px 16px;
-  font-size: var(--fs-small);
-  font-family: inherit;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.nav-logout:hover {
-  background-color: var(--color-text);
-  color: var(--color-bg-light);
-}
+.nav-logout { padding: 6px 16px; font-size: var(--fs-small); }
 
 .nav-cart {
   position: relative;

@@ -70,22 +70,7 @@
   opacity: 1;
 }
 
-.search-close-btn {
-  background: none;
-  border: 1px solid var(--color-border);
-  padding: 10px 20px;
-  font-size: var(--fs-body);
-  font-family: inherit;
-  text-transform: uppercase;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.search-close-btn:hover {
-  background-color: var(--color-text);
-  color: var(--color-bg-light);
-}
+.search-close-btn { padding: 10px 20px; white-space: nowrap; }
 
 .search-overlay-body {
   max-width: 1200px;

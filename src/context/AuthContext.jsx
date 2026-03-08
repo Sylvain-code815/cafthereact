@@ -6,7 +6,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Verifie si un cookie de session valide existe
+  // Vérifie si le client possède un cookie de session valide
   useEffect(() => {
     const checkSession = async () => {
       try {

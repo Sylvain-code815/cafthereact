@@ -165,7 +165,7 @@ const ProductDetails = () => {
       ]} />
 
       {/* Bouton retour */}
-      <button className="pd-back-btn" onClick={() => navigate(-1)}>
+      <button className="btn-text pd-back-btn" onClick={() => navigate(-1)}>
         ← Retour
       </button>
 
@@ -242,7 +242,7 @@ const ProductDetails = () => {
                 <span className="pd-quantity-label">Quantité</span>
                 <div className="pd-qty-control">
                   <button
-                    className="pd-qty-btn"
+                    className="btn-qty pd-qty-btn"
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                     aria-label="Diminuer la quantité"
                   >
@@ -250,7 +250,7 @@ const ProductDetails = () => {
                   </button>
                   <span className="pd-qty-value">{quantity}</span>
                   <button
-                    className="pd-qty-btn"
+                    className="btn-qty pd-qty-btn"
                     onClick={() => setQuantity((q) => q + 1)}
                     aria-label="Augmenter la quantité"
                   >

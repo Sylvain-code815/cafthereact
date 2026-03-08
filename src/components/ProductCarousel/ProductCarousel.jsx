@@ -9,7 +9,7 @@ const ProductCarousel = ({ products, title, linkTo, linkText }) => {
   const [targetIndex, setTargetIndex] = useState(null);
   const trackRef = useRef(null);
 
-  // Preload adjacent images
+  // Preload des images adjacentes
   useEffect(() => {
     if (!products || products.length <= 1) return;
     const prevIdx = currentIndex === 0 ? products.length - 1 : currentIndex - 1;

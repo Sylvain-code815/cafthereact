@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext.jsx";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 const Identification = ({ onNext, orderData, setOrderData }) => {
   const { user, isAuthenticated } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
 
   const nameRegex = /[^a-zA-ZÀ-ÿ\s'-]/g;
 
-  // Auto-fill orderData when authenticated
+  // Si déjà co, remplissage automatique des données, màj de l'objet de commande
   useEffect(() => {
     if (isAuthenticated && user) {
       setOrderData((prev) => ({
@@ -47,7 +47,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
   if (isAuthenticated) {
     return (
       <div className="step-section">
-        <Link to="/panier" className="step-back-link">← Retour au panier</Link>
+        <Link to="/panier" className="btn-text step-back-link">← Retour au panier</Link>
         <h2 className="step-title">Identification</h2>
         <div className="step-user-info">
           <p><strong>Prénom :</strong> {user.prenom}</p>
@@ -65,7 +65,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
 
   return (
     <div className="step-section">
-      <Link to="/panier" className="step-back-link">← Retour au panier</Link>
+      <Link to="/panier" className="btn-text step-back-link">← Retour au panier</Link>
       <h2 className="step-title">Identification</h2>
       <p className="step-subtitle">Renseignez vos informations pour continuer.</p>
       <form className="step-form" onSubmit={handleSubmit}>

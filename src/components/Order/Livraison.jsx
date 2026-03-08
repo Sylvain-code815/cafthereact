@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext.jsx";
-import { getSavedAddress, saveAddress } from "../utils/savedAddress.js";
+import { AuthContext } from "../../context/AuthContext.jsx";
+import { getSavedAddress, saveAddress } from "../../utils/savedAddress.js";
 
 const SHIPPING_OPTIONS = [
   { id: "standard", label: "Standard (3-5 jours)", price: 4.99 },
@@ -136,7 +136,7 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
   return (
     <div className="step-section">
       {onBack && (
-        <button type="button" className="step-back-link" onClick={onBack}>← Retour</button>
+        <button type="button" className="btn-text step-back-link" onClick={onBack}>← Retour</button>
       )}
       <h2 className="step-title">Livraison</h2>
 

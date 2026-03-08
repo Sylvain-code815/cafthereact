@@ -24,7 +24,7 @@ const Account = () => {
                     <h1>Mon Compte</h1>
                     <p>Bienvenue {prenom} {nom}</p>
                 </div>
-                <button className="logout-button" onClick={logout}>
+                <button className="btn-outline logout-button" onClick={logout}>
                     Se déconnecter
                 </button>
             </header>
@@ -37,7 +37,7 @@ const Account = () => {
                     aria-selected={activeTab === 'profil'}
                     aria-controls="panel-profil"
                 >
-                    <img src="/src/Images/Icon/header-Login.svg" alt="" />
+                    <img src="/src/Images/Icon/header-Login.svg" alt="section-profil" />
                     <span>Profil</span>
                 </button>
                 <button
@@ -47,7 +47,7 @@ const Account = () => {
                     aria-selected={activeTab === 'commandes'}
                     aria-controls="panel-commandes"
                 >
-                    <img src="/src/Images/Icon/commande.svg" alt="" />
+                    <img src="/src/Images/Icon/commande.svg" alt="section-commande" />
                     <span>Commandes</span>
                 </button>
             </div>

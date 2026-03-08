@@ -53,20 +53,16 @@
 }
 
 [data-theme="dark"] {
-  /* Page — le plus sombre */
   --color-bg-light: #1A1510;
   --color-text: #E8E0D8;
   --color-text-rgb: 232, 224, 216;
 
-  /* Surfaces élevées — progressivement plus claires */
   --color-surface: #221D18;
   --color-surface-high: #2C2520;
 
-  /* Bordures */
   --color-border: rgba(232, 224, 216, 0.12);
   --color-border-subtle: rgba(232, 224, 216, 0.06);
 
-  /* Couleurs de marque désaturées */
   --color-the: #6B8A3E;
   --color-cafe: #8B6B52;
   --color-green: rgba(107, 138, 62, 0.65);
@@ -74,12 +70,10 @@
   --color-the-rgb: 107, 138, 62;
   --color-cafe-rgb: 139, 107, 82;
 
-  /* Footer — reste sombre, pas inversé */
   --color-footer-bg: #151210;
   --color-footer-text: #E8E0D8;
   --color-footer-muted: #888;
 
-  /* Boutons & ombres */
   --color-btn-primary: #E8E0D8;
   --color-btn-primary-hover: #6B8A3E;
   --color-btn-primary-text: #1A1510;
@@ -140,25 +134,20 @@ body {
   }
 }
 
+main {
+  min-height: calc(100vh - var(--header-height));
+}
+
 a {
   text-decoration: none;
   color: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-the);
-  outline-offset: 2px;
-}
-
-:focus:not(:focus-visible) {
-  outline: none;
 }
 
 .skip-link {
   position: absolute;
   top: -100%;
   left: 16px;
-  z-index: 9999;
+  z-index: 5481;
   padding: 12px 24px;
   background: var(--color-text);
   color: var(--color-bg-light);

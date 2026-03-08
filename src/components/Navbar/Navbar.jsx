@@ -43,7 +43,7 @@ const Navbar = () => {
                     <Link to="/account" className="nav-action-btn nav-account">
                       <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
                     </Link>
-                    <button className="nav-logout" onClick={logout}>
+                    <button className="btn-outline nav-logout" onClick={logout}>
                       Se déconnecter
                     </button>
                   </>
@@ -71,7 +71,7 @@ const Navbar = () => {
                     <Link to="/account" className="nav-action-btn nav-account">
                       <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
                     </Link>
-                    <button className="nav-logout" onClick={logout}>
+                    <button className="btn-outline nav-logout" onClick={logout}>
                       Se déconnecter
                     </button>
                   </>

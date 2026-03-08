@@ -12,7 +12,7 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
   return (
     <div className="step-section">
       {onBack && (
-        <button type="button" className="step-back-link" onClick={onBack}>← Retour</button>
+        <button type="button" className="btn-text step-back-link" onClick={onBack}>← Retour</button>
       )}
       <h2 className="step-title">Paiement</h2>
       <form className="step-form" onSubmit={handleSubmit}>

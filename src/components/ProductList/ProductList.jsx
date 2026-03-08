@@ -4,12 +4,10 @@ import { CartContext } from "../../context/CartContext.jsx";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import Breadcrumb from "../Breadcrumb/Breadcrumb.jsx";
 import { CATEGORY_LABELS } from "../../utils/categories.js";
-import RangeSlider from "./RangeSlider.jsx";
-import QuickView from "./QuickView.jsx";
+import PriceSlider from "./RangeSlider.jsx";
 import "./ProductList.css";
 
 const ITEMS_PER_PAGE = 6;
-
 
 const ProductList = ({ categorie }) => {
   const { addToCart } = useContext(CartContext);
@@ -21,7 +19,6 @@ const ProductList = ({ categorie }) => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("default");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [quickViewProduct, setQuickViewProduct] = useState(null);
 
   const label = CATEGORY_LABELS[categorie] || categorie;
 
@@ -107,12 +104,6 @@ const ProductList = ({ categorie }) => {
             </div>
           ))}
         </div>
-        {quickViewProduct && (
-            <QuickView
-                produit={quickViewProduct}
-                onClose={() => setQuickViewProduct(null)}
-            />
-        )};
       </div>
     );
   }
@@ -133,21 +124,25 @@ const ProductList = ({ categorie }) => {
 
   return (
     <div className="pl-container">
+      {/* Breadcrumb */}
       <Breadcrumb items={[{ label: label }]} />
 
+      {/* Header : titre + contrôles */}
       <div className="pl-top-section">
         <h1 className="pl-title">{label}</h1>
 
         <div className="pl-controls">
+          {/* Filtre prix desktop */}
           <div className="pl-filter-bar">
-            <RangeSlider
-              min={0}
-              max={100}
-              value={priceRange}
-              onChange={setPriceRange}
+            <PriceSlider
+                min={0}
+                max={100}
+                value={priceRange}
+                onChange={setPriceRange}
             />
           </div>
 
+          {/* Filtre catégorie */}
           {categories.length > 1 && (
             <select
               className="pl-select"
@@ -193,12 +188,13 @@ const ProductList = ({ categorie }) => {
         </div>
       </div>
 
+      {/* Filtres mobile */}
       <div className={`pl-mobile-filter-panel ${filtersOpen ? "open" : ""}`}>
-        <RangeSlider
-          min={0}
-          max={100}
-          value={priceRange}
-          onChange={setPriceRange}
+        <PriceSlider
+            min={0}
+            max={100}
+            value={priceRange}
+            onChange={setPriceRange}
         />
         {categories.length > 1 && (
           <select
@@ -228,13 +224,13 @@ const ProductList = ({ categorie }) => {
         </button>
       </div>
 
+      {/* Grille produits */}
       <div className="pl-grid">
         {paged.map((produit, index) => (
           <ProductCard
             key={produit.code_produit}
             produit={produit}
             onAddToCart={addToCart}
-            onQuickView={() => setQuickViewProduct(produit)}
             index={index}
           />
         ))}
@@ -244,6 +240,7 @@ const ProductList = ({ categorie }) => {
         <p className="pl-no-results">Aucun produit ne correspond à vos filtres.</p>
       )}
 
+      {/* Pagination */}
       {totalPages > 1 && (
         <nav className="pl-pagination" aria-label="Pagination">
           <button
