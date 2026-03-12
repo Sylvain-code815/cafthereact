@@ -43,7 +43,8 @@ const Home = () => {
 
   return (
     <>
-      <SEO title="Accueil" description="CafThé, votre boutique en ligne de thés et cafés d'exception. Découvrez notre sélection de produits issus de l'agriculture durable et du commerce équitable." />
+      <SEO title="Accueil" description="CafThé, votre boutique en ligne de thés et cafés d'exception.
+      Découvrez notre sélection de produits issus de l'agriculture durable et du commerce équitable." />
       <section className="hero-section">
         <div className="hero-left">
           <h2>nos thés</h2>
