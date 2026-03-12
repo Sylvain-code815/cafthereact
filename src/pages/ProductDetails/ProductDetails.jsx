@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../contexts/CartContext";
 import CustomerReview from "../../components/CustomerReview/CustomerReview.jsx";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb.jsx";
 import SEO from "../../components/SEO.jsx";

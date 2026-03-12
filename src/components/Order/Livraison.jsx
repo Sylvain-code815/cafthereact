@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext } from "../../contexts/AuthContext.jsx";
 import { getSavedAddress, saveAddress } from "../../utils/savedAddress.js";
 
 const SHIPPING_OPTIONS = [

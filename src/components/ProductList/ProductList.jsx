@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { CartContext } from "../../context/CartContext.jsx";
+import { CartContext } from "../../contexts/CartContext.jsx";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import Breadcrumb from "../Breadcrumb/Breadcrumb.jsx";
 import { CATEGORY_LABELS } from "../../utils/categories.js";

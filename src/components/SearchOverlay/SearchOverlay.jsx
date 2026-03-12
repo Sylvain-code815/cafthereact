@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { SearchContext } from "../../context/SearchContext.jsx";
+import { SearchContext } from "../../contexts/SearchContext.jsx";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import "./SearchOverlay.css";
 
 const SearchOverlay = () => {
   const { isSearchOpen, closeSearch, allProducts, productsLoaded, isLoadingProducts } = useContext(SearchContext);
 
-  // Un seul state pour la recherche (plus de debounce)
+  // Un seul state pour la recherche
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);
 
@@ -20,7 +20,7 @@ const SearchOverlay = () => {
     }
   }, [isSearchOpen]);
 
-  // 2. Fermeture simple avec la touche "Échap" (fini le Focus Trap complexe !)
+  // 2. Fermeture simple avec la touche "échap"
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape" && isSearchOpen) closeSearch();
@@ -31,7 +31,7 @@ const SearchOverlay = () => {
 
   if (!isSearchOpen) return null;
 
-  // 3. Filtrage direct et ultra simple
+  // 3. Filtrage direct
   const trimmed = query.trim().toLowerCase();
   const filteredProducts = trimmed
     ? allProducts.filter((p) => {
@@ -62,7 +62,6 @@ const SearchOverlay = () => {
       </div>
 
       <div className="search-overlay-body">
-        {/* Affichage conditionnel simplifié au maximum */}
 
         {isLoadingProducts && <p className="search-message">Chargement des produits...</p>}
 

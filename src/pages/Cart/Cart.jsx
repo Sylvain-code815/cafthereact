@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../../context/CartContext.jsx";
+import { CartContext } from "../../contexts/CartContext.jsx";
 import SEO from "../../components/SEO.jsx";
 import "./Cart.css";
 

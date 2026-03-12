@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../../context/ThemeContext.jsx";
+import { ThemeContext } from "../../contexts/ThemeContext.jsx";
 import "./Footer.css";
 
 const Footer = () => {

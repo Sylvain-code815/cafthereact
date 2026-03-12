@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import SearchOverlay from "../components/SearchOverlay/SearchOverlay.jsx";
-import { SearchContext } from "../context/SearchContext.jsx";
+import { SearchContext } from "../contexts/SearchContext.jsx";
 
 const Layout = () => {
   const { isSearchOpen, closeSearch } = useContext(SearchContext);

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext } from "../../contexts/AuthContext.jsx";
 
 const Identification = ({ onNext, orderData, setOrderData }) => {
   const { user, isAuthenticated } = useContext(AuthContext);
@@ -27,6 +27,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
     }
   }, [isAuthenticated, user, setOrderData]);
 
+  // Empêche physiquement l'utilisateur de taper des chiffres dans son prénom
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "prenom" || name === "nom") {
@@ -44,6 +45,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
     onNext();
   };
 
+  // Si connecté
   if (isAuthenticated) {
     return (
       <div className="step-section">
@@ -63,6 +65,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
     );
   }
 
+  // Si non connecté
   return (
     <div className="step-section">
       <Link to="/panier" className="btn-text step-back-link">← Retour au panier</Link>

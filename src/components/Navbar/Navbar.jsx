@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext.jsx";
-import { CartContext } from "../../context/CartContext.jsx";
-import { SearchContext } from "../../context/SearchContext.jsx";
+import { AuthContext } from "../../contexts/AuthContext.jsx";
+import { CartContext } from "../../contexts/CartContext.jsx";
+import { SearchContext } from "../../contexts/SearchContext.jsx";
 import "./Navbar.css";
 
 const Navbar = () => {

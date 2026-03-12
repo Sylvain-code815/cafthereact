@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import ProfileTab from '../../components/account/ProfileTab';
 import OrdersTab from '../../components/account/OrdersTab';

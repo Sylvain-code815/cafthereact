@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
-import { CartContext } from "../../context/CartContext.jsx";
+import { CartContext } from "../../contexts/CartContext.jsx";
 import OrderSummary from "../../components/Order/OrderSummary.jsx";
 import Identification from "../../components/Order/Identification.jsx";
 import Livraison from "../../components/Order/Livraison.jsx";
