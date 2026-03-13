@@ -142,9 +142,13 @@ const ProductDetails = () => {
   const isVrac = produit.type_vente === "Vrac";
   const imageUrl = getImageUrl(produit.image, produit.nom_produit);
 
+  const prixEffectif = produit.produit_promotion === 1 && produit.taux_remise > 0
+    ? produit.prix_ttc - produit.prix_ttc * (produit.taux_remise / 100)
+    : produit.prix_ttc;
+
   const totalPrice = isVrac
-    ? (produit.prix_ttc * (selectedWeight / 100)).toFixed(2)
-    : (produit.prix_ttc * quantity).toFixed(2);
+    ? (prixEffectif * (selectedWeight / 100)).toFixed(2)
+    : (prixEffectif * quantity).toFixed(2);
 
   const handleAddToCart = () => {
     if (!produit) return;
@@ -199,7 +203,14 @@ const ProductDetails = () => {
           )}
 
           <div className="pd-price-row">
-            <span className="pd-price">{produit.prix_ttc}€</span>
+            {produit.produit_promotion === 1 && produit.taux_remise > 0 ? (
+              <>
+                <span className="pd-price-old">{produit.prix_ttc}€</span>
+                <span className="pd-price">{(produit.prix_ttc - produit.prix_ttc * (produit.taux_remise / 100)).toFixed(2)}€</span>
+              </>
+            ) : (
+              <span className="pd-price">{produit.prix_ttc}€</span>
+            )}
             <span className="pd-unit">{getUnitLabel(produit.type_vente)}</span>
           </div>
 
@@ -293,8 +304,14 @@ const ProductDetails = () => {
                 >
                   <div className="pd-sg-image-wrap">
                     <img src={sgImage} alt={s.nom_produit} loading="lazy" />
-                    {s.produit_promotion === 1 && (
-                      <span className="pd-sg-discount">Promo</span>
+                    {s.produit_promotion === 1 && s.taux_remise > 0 && (
+                      <span className="pd-sg-badge badge-promo">-{s.taux_remise}%</span>
+                    )}
+                    {!(s.produit_promotion === 1 && s.taux_remise > 0) && s.produit_phare === 1 && (
+                      <span className="pd-sg-badge badge-phare">Best-seller</span>
+                    )}
+                    {!(s.produit_promotion === 1 && s.taux_remise > 0) && s.produit_phare !== 1 && s.nouveaute === 1 && (
+                      <span className="pd-sg-badge badge-nouveaute">Nouveauté</span>
                     )}
                   </div>
                   <div className="pd-sg-body">
@@ -302,7 +319,16 @@ const ProductDetails = () => {
                     {s.origine && (
                       <span className="pd-sg-origin">{s.origine}</span>
                     )}
-                    <span className="pd-sg-price">{s.prix_ttc}€</span>
+                    <div className="pd-sg-price-row">
+                      {s.produit_promotion === 1 && s.taux_remise > 0 ? (
+                        <>
+                          <span className="pd-sg-price-old">{s.prix_ttc}€</span>
+                          <span className="pd-sg-price">{(s.prix_ttc - s.prix_ttc * (s.taux_remise / 100)).toFixed(2)}€</span>
+                        </>
+                      ) : (
+                        <span className="pd-sg-price">{s.prix_ttc}€</span>
+                      )}
+                    </div>
                   </div>
                 </Link>
               );

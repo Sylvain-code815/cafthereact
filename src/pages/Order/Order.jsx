@@ -66,6 +66,7 @@ const Order = () => {
   return (
     <div className="order-container">
       <SEO title="Commande" description="Finalisez votre commande CafThé. Livraison rapide et paiement sécurisé." />
+      <h1 className="sr-only">Commande</h1>
 
       {/*Barre de progression dans le tunnel d'achat*/}
       <nav className="order-steps" aria-label="Étapes de commande">

@@ -39,7 +39,7 @@ const ForgotPassword = () => {
             {isLoading && <Loader />}
 
             <div className="login-container">
-                <h2>Mot de passe oublié</h2>
+                <h1>Mot de passe oublié</h1>
 
                 <form className="form-container" onSubmit={handleSubmit}>
                     <div className="form-group">

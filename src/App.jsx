@@ -21,10 +21,12 @@ import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import Account from "./pages/Account/Account.jsx";
 import Order from "./pages/Order/Order.jsx";
 import CookieConsent from "react-cookie-consent";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+        <ScrollToTop />
         <ThemeProvider>
         <AuthProvider>
           <CartProvider>

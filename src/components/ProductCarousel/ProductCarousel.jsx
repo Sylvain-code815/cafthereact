@@ -1,135 +1,77 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 import "./ProductCarousel.css";
 
 const ProductCarousel = ({ products, title, linkTo, linkText }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [slideDirection, setSlideDirection] = useState(null);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [targetIndex, setTargetIndex] = useState(null);
-  const trackRef = useRef(null);
+  const swiperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Preload des images adjacentes
-  useEffect(() => {
-    if (!products || products.length <= 1) return;
-    const prevIdx = currentIndex === 0 ? products.length - 1 : currentIndex - 1;
-    const nextIdx = currentIndex === products.length - 1 ? 0 : currentIndex + 1;
-
-    [prevIdx, nextIdx].forEach((idx) => {
-      const p = products[idx];
-      if (p?.image) {
-        const img = new Image();
-        img.src = `${import.meta.env.VITE_API_URL}/images/${p.image}`;
-      }
-    });
-  }, [currentIndex, products]);
+  if (!products || products.length === 0) return null;
 
   const getImageURL = (product) =>
     product.image
       ? `${import.meta.env.VITE_API_URL}/images/${product.image}`
       : "https://placehold.co/600x400";
 
-  const handlePrev = () => {
-    if (isAnimating || !products || products.length <= 1) return;
-    const prevIdx = currentIndex === 0 ? products.length - 1 : currentIndex - 1;
-    setTargetIndex(prevIdx);
-    setIsAnimating(true);
-    setSlideDirection("right-init");
-  };
-
-  const handleNext = () => {
-    if (isAnimating || !products || products.length <= 1) return;
-    const nextIdx = currentIndex === products.length - 1 ? 0 : currentIndex + 1;
-    setTargetIndex(nextIdx);
-    setIsAnimating(true);
-    setSlideDirection("left");
-  };
-
-  // Pour le slide à droite, d'abord le render, puis déclenche l'animation
-  useEffect(() => {
-    if (slideDirection === "right-init" && trackRef.current) {
-      // Force browser to compute layout at the offset position
-      trackRef.current.getBoundingClientRect();
-      setSlideDirection("right");
-    }
-  }, [slideDirection]);
-
-  // Finalise la transition après l'animation
-  useEffect(() => {
-    if (slideDirection !== "left" && slideDirection !== "right") return;
-    const timeout = setTimeout(() => {
-      setCurrentIndex(targetIndex);
-      setSlideDirection(null);
-      setIsAnimating(false);
-      setTargetIndex(null);
-    }, 400);
-    return () => clearTimeout(timeout);
-  }, [slideDirection, targetIndex]);
-
-  if (!products || products.length === 0) {
-    return null;
-  }
-
-  const currentProduct = products[currentIndex];
-
-  const renderSlide = (product) => (
-    <div className="carousel-slide" key={product.code_produit}>
-      <Link to={`/produit/${product.code_produit}`} className="carousel-image-link">
-        <img
-          src={getImageURL(product)}
-          alt={product.nom_produit}
-          className="carousel-image"
-        />
-      </Link>
-    </div>
-  );
-
-  const buildTrackContent = () => {
-    if ((!slideDirection && !isAnimating) || targetIndex === null) {
-      return renderSlide(currentProduct);
-    }
-    if (slideDirection === "left") {
-      return (
-        <>
-          {renderSlide(currentProduct)}
-          {renderSlide(products[targetIndex])}
-        </>
-      );
-    }
-
-    return (
-      <>
-        {renderSlide(products[targetIndex])}
-        {renderSlide(currentProduct)}
-      </>
-    );
-  };
-
-  const getTrackClass = () => {
-    const classes = ["carousel-track"];
-    if (slideDirection === "left") classes.push("slide-left");
-    if (slideDirection === "right-init") classes.push("slide-right-init");
-    if (slideDirection === "right") classes.push("slide-right");
-    return classes.join(" ");
-  };
-
   return (
     <div className="product-carousel">
       <h2>{title}</h2>
 
-      <div className="carousel-viewport">
-        <div className={getTrackClass()} ref={trackRef}>
-          {buildTrackContent()}
-        </div>
-      </div>
+      <Swiper
+        modules={[Autoplay]}
+        onSwiper={(swiper) => { swiperRef.current = swiper; }}
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        loop={products.length > 1}
+        spaceBetween={0}
+        slidesPerView={1}
+        className="carousel-swiper"
+      >
+        {products.map((product) => {
+          const isPromo = product.produit_promotion === 1 && product.taux_remise > 0;
+          return (
+            <SwiperSlide key={product.code_produit}>
+              <Link to={`/produit/${product.code_produit}`} className="carousel-image-link">
+                <div className="carousel-image-wrap">
+                  <img
+                    src={getImageURL(product)}
+                    alt={product.nom_produit}
+                    className="carousel-image"
+                  />
+                  {isPromo && (
+                    <span className="carousel-badge badge-promo">-{product.taux_remise}%</span>
+                  )}
+                  {!isPromo && product.produit_phare === 1 && (
+                    <span className="carousel-badge badge-phare">Best-seller</span>
+                  )}
+                  {!isPromo && product.produit_phare !== 1 && product.nouveaute === 1 && (
+                    <span className="carousel-badge badge-nouveaute">Nouveauté</span>
+                  )}
+                </div>
+              </Link>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
 
       {products.length > 1 && (
         <div className="carousel-controls">
-          <button onClick={handlePrev} className="carousel-btn" disabled={isAnimating} aria-label="Produit précédent">
+          <button
+            className="carousel-btn"
+            onClick={() => swiperRef.current?.slidePrev()}
+            aria-label="Produit précédent"
+          >
             <img src="/src/Images/Icon/carousel-left.svg" alt="" aria-hidden="true" />
           </button>
-
-          <button onClick={handleNext} className="carousel-btn" disabled={isAnimating} aria-label="Produit suivant">
+          <span className="carousel-product-name">{products[activeIndex]?.nom_produit}</span>
+          <button
+            className="carousel-btn"
+            onClick={() => swiperRef.current?.slideNext()}
+            aria-label="Produit suivant"
+          >
             <img src="/src/Images/Icon/carousel-right.svg" alt="" aria-hidden="true" />
           </button>
         </div>

@@ -188,6 +188,12 @@ main {
   gap: clamp(12px, calc(9px + 1.07vw), 24px);
 }
 
+@media screen and (max-width: 1358px) {
+  .products-section {
+    flex-direction: column;
+  }
+}
+
 @media screen and (max-width: 1024px) {
 
   .hero-section {
@@ -196,10 +202,6 @@ main {
 
   .hero-left, .hero-right {
     width: 100%;
-  }
-
-  .products-section {
-    flex-direction: column;
   }
 
   .engagements-grid {

@@ -51,7 +51,7 @@ const Login = () => {
     <div className="container">
       <SEO title="Connexion" description="Connectez-vous à votre compte CafThé pour accéder à vos commandes et gérer vos informations." />
       <div className="login-container">
-        <h2>Connexion</h2>
+        <h1>Connexion</h1>
 
         <form  className="form-container" onSubmit={handelSubmit}>
           <div className="form-group">

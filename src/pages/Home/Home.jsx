@@ -45,6 +45,7 @@ const Home = () => {
     <>
       <SEO title="Accueil" description="CafThé, votre boutique en ligne de thés et cafés d'exception.
       Découvrez notre sélection de produits issus de l'agriculture durable et du commerce équitable." />
+      <h1 className="sr-only">CafThé - Thés et Cafés d'exception</h1>
       <section className="hero-section">
         <div className="hero-left">
           <h2>nos thés</h2>
@@ -72,9 +73,9 @@ const Home = () => {
         {featuredProducts.length > 0 && (
           <ProductCarousel
             products={featuredProducts}
-            title="Nos produits phares"
+            title="Best-seller & Nouveautés"
             linkTo="/the"
-            linkText="Découvrir nos produits"
+            linkText="Découvrir nos suggestions"
           />
         )}
       </section>

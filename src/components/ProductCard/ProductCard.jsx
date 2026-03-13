@@ -18,6 +18,11 @@ const ProductCard = ({ produit, onAddToCart = () => {}, index = 0 }) => {
     ? `${import.meta.env.VITE_API_URL}/images/${produit.image}`
     : "https://placehold.co/600x400";
 
+  const isPromo = produit.produit_promotion === 1 && produit.taux_remise > 0;
+  const prixRemise = isPromo
+    ? (produit.prix_ttc - produit.prix_ttc * (produit.taux_remise / 100)).toFixed(2)
+    : null;
+
   return (
     <article className="product-card" style={{ animationDelay: `${index * 0.06}s` }}>
       <Link to={`/produit/${produit.code_produit}`} className="product-card-link">
@@ -28,8 +33,14 @@ const ProductCard = ({ produit, onAddToCart = () => {}, index = 0 }) => {
             className="product-card-img"
             loading="lazy"
           />
-          {produit.produit_promotion === 1 && (
-            <span className="product-card-badge">Promo</span>
+          {isPromo && (
+            <span className="product-card-badge badge-promo">-{produit.taux_remise}%</span>
+          )}
+          {!isPromo && produit.produit_phare === 1 && (
+            <span className="product-card-badge badge-phare">Best-seller</span>
+          )}
+          {!isPromo && produit.produit_phare !== 1 && produit.nouveaute === 1 && (
+            <span className="product-card-badge badge-nouveaute">Nouveauté</span>
           )}
         </div>
       </Link>
@@ -40,7 +51,14 @@ const ProductCard = ({ produit, onAddToCart = () => {}, index = 0 }) => {
             <p className="product-card-origin">{produit.origine}</p>
           )}
           <div className="product-card-price-row">
-            <span className="product-card-price">{produit.prix_ttc}€</span>
+            {isPromo ? (
+              <>
+                <span className="product-card-price-old">{produit.prix_ttc}€</span>
+                <span className="product-card-price">{prixRemise}€</span>
+              </>
+            ) : (
+              <span className="product-card-price">{produit.prix_ttc}€</span>
+            )}
             <span className="product-card-unit">{getUnitLabel(produit.type_vente)}</span>
           </div>
         </div>

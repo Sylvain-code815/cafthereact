@@ -84,6 +84,12 @@
   font-weight: var(--weight-title);
 }
 
+.pd-price-old {
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+  text-decoration: line-through;
+}
+
 .pd-unit {
   font-size: var(--fs-body);
   color: var(--color-footer);
@@ -244,12 +250,11 @@
   display: block;
 }
 
-.pd-sg-discount {
+.pd-sg-badge {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: var(--color-error);
-  color: var(--color-bg-light);
+  color: #fff;
   font-size: var(--fs-badge);
   font-weight: var(--weight-btn);
   padding: 4px 8px;
@@ -274,10 +279,22 @@
   color: var(--color-footer);
 }
 
+.pd-sg-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 4px;
+}
+
 .pd-sg-body .pd-sg-price {
   font-size: var(--fs-subtitle);
   font-weight: var(--weight-title);
-  margin-top: 4px;
+}
+
+.pd-sg-price-old {
+  font-size: var(--fs-small);
+  color: var(--color-footer);
+  text-decoration: line-through;
 }
 
 .pd-skeleton {

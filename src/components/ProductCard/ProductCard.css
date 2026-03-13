@@ -42,12 +42,29 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: var(--color-the);
-  color: var(--color-bg-light);
+  color: #fff;
   font-size: var(--fs-badge);
   font-weight: var(--weight-btn);
   padding: 4px 10px;
   text-transform: uppercase;
+}
+
+.badge-promo {
+  background-color: #27ae60;
+}
+
+.badge-phare {
+  background-color: #c0392b;
+}
+
+.badge-nouveaute {
+  background-color: var(--color-the);
+}
+
+.product-card-price-old {
+  font-size: var(--fs-small);
+  color: var(--color-footer);
+  text-decoration: line-through;
 }
 
 .product-card-body {
