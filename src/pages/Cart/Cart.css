@@ -314,3 +314,7 @@
     width: 100%;
   }
 }
+
+[data-theme="dark"] .clear-btn {
+  color: #fff;
+}

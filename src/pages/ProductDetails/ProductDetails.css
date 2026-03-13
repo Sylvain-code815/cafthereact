@@ -146,6 +146,10 @@
 .pd-qty-btn { width: 36px; height: 36px; border: 2px solid var(--color-text); }
 .pd-qty-btn:hover { background-color: rgba(var(--color-text-rgb), 0.05); }
 
+[data-theme="dark"] .pd-qty-btn {
+  color: #fff;
+}
+
 .pd-weight-select {
   padding: 8px 12px;
   font-family: "Jost", sans-serif;

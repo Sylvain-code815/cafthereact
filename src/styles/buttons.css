@@ -73,3 +73,7 @@
 .btn-qty:hover {
   background-color: rgba(var(--color-text-rgb), 0.06);
 }
+
+[data-theme="dark"] .btn-qty {
+  color: #fff;
+}

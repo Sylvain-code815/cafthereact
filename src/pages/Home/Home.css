@@ -233,3 +233,14 @@ main {
 [data-theme="dark"] .testimonials-section {
   color: #fff;
 }
+
+[data-theme="dark"] .hero-left button:hover {
+  background-color: #fff;
+}
+[data-theme="dark"] .hero-right button:hover {
+  background-color: #fff;
+}
+
+[data-theme="dark"] .btn-section:hover {
+  color: #1A1510;
+}
