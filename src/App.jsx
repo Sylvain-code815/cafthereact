@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CookieManager } from "react-cookie-manager";
 import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
 import Layout from "./layout/Layout.jsx";
 import Home from "./pages/Home/Home.jsx";
@@ -21,47 +20,11 @@ import CGV from "./pages/CGV.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import Account from "./pages/Account/Account.jsx";
 import Order from "./pages/Order/Order.jsx";
+import CookieConsent from "react-cookie-consent";
 
 function App() {
   return (
     <BrowserRouter>
-      <CookieManager
-        translations={{
-          title: "Gestion des cookies",
-          message:
-            "CafThé utilise des cookies pour améliorer votre expérience de navigation, personnaliser le contenu et analyser notre trafic. Vous pouvez accepter ou refuser ces cookies.",
-          buttonText: "Accepter tout",
-          declineButtonText: "Refuser tout",
-          manageButtonText: "Gérer les cookies",
-          privacyPolicyText: "Politique de confidentialité",
-          manageTitle: "Préférences de cookies",
-          manageMessage:
-            "Gérez vos préférences de cookies ci-dessous. Les cookies essentiels sont toujours activés car ils sont nécessaires au bon fonctionnement du site.",
-          manageEssentialTitle: "Essentiels",
-          manageEssentialSubtitle:
-            "Nécessaires au bon fonctionnement du site",
-          manageEssentialStatus: "Statut : Toujours activé",
-          manageEssentialStatusButtonText: "Toujours activé",
-          manageAnalyticsTitle: "Analytiques",
-          manageAnalyticsSubtitle:
-            "Nous aident à comprendre comment les visiteurs interagissent avec notre site",
-          manageSocialTitle: "Réseaux sociaux",
-          manageSocialSubtitle:
-            "Activent les fonctionnalités de partage sur les réseaux sociaux",
-          manageAdvertTitle: "Publicité",
-          manageAdvertSubtitle:
-            "Personnalisent les publicités et mesurent leur performance",
-          manageCookiesStatus: "Statut : {{status}} le {{date}}",
-          manageCookiesStatusConsented: "Accepté",
-          manageCookiesStatusDeclined: "Refusé",
-          manageCancelButtonText: "Annuler",
-          manageSaveButtonText: "Enregistrer",
-        }}
-        privacyPolicyUrl="/politique-confidentialite"
-        theme="light"
-        displayType="popup"
-        showManageButton={true}
-      >
         <ThemeProvider>
         <AuthProvider>
           <CartProvider>
@@ -86,11 +49,27 @@ function App() {
                   <Route path="order" element={<Order />} />
                 </Route>
               </Routes>
+
+                <CookieConsent
+                    location="bottom"
+                    buttonText="J'accepte"
+                    declineButtonText="Je refuse"
+                    enableDeclineButton
+                    cookieName="cafthe_rgpd_consent"
+                    style={{ background: "#2B373B" }}
+                    buttonStyle={{ background: "#4caf50", color: "white", fontSize: "14px", borderRadius: "4px" }}
+                    declineButtonStyle={{ background: "transparent", color: "white", fontSize: "14px" }}
+                    expires={150}
+                >
+                    CafThé utilise des cookies pour améliorer votre expérience de navigation.{" "}
+                    <a href="/politique-confidentialite" style={{ color: "#fff", textDecoration: "underline" }}>
+                        En savoir plus
+                    </a>
+            </CookieConsent>
             </SearchProvider>
           </CartProvider>
         </AuthProvider>
         </ThemeProvider>
-      </CookieManager>
     </BrowserRouter>
   );
 }
