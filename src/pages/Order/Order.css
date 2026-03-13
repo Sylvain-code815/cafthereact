@@ -248,6 +248,84 @@
   margin-bottom: 0;
 }
 
+.liv-addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.liv-address-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 1px solid rgba(var(--color-text-rgb), 0.15);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.liv-address-card:hover {
+  border-color: var(--color-text);
+}
+
+.liv-address-card--selected {
+  border-color: var(--color-text);
+  background-color: rgba(var(--color-text-rgb), 0.03);
+}
+
+.liv-address-radio {
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.liv-address-radio input[type="radio"] {
+  accent-color: var(--color-text);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.liv-address-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--fs-body);
+}
+
+.liv-address-type {
+  font-weight: var(--weight-btn);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.liv-address-type .badge {
+  font-weight: normal;
+}
+
+.liv-other-address-btn {
+  display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s;
+}
+
+.liv-other-address-btn:hover {
+  color: var(--color-the);
+}
+
+.liv-other-address-btn--active {
+  color: var(--color-the);
+}
+
 .step-form {
   display: flex;
   flex-direction: column;

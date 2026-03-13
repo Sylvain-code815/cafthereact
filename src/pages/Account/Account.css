@@ -230,7 +230,7 @@
 .orders-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 
 .order-card {
@@ -244,7 +244,7 @@
 .order-info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .order-id {
@@ -261,7 +261,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 4px;
+    gap: 8px;
 }
 
 .order-status {
@@ -376,7 +376,7 @@
 }
 
 .add-address-form .field-error {
-    font-size: var(--fs-badge);
+    font-size: var(--fs-small);
     color: #c0392b;
 }
 

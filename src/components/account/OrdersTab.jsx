@@ -30,6 +30,7 @@ const OrdersTab = () => {
 
   return (
     <div className="account-content">
+      <h2 className="section-title">Mes commandes</h2>
       <div className="orders-list">
         {mockOrders.map((order) => (
           <div key={order.id_commande} className="order-card">

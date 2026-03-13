@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext.jsx";
-import { getSavedAddress, saveAddress } from "../../utils/savedAddress.js";
+import { getSavedAddress, saveAddress, getSavedAddresses } from "../../utils/savedAddress.js";
 
 const SHIPPING_OPTIONS = [
   { id: "standard", label: "Standard (3-5 jours)", price: 4.99 },
@@ -8,34 +8,66 @@ const SHIPPING_OPTIONS = [
   { id: "gratuit", label: "Gratuit (5-7 jours)", price: 0 },
 ];
 
+const defaultAddresses = [
+  {
+    id_adresse: 1,
+    type: "Domicile",
+    rue: "25 rue de la République",
+    code_postal: "69002",
+    ville: "Lyon",
+    pays: "France",
+    par_defaut: true,
+  },
+  {
+    id_adresse: 2,
+    type: "Bureau",
+    rue: "10 avenue des Champs",
+    code_postal: "69003",
+    ville: "Lyon",
+    pays: "France",
+    par_defaut: false,
+  },
+];
+
 const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
   const { isAuthenticated } = useContext(AuthContext);
-  const saved = isAuthenticated ? getSavedAddress() : null;
 
-  const [useSaved, setUseSaved] = useState(!!saved);
+  const savedAddresses = isAuthenticated ? (() => {
+    const addrs = getSavedAddresses();
+    return addrs.length > 0 ? addrs : defaultAddresses;
+  })() : [];
 
-  const [form, setForm] = useState({
-    adresse: orderData?.adresse || saved?.adresse || "",
-    complement: orderData?.complement || saved?.complement || "",
-    ville: orderData?.ville || saved?.ville || "",
-    codePostal: orderData?.codePostal || saved?.codePostal || "",
-    pays: orderData?.pays || saved?.pays || "France",
-    modeLivraison: orderData?.modeLivraison || "standard",
-  });
+  const defaultAddr = savedAddresses.find((a) => a.par_defaut) || savedAddresses[0];
 
-  // Sync form when switching back to saved address
-  useEffect(() => {
-    if (useSaved && saved) {
-      setForm((prev) => ({
-        ...prev,
-        adresse: saved.adresse,
-        complement: saved.complement || "",
-        ville: saved.ville,
-        codePostal: saved.codePostal,
-        pays: saved.pays || "France",
-      }));
+  const [selectedAddressId, setSelectedAddressId] = useState(
+    orderData?._selectedAddressId ?? (defaultAddr?.id_adresse || null)
+  );
+  const [showCustomForm, setShowCustomForm] = useState(
+    orderData?._showCustomForm || !isAuthenticated || savedAddresses.length === 0
+  );
+
+  const getInitialForm = () => {
+    if (orderData?.adresse) {
+      return {
+        adresse: orderData.adresse,
+        complement: orderData.complement || "",
+        ville: orderData.ville,
+        codePostal: orderData.codePostal,
+        pays: orderData.pays || "France",
+        modeLivraison: orderData.modeLivraison || "standard",
+      };
     }
-  }, [useSaved]);
+    return {
+      adresse: "",
+      complement: "",
+      ville: "",
+      codePostal: "",
+      pays: "France",
+      modeLivraison: orderData?.modeLivraison || "standard",
+    };
+  };
+
+  const [form, setForm] = useState(getInitialForm);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,11 +78,44 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
     }
   };
 
+  const handleSelectAddress = (addr) => {
+    setSelectedAddressId(addr.id_adresse);
+    setShowCustomForm(false);
+  };
+
+  const handleShowCustomForm = () => {
+    setSelectedAddressId(null);
+    setShowCustomForm(true);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const selected = SHIPPING_OPTIONS.find((o) => o.id === form.modeLivraison);
 
-    // Save address for future use if authenticated
+    if (isAuthenticated && !showCustomForm && selectedAddressId) {
+      const addr = savedAddresses.find((a) => a.id_adresse === selectedAddressId);
+      if (addr) {
+        const addressData = {
+          adresse: addr.rue,
+          complement: "",
+          ville: addr.ville,
+          codePostal: addr.code_postal,
+          pays: addr.pays || "France",
+        };
+        saveAddress(addressData);
+        setOrderData((prev) => ({
+          ...prev,
+          ...addressData,
+          modeLivraison: form.modeLivraison,
+          shippingCost: selected?.price || 0,
+          _selectedAddressId: selectedAddressId,
+          _showCustomForm: false,
+        }));
+        onNext();
+        return;
+      }
+    }
+
     if (isAuthenticated) {
       saveAddress({
         adresse: form.adresse,
@@ -65,6 +130,8 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
       ...prev,
       ...form,
       shippingCost: selected?.price || 0,
+      _selectedAddressId: null,
+      _showCustomForm: true,
     }));
     onNext();
   };
@@ -73,62 +140,25 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
     <>
       <div className="step-form-group">
         <label htmlFor="liv-adresse">Adresse</label>
-        <input
-          id="liv-adresse"
-          type="text"
-          name="adresse"
-          value={form.adresse}
-          onChange={handleChange}
-          required
-        />
+        <input id="liv-adresse" type="text" name="adresse" value={form.adresse} onChange={handleChange} required />
       </div>
       <div className="step-form-group">
-        <label htmlFor="liv-complement">Complément d'adresse</label>
-        <input
-          id="liv-complement"
-          type="text"
-          name="complement"
-          value={form.complement}
-          onChange={handleChange}
-        />
+        <label htmlFor="liv-complement">Compl&eacute;ment d'adresse</label>
+        <input id="liv-complement" type="text" name="complement" value={form.complement} onChange={handleChange} />
       </div>
       <div className="step-form-row">
         <div className="step-form-group">
           <label htmlFor="liv-ville">Ville</label>
-          <input
-            id="liv-ville"
-            type="text"
-            name="ville"
-            value={form.ville}
-            onChange={handleChange}
-            required
-          />
+          <input id="liv-ville" type="text" name="ville" value={form.ville} onChange={handleChange} required />
         </div>
         <div className="step-form-group">
           <label htmlFor="liv-cp">Code postal</label>
-          <input
-            id="liv-cp"
-            type="text"
-            name="codePostal"
-            value={form.codePostal}
-            onChange={handleChange}
-            pattern="[0-9]{5}"
-            maxLength={5}
-            placeholder="75000"
-            required
-          />
+          <input id="liv-cp" type="text" name="codePostal" value={form.codePostal} onChange={handleChange} pattern="[0-9]{5}" maxLength={5} placeholder="75000" required />
         </div>
       </div>
       <div className="step-form-group">
         <label htmlFor="liv-pays">Pays</label>
-        <input
-          id="liv-pays"
-          type="text"
-          name="pays"
-          value={form.pays}
-          onChange={handleChange}
-          required
-        />
+        <input id="liv-pays" type="text" name="pays" value={form.pays} onChange={handleChange} required />
       </div>
     </>
   );
@@ -136,29 +166,49 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
   return (
     <div className="step-section">
       {onBack && (
-        <button type="button" className="btn-text step-back-link" onClick={onBack}>← Retour</button>
+        <button type="button" className="btn-text step-back-link" onClick={onBack}>&#8592; Retour</button>
       )}
       <h2 className="step-title">Livraison</h2>
 
-      {/* Saved address compact view */}
-      {isAuthenticated && saved && useSaved && (
-        <div className="step-saved-address">
-          <p>{saved.adresse}</p>
-          {saved.complement && <p>{saved.complement}</p>}
-          <p>{saved.codePostal} {saved.ville}, {saved.pays || "France"}</p>
+      {isAuthenticated && savedAddresses.length > 0 && (
+        <div className="liv-addresses">
+          {savedAddresses.map((addr) => (
+            <div
+              key={addr.id_adresse}
+              className={`liv-address-card${selectedAddressId === addr.id_adresse && !showCustomForm ? " liv-address-card--selected" : ""}`}
+              onClick={() => handleSelectAddress(addr)}
+            >
+              <div className="liv-address-radio">
+                <input
+                  type="radio"
+                  name="selectedAddress"
+                  checked={selectedAddressId === addr.id_adresse && !showCustomForm}
+                  onChange={() => handleSelectAddress(addr)}
+                />
+              </div>
+              <div className="liv-address-details">
+                <span className="liv-address-type">
+                  {addr.type}
+                  {addr.par_defaut && <span className="badge">Par d&eacute;faut</span>}
+                </span>
+                <span>{addr.rue}</span>
+                <span>{addr.code_postal} {addr.ville}, {addr.pays || "France"}</span>
+              </div>
+            </div>
+          ))}
+
           <button
             type="button"
-            className="step-change-account"
-            onClick={() => setUseSaved(false)}
+            className={`liv-other-address-btn${showCustomForm ? " liv-other-address-btn--active" : ""}`}
+            onClick={handleShowCustomForm}
           >
-            Changer d'adresse
+            Envoyer &agrave; une autre adresse
           </button>
         </div>
       )}
 
       <form className="step-form" onSubmit={handleSubmit}>
-        {/* Show address fields if no saved address or user chose to change */}
-        {(!isAuthenticated || !saved || !useSaved) && addressFields}
+        {(showCustomForm || !isAuthenticated || savedAddresses.length === 0) && addressFields}
 
         <fieldset className="step-fieldset">
           <legend>Mode de livraison</legend>
@@ -173,7 +223,7 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
               />
               <span>{opt.label}</span>
               <span className="step-radio-price">
-                {opt.price === 0 ? "Gratuit" : `${opt.price.toFixed(2)} €`}
+                {opt.price === 0 ? "Gratuit" : `${opt.price.toFixed(2)} \u20AC`}
               </span>
             </label>
           ))}

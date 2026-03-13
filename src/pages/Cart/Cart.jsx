@@ -1,38 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
 import SEO from "../../components/SEO.jsx";
 import "./Cart.css";
 
 const Cart = () => {
-  const { cart, addToCart, decreaseQuantity, removeFromCart, removeMultiple, totalArticles, totalPrix, clearCart } = useContext(CartContext);
-  // Permet de stocker les identifications uniques des produits cochés dans faire de doublons
-  const [selectedKeys, setSelectedKeys] = useState(new Set());
-  const allKeys = cart.map((item) => item._cartKey || item.code_produit);
-  const allSelected = cart.length > 0 && selectedKeys.size === cart.length;
-
-  const toggleSelect = (key) => {
-    setSelectedKeys((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  };
-
-  const toggleSelectAll = () => {
-    if (allSelected) {
-      setSelectedKeys(new Set());
-    } else {
-      setSelectedKeys(new Set(allKeys));
-    }
-  };
-
-  const handleDeleteSelected = () => {
-    if (selectedKeys.size === 0) return;
-    removeMultiple(selectedKeys);
-    setSelectedKeys(new Set());
-  };
+  const { cart, addToCart, decreaseQuantity, removeFromCart, totalArticles, totalPrix, clearCart } = useContext(CartContext);
 
   const seo = <SEO title="Panier" description="Votre panier CafThé. Consultez vos articles et passez votre commande de thés et cafés d'exception." />;
 
@@ -57,22 +30,6 @@ const Cart = () => {
       <div className="cart-container">
         <h1>Votre Panier ({totalArticles} articles)</h1>
 
-        <div className="cart-toolbar">
-          <label className="cart-select-all">
-            <input
-              type="checkbox"
-              checked={allSelected}
-              onChange={toggleSelectAll}
-            />
-            <span>{allSelected ? "Tout désélectionner" : "Tout sélectionner"}</span>
-          </label>
-          {selectedKeys.size > 0 && (
-            <button className="delete-selected-btn" onClick={handleDeleteSelected}>
-              Supprimer la sélection ({selectedKeys.size})
-            </button>
-          )}
-        </div>
-
         <div className="cart-content-grid">
           <div className="cart-items">
             {cart.map((item) => {
@@ -84,14 +41,6 @@ const Cart = () => {
 
               return (
                 <div key={cartKey} className="cart-item">
-
-                  <input
-                    type="checkbox"
-                    className="cart-item-checkbox"
-                    checked={selectedKeys.has(cartKey)}
-                    onChange={() => toggleSelect(cartKey)}
-                    aria-label={`Sélectionner ${item.nom_produit}`}
-                  />
 
                   <div className="cart-item-info">
                     <img
