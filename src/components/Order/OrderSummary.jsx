@@ -1,7 +1,13 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext.jsx";
 
-const OrderSummary = ({ shippingCost = 0 }) => {
+const SHIPPING_LABELS = {
+  standard: "Standard (3-5 jours)",
+  express: "Express (1-2 jours)",
+  gratuit: "Gratuit (5-7 jours)",
+};
+
+const OrderSummary = ({ shippingCost = 0, modeLivraison }) => {
   const { cart, totalPrix } = useContext(CartContext);
 
   const total = totalPrix + shippingCost;
@@ -41,7 +47,7 @@ const OrderSummary = ({ shippingCost = 0 }) => {
           <span>{totalPrix.toFixed(2)} €</span>
         </div>
         <div className="os-total-row">
-          <span>Livraison</span>
+          <span>Livraison{modeLivraison ? ` — ${SHIPPING_LABELS[modeLivraison] || modeLivraison}` : ""}</span>
           <span>{shippingCost === 0 ? "Gratuit" : `${shippingCost.toFixed(2)} €`}</span>
         </div>
         <div className="os-total-row os-total-final">

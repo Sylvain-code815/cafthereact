@@ -1,12 +1,26 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
+import { saveOrder } from "../../utils/savedOrders.js";
 
 const Confirmation = ({ orderData }) => {
-  const { clearCart } = useContext(CartContext);
+  const { cart, totalPrix, clearCart } = useContext(CartContext);
+  const savedRef = useRef(false);
 
-  // Mettre le clear-cart dès que la page s'affiche
   useEffect(() => {
+    if (savedRef.current) return;
+    savedRef.current = true;
+
+    if (cart.length > 0) {
+      saveOrder({
+        id_commande: Date.now(),
+        date: new Date().toISOString().split("T")[0],
+        statut: "En cours",
+        total: totalPrix + (orderData?.shippingCost || 0),
+        articles: cart.reduce((sum, item) => sum + item.quantite, 0),
+      });
+    }
+
     clearCart();
   }, []);
 

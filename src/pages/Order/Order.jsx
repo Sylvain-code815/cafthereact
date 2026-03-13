@@ -101,7 +101,7 @@ const Order = () => {
             {renderStepContent()}
           </div>
           <aside className="checkout-right">
-            <OrderSummary shippingCost={orderData.shippingCost} />
+            <OrderSummary shippingCost={orderData.shippingCost} modeLivraison={orderData.modeLivraison} />
           </aside>
         </div>
       ) : (

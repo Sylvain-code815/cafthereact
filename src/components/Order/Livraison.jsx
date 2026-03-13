@@ -76,6 +76,14 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
+    if (name === "modeLivraison") {
+      const selected = SHIPPING_OPTIONS.find((o) => o.id === value);
+      setOrderData((prev) => ({
+        ...prev,
+        modeLivraison: value,
+        shippingCost: selected?.price || 0,
+      }));
+    }
   };
 
   const handleSelectAddress = (addr) => {

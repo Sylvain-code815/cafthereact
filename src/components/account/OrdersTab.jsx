@@ -1,9 +1,5 @@
 import React from "react";
-
-const mockOrders = [
-  { id_commande: 1, date: "2025-01-15", statut: "Livrée", total: 45.90, articles: 3 },
-  { id_commande: 2, date: "2025-02-10", statut: "En cours", total: 28.50, articles: 2 },
-];
+import { getSavedOrders } from "../../utils/savedOrders.js";
 
 const statusClass = (statut) => {
   if (statut === "Livrée") return "delivered";
@@ -20,7 +16,9 @@ const formatDate = (dateStr) => {
 };
 
 const OrdersTab = () => {
-  if (mockOrders.length === 0) {
+  const orders = getSavedOrders();
+
+  if (orders.length === 0) {
     return (
       <div className="account-content">
         <p className="empty-orders">Vous n'avez pas encore de commandes.</p>
@@ -32,7 +30,7 @@ const OrdersTab = () => {
     <div className="account-content">
       <h2 className="section-title">Mes commandes</h2>
       <div className="orders-list">
-        {mockOrders.map((order) => (
+        {orders.map((order) => (
           <div key={order.id_commande} className="order-card">
             <div className="order-info">
               <span className="order-id">Commande #{order.id_commande}</span>
@@ -41,7 +39,7 @@ const OrdersTab = () => {
             </div>
             <div className="order-meta">
               <span className={`order-status ${statusClass(order.statut)}`}>{order.statut}</span>
-              <span className="order-total">{order.total.toFixed(2)}€</span>
+              <span className="order-total">{order.total.toFixed(2)} €</span>
             </div>
           </div>
         ))}
