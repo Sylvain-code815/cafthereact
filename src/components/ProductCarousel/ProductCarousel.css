@@ -38,6 +38,11 @@
   text-transform: uppercase;
 }
 
+.carousel-badge.badge-nouveaute {
+  left: auto;
+  right: 10px;
+}
+
 .carousel-image {
   width: 100%;
   height: clamp(230px, calc(216px + 4.46vw), 280px);

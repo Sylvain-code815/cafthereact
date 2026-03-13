@@ -310,7 +310,7 @@ const ProductDetails = () => {
                     {!(s.produit_promotion === 1 && s.taux_remise > 0) && s.produit_phare === 1 && (
                       <span className="pd-sg-badge badge-phare">Best-seller</span>
                     )}
-                    {!(s.produit_promotion === 1 && s.taux_remise > 0) && s.produit_phare !== 1 && s.nouveaute === 1 && (
+                    {s.nouveaute === 1 && (
                       <span className="pd-sg-badge badge-nouveaute">Nouveauté</span>
                     )}
                   </div>

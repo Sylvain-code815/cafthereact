@@ -23,7 +23,7 @@ const Home = () => {
         const allData = await allRes.json();
 
         setPromoProducts(promoData.articles);
-        const featured = allData.articles.filter((p) => p.produit_promotion !== 1).slice(0, 5);
+        const featured = allData.articles.filter((p) => p.produit_phare === 1 || p.nouveaute === 1).slice(0, 5);
         setFeaturedProducts(featured);
       } catch (err) {
         console.error("Erreur chargement produits:", err);

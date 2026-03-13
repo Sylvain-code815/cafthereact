@@ -39,7 +39,7 @@ const ProductCard = ({ produit, onAddToCart = () => {}, index = 0 }) => {
           {!isPromo && produit.produit_phare === 1 && (
             <span className="product-card-badge badge-phare">Best-seller</span>
           )}
-          {!isPromo && produit.produit_phare !== 1 && produit.nouveaute === 1 && (
+          {produit.nouveaute === 1 && (
             <span className="product-card-badge badge-nouveaute">Nouveauté</span>
           )}
         </div>

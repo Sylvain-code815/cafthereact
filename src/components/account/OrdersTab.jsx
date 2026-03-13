@@ -1,5 +1,4 @@
 import React from "react";
-import { getSavedOrders } from "../../utils/savedOrders.js";
 
 const statusClass = (statut) => {
   if (statut === "Livrée") return "delivered";

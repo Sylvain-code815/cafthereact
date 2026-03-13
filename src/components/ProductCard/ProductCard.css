@@ -58,6 +58,8 @@
 }
 
 .badge-nouveaute {
+  left: auto;
+  right: 10px;
   background-color: var(--color-the);
 }
 

@@ -47,7 +47,7 @@ const ProductCarousel = ({ products, title, linkTo, linkText }) => {
                   {!isPromo && product.produit_phare === 1 && (
                     <span className="carousel-badge badge-phare">Best-seller</span>
                   )}
-                  {!isPromo && product.produit_phare !== 1 && product.nouveaute === 1 && (
+                  {product.nouveaute === 1 && (
                     <span className="carousel-badge badge-nouveaute">Nouveauté</span>
                   )}
                 </div>

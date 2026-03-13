@@ -261,6 +261,11 @@
   text-transform: uppercase;
 }
 
+.pd-sg-badge.badge-nouveaute {
+  left: auto;
+  right: 10px;
+}
+
 .pd-sg-body {
   padding: 12px;
   display: flex;
