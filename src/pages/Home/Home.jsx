@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CustomerReview from "../../components/CustomerReview/CustomerReview.jsx";
+import ProductCarousel from "../../components/ProductCarousel/ProductCarousel.jsx";
 import SEO from "../../components/SEO.jsx";
 import "./Home.css";
 
@@ -57,6 +58,25 @@ const Home = () => {
             <button>découvrir</button>
           </Link>
         </div>
+      </section>
+
+      <section className="products-section">
+        {promoProducts.length > 0 && (
+          <ProductCarousel
+            products={promoProducts}
+            title="Nos promotions"
+            linkTo="/promotions"
+            linkText="Voir toutes les promotions"
+          />
+        )}
+        {featuredProducts.length > 0 && (
+          <ProductCarousel
+            products={featuredProducts}
+            title="Nos produits phares"
+            linkTo="/the"
+            linkText="Découvrir nos produits"
+          />
+        )}
       </section>
 
       <section className="engagements-section">
