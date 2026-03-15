@@ -1,4 +1,4 @@
-/** Mapping catégorie DB -> route URL */
+/** Mapping catégorie DB : route URL */
 export const CATEGORY_TO_ROUTE = {
   the: "/the",
   Cafe: "/cafe",
@@ -17,8 +17,8 @@ export const CATEGORY_LABELS = {
 };
 
 /**
- * Retourne la route URL pour une catégorie donnée.
- * Fallback : normalisation NFD (suppression accents) + lowercase.
+ * Retourne la route URL pour une catégorie donnée
+ * API native NFD (suppression accents)
  */
 export function categoryToRoute(categorie) {
   if (!categorie) return "/";
