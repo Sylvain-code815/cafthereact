@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
 import SEO from "../../components/SEO.jsx";
+import { isPoids } from "../../utils/product.js";
 import "./Cart.css";
 
 const Cart = () => {
@@ -9,6 +10,7 @@ const Cart = () => {
 
   const seo = <SEO title="Panier" description="Votre panier CafThé. Consultez vos articles et passez votre commande de thés et cafés d'exception." />;
 
+  // Affichage quand le panier est vide
   if (cart.length === 0) {
     return (
       <div className="cart-layout cart-empty">
@@ -34,7 +36,8 @@ const Cart = () => {
           <div className="cart-items">
             {cart.map((item) => {
               const cartKey = item._cartKey || item.code_produit;
-              const isVrac = item.type_vente === "Vrac" && item.poids;
+              const isVrac = isPoids(item.type_vente) && item.poids;
+              // poids * quantité, 2 décimal max
               const itemTotal = isVrac
                 ? (item.prix_ttc * (item.poids / 100) * item.quantite).toFixed(2)
                 : (item.prix_ttc * item.quantite).toFixed(2);
@@ -60,7 +63,7 @@ const Cart = () => {
                     <button
                       className="btn-qty quantity-btn"
                       onClick={() => decreaseQuantity(cartKey)}
-                      aria-label={`Diminuer la quantité de ${item.nom_produit}`}
+                      aria-label={`Acheter moins de ${item.nom_produit}`}
                     >
                       −
                     </button>
@@ -68,7 +71,7 @@ const Cart = () => {
                     <button
                       className="btn-qty quantity-btn"
                       onClick={() => addToCart(item, isVrac ? item.poids : null)}
-                      aria-label={`Augmenter la quantité de ${item.nom_produit}`}
+                      aria-label={`Acheter plus de ${item.nom_produit}`}
                     >
                       +
                     </button>

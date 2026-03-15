@@ -1,8 +1,11 @@
 import { useState, useEffect, createContext } from "react";
+import { isPoids } from "../utils/product.js";
 
 export const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
+
+  // Lazy initial state, empêche React de lire le localStorage à chaque rendu
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("panier");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -14,7 +17,7 @@ export const CartProvider = ({ children }) => {
 
   // Ajouter au panier avec quantité optionnelle
   const addToCart = (produit, poids = null, qty = 1) => {
-    const isVrac = produit.type_vente === "Vrac";
+    const isVrac = isPoids(produit.type_vente);
     const cartKey = isVrac
       ? `${produit.code_produit}_${poids}`
       : produit.code_produit;
@@ -65,7 +68,7 @@ export const CartProvider = ({ children }) => {
 
   const totalArticles = cart.reduce((acc, item) => acc + item.quantite, 0);
   const totalPrix = cart.reduce((acc, item) => {
-    if (item.type_vente === "Vrac" && item.poids) {
+    if (isPoids(item.type_vente) && item.poids) {
       return acc + item.prix_ttc * (item.poids / 100) * item.quantite;
     }
     return acc + item.prix_ttc * item.quantite;

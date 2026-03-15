@@ -6,6 +6,7 @@ import CustomerReview from "../../components/CustomerReview/CustomerReview.jsx";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb.jsx";
 import SEO from "../../components/SEO.jsx";
 import { categoryToRoute, CATEGORY_LABELS } from "../../utils/categories.js";
+import { isPoids } from "../../utils/product.js";
 import "./ProductDetails.css";
 
 const reviews = [
@@ -73,6 +74,7 @@ const ProductDetails = () => {
       }
     };
 
+    // void ignore le retour de la promesse
     void fetchProduit();
   }, [id]);
 
@@ -98,6 +100,7 @@ const ProductDetails = () => {
       }
     };
 
+    // pareil
     void fetchSuggested();
   }, [produit]);
 
@@ -106,7 +109,6 @@ const ProductDetails = () => {
       ? `${import.meta.env.VITE_API_URL}/images/${img}`
       : `https://placehold.co/600x600?text=${encodeURIComponent(name)}`;
 
-  // Skeleton
   if (isLoading) {
     return (
       <div className="pd-skeleton">
@@ -139,7 +141,7 @@ const ProductDetails = () => {
     );
   }
 
-  const isVrac = produit.type_vente === "Vrac";
+  const isVrac = isPoids(produit.type_vente);
   const imageUrl = getImageUrl(produit.image, produit.nom_produit);
 
   const prixEffectif = produit.produit_promotion === 1 && produit.taux_remise > 0

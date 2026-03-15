@@ -26,6 +26,7 @@ const SearchOverlay = () => {
       if (e.key === "Escape" && isSearchOpen) closeSearch();
     };
     document.addEventListener("keydown", handleEscape);
+    // Nettoyage pour libérer mémoire
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isSearchOpen, closeSearch]);
 

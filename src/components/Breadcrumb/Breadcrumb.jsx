@@ -13,6 +13,7 @@ const Breadcrumb = ({ items = [] }) => {
         return (
           <React.Fragment key={index}>
             {index > 0 && (
+                // Cache le slash pour malvoyant 
               <span className="bc-separator" aria-hidden="true">/</span>
             )}
             {isLast || !item.to ? (

@@ -24,6 +24,8 @@ const ForgotPassword = () => {
 
         setIsLoading(true);
 
+        // Pour ne pas être bloqué par backend
+        // TODO : Remplacer par le vrai endpoint API quand la route Backend existera
         setTimeout(() => {
             setIsLoading(false);
             setIsError(false);

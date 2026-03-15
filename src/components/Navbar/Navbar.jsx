@@ -15,7 +15,7 @@ const Navbar = () => {
   // Fermer le menu mobile à chaque navigation
   useEffect(() => {
     setMenuOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname]); // changement de route pour forcer fermeture
 
   return (
     <header className="header">

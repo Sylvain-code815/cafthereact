@@ -2,7 +2,7 @@ import React from 'react';
 import * as Slider from '@radix-ui/react-slider';
 import './ProductList.css';
 
-// Utilisation de la librarie Radix UI
+// Utilisation de la librarie Radix UI (accessibilité+contrôle css)
 const PriceSlider = ({ min, max, value, onChange }) => {
     return (
         <div className="filter-group">

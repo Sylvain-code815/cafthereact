@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext.jsx";
+import { isPoids } from "../../utils/product.js";
 
 const SHIPPING_LABELS = {
   standard: "Standard (3-5 jours)",
@@ -19,7 +20,8 @@ const OrderSummary = ({ shippingCost = 0, modeLivraison }) => {
       <div className="os-items">
         {cart.map((item) => {
           const cartKey = item._cartKey || item.code_produit;
-          const isVrac = item.type_vente === "Vrac" && item.poids;
+          // Condition ternaire pour distinction poids et quantite par rapport à type_vente
+          const isVrac = isPoids(item.type_vente) && item.poids;
           const lineTotal = isVrac
             ? item.prix_ttc * (item.poids / 100) * item.quantite
             : item.prix_ttc * item.quantite;

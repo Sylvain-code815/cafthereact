@@ -82,6 +82,7 @@ const SignUp = () => {
                             <div className="input-with-icon">
                                 <img src="/src/Images/Icon/header-Login.svg" alt="" aria-hidden="true" />
                                 <div className="floating-input-wrapper">
+                                    {/*bloque les chiffres et symboles et garde spécificités françaises*/}
                                     <input value={prenom} onChange={(e) => setPrenom(e.target.value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, ""))} required type="text" id="prenom" placeholder=" " />
                                     <label htmlFor="prenom">Prénom *</label>
                                 </div>

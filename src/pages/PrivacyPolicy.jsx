@@ -6,7 +6,6 @@ const PrivacyPolicy = () => {
     <div className="legal-page">
       <SEO title="Politique de Confidentialité" description="Politique de confidentialité de CafThé. Découvrez comment nous protégeons vos données personnelles." />
       <h1>Politique de Confidentialité</h1>
-      <p className="legal-updated">Dernière mise à jour : 23 février 2026</p>
 
       <h2>1. Responsable du traitement</h2>
       <p>

@@ -84,7 +84,6 @@ const ProductList = ({ categorie }) => {
     return 0;
   });
 
-  // Pagination
   const totalPages = Math.max(1, Math.ceil(sorted.length / ITEMS_PER_PAGE));
   const paged = sorted.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -96,6 +95,7 @@ const ProductList = ({ categorie }) => {
       <div className="pl-container">
         <div className="pl-grid">
           {Array.from({ length: 6 }).map((_, i) => (
+              // Skeletons de chargement
             <div key={i} className="product-skeleton">
               <Skeleton height={250} />
               <div style={{ marginTop: "0.5rem" }}>
@@ -124,10 +124,8 @@ const ProductList = ({ categorie }) => {
 
   return (
     <div className="pl-container">
-      {/* Breadcrumb */}
       <Breadcrumb items={[{ label: label }]} />
 
-      {/* Header : titre + contrôles */}
       <div className="pl-top-section">
         <h1 className="pl-title">{label}</h1>
 
@@ -178,17 +176,13 @@ const ProductList = ({ categorie }) => {
             className="pl-filters-toggle"
             onClick={() => setFiltersOpen(!filtersOpen)}
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" width="18" height="18">
-              <line x1="4" y1="6" x2="20" y2="6" />
-              <line x1="4" y1="12" x2="16" y2="12" />
-              <line x1="4" y1="18" x2="12" y2="18" />
-            </svg>
             FILTRES
           </button>
         </div>
       </div>
 
-      {/* Filtres mobile */}
+
+      {/* Distinction filtres mobile pour perf (chargement) et UX (vrai fenêtre modale)*/}
       <div className={`pl-mobile-filter-panel ${filtersOpen ? "open" : ""}`}>
         <PriceSlider
             min={0}
@@ -224,7 +218,6 @@ const ProductList = ({ categorie }) => {
         </button>
       </div>
 
-      {/* Grille produits */}
       <div className="pl-grid">
         {paged.map((produit, index) => (
           <ProductCard
@@ -240,7 +233,6 @@ const ProductList = ({ categorie }) => {
         <p className="pl-no-results">Aucun produit ne correspond à vos filtres.</p>
       )}
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <nav className="pl-pagination" aria-label="Pagination">
           <button
@@ -250,6 +242,7 @@ const ProductList = ({ categorie }) => {
           >
             ← Précédent
           </button>
+          {/*1er paramètre l'élément qu'on ignore + décalage de l'index pour avoir le numéro réel*/}
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
             <button
               key={n}

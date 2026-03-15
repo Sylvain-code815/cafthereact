@@ -6,7 +6,6 @@ const CGV = () => {
     <div className="legal-page">
       <SEO title="Conditions Générales de Vente" description="Consultez les conditions générales de vente de CafThé. Informations sur les commandes, livraisons et retours." />
       <h1>Conditions Générales de Vente</h1>
-      <p className="legal-updated">Dernière mise à jour : 23 février 2026</p>
 
       <h2>Article 1 — Objet</h2>
       <p>

@@ -10,6 +10,7 @@ export const SearchProvider = ({ children }) => {
   const fetchedRef = useRef(false);
 
   const fetchProducts = async () => {
+    // useRef pour ne pas télécharger les produits plusieurs fois en cliquant sur recherche
     if (fetchedRef.current) return;
     fetchedRef.current = true;
     setIsLoadingProducts(true);

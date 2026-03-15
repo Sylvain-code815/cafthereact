@@ -34,6 +34,7 @@ const Account = () => {
                     className={`tab-button ${activeTab === 'profil' ? 'active' : ''}`}
                     onClick={() => setActiveTab('profil')}
                     role="tab"
+                    // Indique l'onglet actif + va au contenu avec raccourci clavier avec pannel plus bas
                     aria-selected={activeTab === 'profil'}
                     aria-controls="panel-profil"
                 >

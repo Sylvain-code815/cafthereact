@@ -20,6 +20,7 @@ const ProductCarousel = ({ products, title, linkTo, linkText }) => {
     <div className="product-carousel">
       <h2>{title}</h2>
 
+        {/*Utilisation de la bibliothèque swiper*/}
       <Swiper
         modules={[Autoplay]}
         onSwiper={(swiper) => { swiperRef.current = swiper; }}

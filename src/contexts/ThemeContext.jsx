@@ -7,7 +7,8 @@ const STORAGE_KEY = "cafthe_theme";
 function getInitialTheme() {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored === "dark" || stored === "light") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  // Check le thème de l'utilisateur, par défaut light
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "dark" : "light";
 }
 
 export function ThemeProvider({ children }) {

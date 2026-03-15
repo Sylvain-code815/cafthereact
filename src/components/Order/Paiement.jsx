@@ -40,18 +40,6 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
           </label>
         </fieldset>
 
-        {method === "cb" && (
-          <div className="step-payment-placeholder">
-            <p>L'intégration du paiement par carte sera disponible prochainement.</p>
-          </div>
-        )}
-
-        {method === "paypal" && (
-          <div className="step-payment-placeholder">
-            <p>L'intégration PayPal sera disponible prochainement.</p>
-          </div>
-        )}
-
         <button className="btn-filled step-btn" type="submit">
           Confirmer la commande
         </button>

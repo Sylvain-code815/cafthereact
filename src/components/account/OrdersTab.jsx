@@ -6,6 +6,7 @@ const statusClass = (statut) => {
   return "";
 };
 
+// API native Intl pour gestion des dates
 const formatDate = (dateStr) => {
   return new Date(dateStr).toLocaleDateString("fr-FR", {
     day: "numeric",

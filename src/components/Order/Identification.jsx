@@ -115,6 +115,7 @@ const Identification = ({ onNext, orderData, setOrderData }) => {
             name="telephone"
             value={form.telephone}
             onChange={(e) => {
+              // Empêche tout ce qui n'est pas chiffre
               const val = e.target.value.replace(/[^0-9]/g, "").slice(0, 10);
               setForm((prev) => ({ ...prev, telephone: val }));
             }}
