@@ -20,7 +20,6 @@ import CGV from "./pages/CGV.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import Account from "./pages/Account/Account.jsx";
 import Order from "./pages/Order/Order.jsx";
-import CookieConsent from "react-cookie-consent";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 
 function App() {
@@ -51,23 +50,6 @@ function App() {
                   <Route path="order" element={<Order />} />
                 </Route>
               </Routes>
-
-                <CookieConsent
-                    location="bottom"
-                    buttonText="J'accepte"
-                    declineButtonText="Je refuse"
-                    enableDeclineButton
-                    cookieName="cafthe_rgpd_consent"
-                    style={{ background: "#2B373B" }}
-                    buttonStyle={{ background: "#4caf50", color: "white", fontSize: "14px", borderRadius: "4px" }}
-                    declineButtonStyle={{ background: "transparent", color: "white", fontSize: "14px" }}
-                    expires={150}
-                >
-                    CafThé utilise des cookies pour améliorer votre expérience de navigation.{" "}
-                    <a href="/politique-confidentialite" style={{ color: "#fff", textDecoration: "underline" }}>
-                        En savoir plus
-                    </a>
-            </CookieConsent>
             </SearchProvider>
           </CartProvider>
         </AuthProvider>

@@ -35,11 +35,11 @@ main {
 }
 
 .hero-left::before {
-  background-image: url("/src/Images/The-Home.webp");
+  background-image: url("/Images/The-Home.webp");
 }
 
 .hero-right::before {
-  background-image: url("/src/Images/Cafe-Home.webp");
+  background-image: url("/Images/Cafe-Home.webp");
 }
 
 .hero-left::after,
