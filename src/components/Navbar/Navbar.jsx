@@ -22,7 +22,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="nav-container">
           <Link to="/" className="nav-logo" onClick={closeSearch}>
-            <img src="/src/Images/Logo-CafThe-en-couleur.webp" alt="CafThé" />
+            <img src="/Images/Logo-CafThe-en-couleur.webp" alt="CafThé" />
           </Link>
 
           <ul className={`nav-links${menuOpen ? " nav-links-open" : ""}`}>
@@ -41,7 +41,7 @@ const Navbar = () => {
                   <>
                     {/* --- MODIFICATION ICI (Mobile) --- */}
                     <Link to="/account" className="nav-action-btn nav-account">
-                      <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
+                      <img src="/Images/Icon/header-Login.svg" alt="Mon compte" />
                     </Link>
                     <button className="btn-outline nav-logout" onClick={logout}>
                       Se déconnecter
@@ -61,7 +61,7 @@ const Navbar = () => {
                 aria-label="Rechercher"
                 onClick={() => { isSearchOpen ? closeSearch() : openSearch(); setMenuOpen(false); }}
             >
-              <img src="/src/Images/Icon/header-Loupe.svg" alt="Rechercher" />
+              <img src="/Images/Icon/header-Loupe.svg" alt="Rechercher" />
             </button>
 
             <div className="nav-auth-desktop">
@@ -69,7 +69,7 @@ const Navbar = () => {
                   <>
                     {/* --- MODIFICATION ICI (Desktop) --- */}
                     <Link to="/account" className="nav-action-btn nav-account">
-                      <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
+                      <img src="/Images/Icon/header-Login.svg" alt="Mon compte" />
                     </Link>
                     <button className="btn-outline nav-logout" onClick={logout}>
                       Se déconnecter
@@ -77,14 +77,14 @@ const Navbar = () => {
                   </>
               ) : (
                   <Link to="/login" className="nav-action-btn nav-login">
-                    <img src="/src/Images/Icon/header-Login.svg" alt="Mon compte" />
+                    <img src="/Images/Icon/header-Login.svg" alt="Mon compte" />
                     <span>Se connecter</span>
                   </Link>
               )}
             </div>
 
             <Link to="/panier" className="nav-action-btn nav-cart">
-              <img src="/src/Images/Icon/header-Cart.svg" alt="Panier" />
+              <img src="/Images/Icon/header-Cart.svg" alt="Panier" />
               {totalArticles > 0 && (
                 <span className="cart-badge">{totalArticles}</span>
               )}

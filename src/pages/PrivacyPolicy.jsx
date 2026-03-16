@@ -55,9 +55,9 @@ const PrivacyPolicy = () => {
 
       <h2>7. Cookies</h2>
       <p>
-        Notre site utilise des cookies essentiels au fonctionnement du site, ainsi que des cookies
-        d'analyse et de personnalisation soumis à votre consentement. Vous pouvez gérer vos
-        préférences à tout moment via le bandeau cookies.
+        Notre site utilise uniquement un cookie HTTPOnly de session, strictement nécessaire au
+        fonctionnement de l'authentification. Ce cookie ne contient aucune donnée personnelle
+        et est automatiquement supprimé à la fermeture de votre navigateur.
       </p>
 
       <h2>8. Vos droits</h2>

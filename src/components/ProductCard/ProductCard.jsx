@@ -71,7 +71,7 @@ const ProductCard = ({ produit, onAddToCart = () => {}, index = 0 }) => {
           aria-label={`Ajouter ${produit.nom_produit} au panier`}
         >
           <img
-            src="/src/Images/Icon/Button-ajout-panier.svg"
+            src="/Images/Icon/Button-ajout-panier.svg"
             alt=""
             aria-hidden="true"
           />

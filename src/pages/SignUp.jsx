@@ -69,7 +69,7 @@ const SignUp = () => {
 
                     <div className="form-group">
                         <div className="input-with-icon">
-                            <img src="/src/Images/Icon/signup-mail.svg" alt="" aria-hidden="true" />
+                            <img src="/Images/Icon/signup-mail.svg" alt="" aria-hidden="true" />
                             <div className="floating-input-wrapper">
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} required type="email" id="email" placeholder=" " />
                                 <label htmlFor="email">Email *</label>
@@ -80,7 +80,7 @@ const SignUp = () => {
                     <div className="form-row">
                         <div className="form-group half-width">
                             <div className="input-with-icon">
-                                <img src="/src/Images/Icon/header-Login.svg" alt="" aria-hidden="true" />
+                                <img src="/Images/Icon/header-Login.svg" alt="" aria-hidden="true" />
                                 <div className="floating-input-wrapper">
                                     {/*bloque les chiffres et symboles et garde spécificités françaises*/}
                                     <input value={prenom} onChange={(e) => setPrenom(e.target.value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, ""))} required type="text" id="prenom" placeholder=" " />
@@ -91,7 +91,7 @@ const SignUp = () => {
 
                         <div className="form-group half-width">
                             <div className="input-with-icon">
-                                <img src="/src/Images/Icon/header-Login.svg" alt="" aria-hidden="true" />
+                                <img src="/Images/Icon/header-Login.svg" alt="" aria-hidden="true" />
                                 <div className="floating-input-wrapper">
                                     <input value={nom} onChange={(e) => setNom(e.target.value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, ""))} required type="text" id="nom" placeholder=" " />
                                     <label htmlFor="nom">Nom *</label>
@@ -102,7 +102,7 @@ const SignUp = () => {
 
                     <div className="form-group">
                         <div className="input-with-icon">
-                            <img src="/src/Images/Icon/signup-telephone.svg" alt="" aria-hidden="true" />
+                            <img src="/Images/Icon/signup-telephone.svg" alt="" aria-hidden="true" />
                             <div className="floating-input-wrapper">
                                 <input value={telephone} onChange={(e) => setTelephone(e.target.value.replace(/[^0-9]/g, "").slice(0, 10))} type="tel" id="telephone" placeholder=" " pattern="[0-9]{10}" maxLength={10} />
                                 <label htmlFor="telephone">Téléphone</label>
@@ -112,26 +112,26 @@ const SignUp = () => {
 
                     <div className="form-group">
                         <div className="input-with-icon">
-                            <img src="/src/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
+                            <img src="/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
                             <div className="floating-input-wrapper">
                                 <input value={mdp} onChange={(e) => setMdp(e.target.value)} required type={showPassword ? "text" : "password"} id="password" placeholder=" " />
                                 <label htmlFor="password">Mot de passe *</label>
                             </div>
                             <button type="button" className="password-toggle-btn" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}>
-                                <img src="/src/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
+                                <img src="/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
                             </button>
                         </div>
                     </div>
 
                     <div className="form-group">
                         <div className="input-with-icon">
-                            <img src="/src/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
+                            <img src="/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
                             <div className="floating-input-wrapper">
                                 <input value={confirmMdp} onChange={(e) => setConfirmMdp(e.target.value)} required type={showConfirmPassword ? "text" : "password"} id="confirmPassword" placeholder=" " />
                                 <label htmlFor="confirmPassword">Confirmer le mot de passe *</label>
                             </div>
                             <button type="button" className="password-toggle-btn" onClick={() => setShowConfirmPassword(!showConfirmPassword)} aria-label={showConfirmPassword ? "Masquer la confirmation" : "Afficher la confirmation"}>
-                                <img src="/src/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
+                                <img src="/Images/Icon/signup-mdp.svg" alt="" aria-hidden="true" />
                             </button>
                         </div>
                     </div>

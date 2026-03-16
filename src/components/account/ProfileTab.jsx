@@ -131,7 +131,7 @@ const ProfileTab = ({ prenom, nom, email }) => {
             <span className="value">••••••••</span>
           </div>
           <button className="outline-btn full-width-btn">
-            <img src="/src/Images/Icon/signup-mdp.svg" alt="" />
+            <img src="/Images/Icon/signup-mdp.svg" alt="" />
             <span>Changer mon mot de passe</span>
           </button>
         </div>

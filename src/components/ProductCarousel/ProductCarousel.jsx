@@ -65,7 +65,7 @@ const ProductCarousel = ({ products, title, linkTo, linkText }) => {
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Produit précédent"
           >
-            <img src="/src/Images/Icon/carousel-left.svg" alt="" aria-hidden="true" />
+            <img src="/Images/Icon/carousel-left.svg" alt="" aria-hidden="true" />
           </button>
           <span className="carousel-product-name">{products[activeIndex]?.nom_produit}</span>
           <button
@@ -73,7 +73,7 @@ const ProductCarousel = ({ products, title, linkTo, linkText }) => {
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Produit suivant"
           >
-            <img src="/src/Images/Icon/carousel-right.svg" alt="" aria-hidden="true" />
+            <img src="/Images/Icon/carousel-right.svg" alt="" aria-hidden="true" />
           </button>
         </div>
       )}

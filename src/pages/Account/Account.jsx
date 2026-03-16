@@ -38,7 +38,7 @@ const Account = () => {
                     aria-selected={activeTab === 'profil'}
                     aria-controls="panel-profil"
                 >
-                    <img src="/src/Images/Icon/header-Login.svg" alt="section-profil" />
+                    <img src="/Images/Icon/header-Login.svg" alt="section-profil" />
                     <span>Profil</span>
                 </button>
                 <button
@@ -48,7 +48,7 @@ const Account = () => {
                     aria-selected={activeTab === 'commandes'}
                     aria-controls="panel-commandes"
                 >
-                    <img src="/src/Images/Icon/commande.svg" alt="section-commande" />
+                    <img src="/Images/Icon/commande.svg" alt="section-commande" />
                     <span>Commandes</span>
                 </button>
             </div>
