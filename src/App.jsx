@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
 import Layout from "./layout/Layout.jsx";
 import Home from "./pages/Home/Home.jsx";
@@ -24,7 +24,7 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
         <ScrollToTop />
         <ThemeProvider>
         <AuthProvider>
@@ -54,7 +54,7 @@ function App() {
           </CartProvider>
         </AuthProvider>
         </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
