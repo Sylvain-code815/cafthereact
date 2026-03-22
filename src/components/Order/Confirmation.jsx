@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
 import { useToast } from "../../contexts/ToastContext";
@@ -7,8 +7,12 @@ import { saveOrder } from "../../utils/savedOrders";
 const Confirmation = ({ orderData }) => {
   const { cart, clearCart } = useContext(CartContext);
   const { showToast } = useToast();
+  const hasSaved = useRef(false);
 
   useEffect(() => {
+    if (hasSaved.current) return;
+    hasSaved.current = true;
+
     if (cart.length > 0) {
       const total = cart.reduce((sum, item) => {
         if (item.isVrac) return sum + item.prix_ttc * (item.poids / 100) * item.quantite;

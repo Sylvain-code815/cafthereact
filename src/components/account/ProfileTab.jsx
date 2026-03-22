@@ -1,66 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddressCard from "./AddressCard";
-import { getSavedAddresses, saveAddresses } from "../../utils/savedAddress";
 
-const defaultAddresses = [
-  {
-    id_adresse: 1,
-    type: "Domicile",
-    rue: "25 rue de la République",
-    code_postal: "69002",
-    ville: "Lyon",
-    pays: "France",
-    telephone: "+33 6 12 34 56 78",
-    par_defaut: true,
-  },
-  {
-    id_adresse: 2,
-    type: "Bureau",
-    rue: "10 avenue des Champs",
-    code_postal: "69003",
-    ville: "Lyon",
-    pays: "France",
-    telephone: "+33 6 12 34 56 78",
-    par_defaut: false,
-  },
-];
+const API = import.meta.env.VITE_API_URL;
 
 const emptyForm = {
-  type: "",
+  titre: "",
   rue: "",
-  code_postal: "",
+  cp: "",
   ville: "",
   pays: "France",
-  telephone: "",
 };
 
 const ProfileTab = ({ prenom, nom, email }) => {
-  const [addresses, setAddresses] = useState(() => {
-    const saved = getSavedAddresses();
-    return saved.length > 0 ? saved : defaultAddresses;
-  });
+  const [addresses, setAddresses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyForm);
-
   const [errors, setErrors] = useState({});
+
+  // Chargement des adresses depuis l'API
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const res = await fetch(`${API}/api/adresses`, { credentials: "include" });
+        if (res.ok) {
+          const data = await res.json();
+          setAddresses(data.adresses);
+        }
+      } catch (err) {
+        console.error("Erreur chargement adresses:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAddresses();
+  }, []);
 
   const validate = () => {
     const errs = {};
-    if (/\d/.test(form.type))
-      errs.type = "Le type ne doit pas contenir de chiffres";
+    if (/\d/.test(form.titre))
+      errs.titre = "Le titre ne doit pas contenir de chiffres";
     if (!form.rue.trim()) errs.rue = "La rue est requise";
-    if (!/^\d{5}$/.test(form.code_postal))
-      errs.code_postal = "Le code postal doit contenir exactement 5 chiffres";
+    if (!/^\d{5}$/.test(form.cp))
+      errs.cp = "Le code postal doit contenir exactement 5 chiffres";
     if (/\d/.test(form.ville))
       errs.ville = "La ville ne doit pas contenir de chiffres";
     if (/\d/.test(form.pays))
       errs.pays = "Le pays ne doit pas contenir de chiffres";
-    if (form.telephone) {
-      const digits = form.telephone.replace(/[\s+()-]/g, "");
-      const isValid = /^0\d{9}$/.test(digits) || /^33\d{9}$/.test(digits);
-      if (!isValid)
-        errs.telephone = "Le téléphone doit contenir 10 chiffres (ex : 06 12 34 56 78)";
-    }
     return errs;
   };
 
@@ -70,30 +56,45 @@ const ProfileTab = ({ prenom, nom, email }) => {
     if (errors[name]) setErrors({ ...errors, [name]: undefined });
   };
 
-  const handleAdd = (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
-    const newAddress = {
-      ...form,
-      id_adresse: Date.now(),
-      par_defaut: false,
-    };
-    const updated = [...addresses, newAddress];
-    setAddresses(updated);
-    saveAddresses(updated);
-    setForm(emptyForm);
-    setErrors({});
-    setShowForm(false);
+
+    try {
+      const res = await fetch(`${API}/api/adresses`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setAddresses([...addresses, { id_adresse: data.adresse_id, ...form }]);
+        setForm(emptyForm);
+        setErrors({});
+        setShowForm(false);
+      }
+    } catch (err) {
+      console.error("Erreur ajout adresse:", err);
+    }
   };
 
-  const handleDelete = (id) => {
-    const updated = addresses.filter((a) => a.id_adresse !== id);
-    setAddresses(updated);
-    saveAddresses(updated);
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`${API}/api/adresses/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (res.ok) {
+        setAddresses(addresses.filter((a) => a.id_adresse !== id));
+      }
+    } catch (err) {
+      console.error("Erreur suppression adresse:", err);
+    }
   };
 
   return (
@@ -113,10 +114,6 @@ const ProfileTab = ({ prenom, nom, email }) => {
             <div className="info-group full-width">
               <span className="label">Email</span>
               <span className="value">{email}</span>
-            </div>
-            <div className="info-group full-width">
-              <span className="label">Téléphone</span>
-              <span className="value">+33 6 12 34 56 78</span>
             </div>
           </div>
           <button className="btn-filled full-width-btn">
@@ -151,17 +148,17 @@ const ProfileTab = ({ prenom, nom, email }) => {
           <form className="add-address-form" onSubmit={handleAdd}>
             <h4>Nouvelle adresse</h4>
             <div className="form-group">
-              <label>Type</label>
+              <label>Titre</label>
               <input
                 type="text"
-                name="type"
-                value={form.type}
+                name="titre"
+                value={form.titre}
                 onChange={handleChange}
                 placeholder="Ex : Domicile, Bureau..."
-                className={errors.type ? "input-error" : ""}
+                className={errors.titre ? "input-error" : ""}
                 required
               />
-              {errors.type && <span className="field-error">{errors.type}</span>}
+              {errors.titre && <span className="field-error">{errors.titre}</span>}
             </div>
             <div className="form-group">
               <label>Rue</label>
@@ -181,15 +178,15 @@ const ProfileTab = ({ prenom, nom, email }) => {
                 <label>Code postal</label>
                 <input
                   type="text"
-                  name="code_postal"
-                  value={form.code_postal}
+                  name="cp"
+                  value={form.cp}
                   onChange={handleChange}
                   placeholder="Ex : 69002"
                   maxLength={5}
-                  className={errors.code_postal ? "input-error" : ""}
+                  className={errors.cp ? "input-error" : ""}
                   required
                 />
-                {errors.code_postal && <span className="field-error">{errors.code_postal}</span>}
+                {errors.cp && <span className="field-error">{errors.cp}</span>}
               </div>
               <div className="form-group">
                 <label>Ville</label>
@@ -217,18 +214,6 @@ const ProfileTab = ({ prenom, nom, email }) => {
               />
               {errors.pays && <span className="field-error">{errors.pays}</span>}
             </div>
-            <div className="form-group">
-              <label>Téléphone</label>
-              <input
-                type="text"
-                name="telephone"
-                value={form.telephone}
-                onChange={handleChange}
-                placeholder="Ex : +33 6 12 34 56 78"
-                className={errors.telephone ? "input-error" : ""}
-              />
-              {errors.telephone && <span className="field-error">{errors.telephone}</span>}
-            </div>
             <div className="form-actions">
               <button type="submit" className="btn-filled">
                 Ajouter
@@ -248,22 +233,26 @@ const ProfileTab = ({ prenom, nom, email }) => {
           </form>
         )}
 
-        {addresses.map((addr) => (
-          <AddressCard
-            key={addr.id_adresse}
-            type={addr.type}
-            nom={nom}
-            prenom={prenom}
-            rue={addr.rue}
-            codePostal={addr.code_postal}
-            ville={addr.ville}
-            pays={addr.pays}
-            telephone={addr.telephone}
-            isDefault={addr.par_defaut}
-            onEdit={() => {}}
-            onDelete={() => handleDelete(addr.id_adresse)}
-          />
-        ))}
+        {loading ? (
+          <p>Chargement...</p>
+        ) : addresses.length === 0 ? (
+          <p className="empty-orders">Aucune adresse enregistrée.</p>
+        ) : (
+          addresses.map((addr) => (
+            <AddressCard
+              key={addr.id_adresse}
+              type={addr.titre}
+              nom={nom}
+              prenom={prenom}
+              rue={addr.rue}
+              codePostal={addr.cp}
+              ville={addr.ville}
+              pays={addr.pays}
+              onEdit={() => {}}
+              onDelete={() => handleDelete(addr.id_adresse)}
+            />
+          ))
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext.jsx";
-import { getSavedAddress, saveAddress, getSavedAddresses } from "../../utils/savedAddress.js";
+
+const API = import.meta.env.VITE_API_URL;
 
 const SHIPPING_OPTIONS = [
   { id: "standard", label: "Standard (3-5 jours)", price: 4.99 },
@@ -8,43 +9,39 @@ const SHIPPING_OPTIONS = [
   { id: "gratuit", label: "Gratuit (5-7 jours)", price: 0 },
 ];
 
-const defaultAddresses = [
-  {
-    id_adresse: 1,
-    type: "Domicile",
-    rue: "25 rue de la République",
-    code_postal: "69002",
-    ville: "Lyon",
-    pays: "France",
-    par_defaut: true,
-  },
-  {
-    id_adresse: 2,
-    type: "Bureau",
-    rue: "10 avenue des Champs",
-    code_postal: "69003",
-    ville: "Lyon",
-    pays: "France",
-    par_defaut: false,
-  },
-];
-
 const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
   const { isAuthenticated } = useContext(AuthContext);
+  const [savedAddresses, setSavedAddresses] = useState([]);
+  const [loadingAddresses, setLoadingAddresses] = useState(false);
 
-  const savedAddresses = isAuthenticated ? (() => {
-    const addrs = getSavedAddresses();
-    return addrs.length > 0 ? addrs : defaultAddresses;
-  })() : [];
+  // Chargement des adresses depuis l'API
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    setLoadingAddresses(true);
+    fetch(`${API}/api/adresses`, { credentials: "include" })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => setSavedAddresses(data.adresses))
+      .catch((err) => console.error("Erreur chargement adresses:", err))
+      .finally(() => setLoadingAddresses(false));
+  }, [isAuthenticated]);
 
   const defaultAddr = savedAddresses.find((a) => a.par_defaut) || savedAddresses[0];
 
   const [selectedAddressId, setSelectedAddressId] = useState(
-    orderData?._selectedAddressId ?? (defaultAddr?.id_adresse || null)
+    orderData?._selectedAddressId ?? null
   );
   const [showCustomForm, setShowCustomForm] = useState(
-    orderData?._showCustomForm || !isAuthenticated || savedAddresses.length === 0
+    orderData?._showCustomForm || !isAuthenticated
   );
+
+  // Met à jour la sélection par défaut quand les adresses sont chargées
+  useEffect(() => {
+    if (savedAddresses.length > 0 && selectedAddressId === null && !orderData?._showCustomForm) {
+      const def = savedAddresses.find((a) => a.par_defaut) || savedAddresses[0];
+      setSelectedAddressId(def.id_adresse);
+      setShowCustomForm(false);
+    }
+  }, [savedAddresses]);
 
   const getInitialForm = () => {
     if (orderData?.adresse) {
@@ -103,17 +100,13 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
     if (isAuthenticated && !showCustomForm && selectedAddressId) {
       const addr = savedAddresses.find((a) => a.id_adresse === selectedAddressId);
       if (addr) {
-        const addressData = {
+        setOrderData((prev) => ({
+          ...prev,
           adresse: addr.rue,
           complement: "",
           ville: addr.ville,
-          codePostal: addr.code_postal,
+          codePostal: addr.cp,
           pays: addr.pays || "France",
-        };
-        saveAddress(addressData);
-        setOrderData((prev) => ({
-          ...prev,
-          ...addressData,
           modeLivraison: form.modeLivraison,
           shippingCost: selected?.price || 0,
           _selectedAddressId: selectedAddressId,
@@ -122,16 +115,6 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
         onNext();
         return;
       }
-    }
-
-    if (isAuthenticated) {
-      saveAddress({
-        adresse: form.adresse,
-        complement: form.complement,
-        ville: form.ville,
-        codePostal: form.codePostal,
-        pays: form.pays,
-      });
     }
 
     setOrderData((prev) => ({
@@ -178,7 +161,9 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
       )}
       <h2 className="step-title">Livraison</h2>
 
-      {isAuthenticated && savedAddresses.length > 0 && (
+      {isAuthenticated && loadingAddresses && <p>Chargement des adresses...</p>}
+
+      {isAuthenticated && !loadingAddresses && savedAddresses.length > 0 && (
         <div className="liv-addresses">
           {savedAddresses.map((addr) => (
             <div
@@ -196,11 +181,11 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
               </div>
               <div className="liv-address-details">
                 <span className="liv-address-type">
-                  {addr.type}
+                  {addr.titre}
                   {addr.par_defaut && <span className="badge">Par d&eacute;faut</span>}
                 </span>
                 <span>{addr.rue}</span>
-                <span>{addr.code_postal} {addr.ville}, {addr.pays || "France"}</span>
+                <span>{addr.cp} {addr.ville}, {addr.pays || "France"}</span>
               </div>
             </div>
           ))}
@@ -216,7 +201,7 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
       )}
 
       <form className="step-form" onSubmit={handleSubmit}>
-        {(showCustomForm || !isAuthenticated || savedAddresses.length === 0) && addressFields}
+        {(showCustomForm || !isAuthenticated || (!loadingAddresses && savedAddresses.length === 0)) && addressFields}
 
         <fieldset className="step-fieldset">
           <legend>Mode de livraison</legend>
