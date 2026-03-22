@@ -21,6 +21,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import Account from "./pages/Account/Account.jsx";
 import Order from "./pages/Order/Order.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
+import { ToastProvider } from "./contexts/ToastContext.jsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <ThemeProvider>
         <AuthProvider>
           <CartProvider>
+            <ToastProvider>
             <SearchProvider>
               <Routes>
                 <Route path="/" element={<Layout />}>
@@ -51,6 +53,7 @@ function App() {
                 </Route>
               </Routes>
             </SearchProvider>
+            </ToastProvider>
           </CartProvider>
         </AuthProvider>
         </ThemeProvider>

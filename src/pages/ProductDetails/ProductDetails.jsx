@@ -7,6 +7,7 @@ import Breadcrumb from "../../components/Breadcrumb/Breadcrumb.jsx";
 import SEO from "../../components/SEO.jsx";
 import { categoryToRoute, CATEGORY_LABELS } from "../../utils/categories.js";
 import { isPoids } from "../../utils/product.js";
+import { useToast } from "../../contexts/ToastContext";
 import "./ProductDetails.css";
 
 const reviews = [
@@ -39,6 +40,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
+  const { showToast } = useToast();
 
   const [produit, setProduit] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -159,6 +161,7 @@ const ProductDetails = () => {
     } else {
       addToCart(produit, null, quantity);
     }
+    showToast(`${produit.nom_produit} ajouté au panier`);
   };
 
   return (

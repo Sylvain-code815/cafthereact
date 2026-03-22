@@ -5,12 +5,19 @@ import ProductCard from "../ProductCard/ProductCard.jsx";
 import Breadcrumb from "../Breadcrumb/Breadcrumb.jsx";
 import { CATEGORY_LABELS } from "../../utils/categories.js";
 import PriceSlider from "./RangeSlider.jsx";
+import { useToast } from "../../contexts/ToastContext";
 import "./ProductList.css";
 
 const ITEMS_PER_PAGE = 6;
 
 const ProductList = ({ categorie }) => {
   const { addToCart } = useContext(CartContext);
+  const { showToast } = useToast();
+
+  const handleAddToCart = (produit) => {
+    addToCart(produit);
+    showToast(`${produit.nom_produit} ajouté au panier`);
+  };
   const [produits, setProduits] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -223,7 +230,7 @@ const ProductList = ({ categorie }) => {
           <ProductCard
             key={produit.code_produit}
             produit={produit}
-            onAddToCart={addToCart}
+            onAddToCart={handleAddToCart}
             index={index}
           />
         ))}

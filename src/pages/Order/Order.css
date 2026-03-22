@@ -1,6 +1,4 @@
 .order-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 40px clamp(16px, calc(-8px + 7.5vw), 100px);
 }
 
@@ -90,7 +88,7 @@
 
 .checkout-layout {
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 420px;
   gap: 40px;
   align-items: start;
 }

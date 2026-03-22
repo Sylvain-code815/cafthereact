@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useToast } from "../../contexts/ToastContext";
 import SEO from "../../components/SEO.jsx";
 import "./Login.css"
 
 const Login = () => {
   const { login } = useContext(AuthContext);
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [mdp, setmdp] = useState("");
@@ -36,13 +38,11 @@ const Login = () => {
         return;
       }
 
-      // Appel au login via le contexte
       login(data.client);
-
-      // Puis retour à l'accueil
+      showToast(`Bienvenue ${data.client.prenom} !`);
       navigate("/");
     } catch (err) {
-      console.error("Erreur lors de la connexion", error);
+      console.error("Erreur lors de la connexion", err);
       setErrorMsg("Une erreur s'est produit lors de la connexion");
     }
   };

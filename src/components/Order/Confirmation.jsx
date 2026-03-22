@@ -1,13 +1,29 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
+import { useToast } from "../../contexts/ToastContext";
+import { saveOrder } from "../../utils/savedOrders";
 
 const Confirmation = ({ orderData }) => {
-  const { clearCart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext);
+  const { showToast } = useToast();
 
-  // Mettre le clear-cart dès que la page s'affiche
   useEffect(() => {
+    if (cart.length > 0) {
+      const total = cart.reduce((sum, item) => {
+        if (item.isVrac) return sum + item.prix_ttc * (item.poids / 100) * item.quantite;
+        return sum + item.prix_ttc * item.quantite;
+      }, 0) + (orderData?.shippingCost || 0);
+      saveOrder({
+        id_commande: Date.now(),
+        date: new Date().toISOString(),
+        articles: cart.reduce((sum, item) => sum + item.quantite, 0),
+        statut: "En cours",
+        total,
+      });
+    }
     clearCart();
+    showToast("Commande confirmée !");
   }, []);
 
   return (

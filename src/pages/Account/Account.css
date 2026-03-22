@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     padding: clamp(24px, calc(17px + 2.14vw), 48px) clamp(16px, calc(-8px + 7.5vw), 100px) clamp(48px, calc(34px + 4.29vw), 96px);
-    max-width: 1000px;
-    margin: 0 auto;
     color: var(--color-text);
 }
 
