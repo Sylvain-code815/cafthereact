@@ -93,8 +93,24 @@
 }
 
 .search-overlay .product-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, clamp(280px, 22vw, 380px));
   justify-content: center;
+  gap: clamp(24px, 3vw, 56px);
+}
+
+@media (max-width: 1024px) {
+  .search-overlay .product-list {
+    grid-template-columns: repeat(2, clamp(240px, 30vw, 320px));
+    gap: clamp(20px, 3vw, 40px);
+  }
+}
+
+@media (max-width: 480px) {
+  .search-overlay .product-list {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: 20px;
+  }
 }
