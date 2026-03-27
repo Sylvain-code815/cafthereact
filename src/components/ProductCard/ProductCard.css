@@ -24,6 +24,7 @@
 .product-card-image-wrap {
   position: relative;
   overflow: hidden;
+  aspect-ratio: 1;
 }
 
 .product-card-img {

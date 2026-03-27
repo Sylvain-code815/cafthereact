@@ -486,4 +486,9 @@
     flex-direction: column;
     gap: 16px;
   }
+
+  .step-btn {
+    width: 100%;
+    display: block;
+  }
 }
