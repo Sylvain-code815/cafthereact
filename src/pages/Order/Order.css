@@ -414,6 +414,27 @@
   color: var(--color-footer);
 }
 
+.step-cgv-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-body);
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.step-cgv-group input[type="checkbox"] {
+  accent-color: var(--color-text);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.step-cgv-group a {
+  color: var(--color-the);
+  text-decoration: underline;
+}
+
 .step-btn {
   display: inline-block;
   padding: 12px 32px;

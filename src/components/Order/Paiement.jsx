@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
   const [method, setMethod] = useState(orderData?.methodePaiement || "cb");
@@ -6,6 +7,7 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
   const [cardExpiry, setCardExpiry] = useState(orderData?.cardExpiry || "");
   const [cardCvc, setCardCvc] = useState(orderData?.cardCvc || "");
   const [cardName, setCardName] = useState(orderData?.cardName || "");
+  const [cgvAccepted, setCgvAccepted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -137,6 +139,21 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
             Vous serez redirigé vers PayPal lors de la confirmation.
           </div>
         )}
+
+        <label className="step-cgv-group">
+          <input
+            type="checkbox"
+            required
+            checked={cgvAccepted}
+            onChange={(e) => setCgvAccepted(e.target.checked)}
+          />
+          <span>
+            J'accepte les{" "}
+            <Link to="/conditions-generales" target="_blank">
+              conditions générales de vente
+            </Link>
+          </span>
+        </label>
 
         <button className="btn-filled step-btn" type="submit">
           Confirmer la commande
