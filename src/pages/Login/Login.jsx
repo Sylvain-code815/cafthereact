@@ -1,14 +1,16 @@
 import React, { useContext, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useToast } from "../../contexts/ToastContext";
 import SEO from "../../components/SEO.jsx";
+import { getSafeRedirect } from "../../utils/redirect.js";
 import "./Login.css"
 
 const Login = () => {
   const { login } = useContext(AuthContext);
   const { showToast } = useToast();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [mdp, setmdp] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -40,7 +42,8 @@ const Login = () => {
 
       login(data.client);
       showToast(`Bienvenue ${data.client.prenom} !`);
-      navigate("/");
+      // Retour à la page demandée (ex. le tunnel de commande), sinon à l'accueil
+      navigate(getSafeRedirect(searchParams));
     } catch (err) {
       console.error("Erreur lors de la connexion", err);
       setErrorMsg("Une erreur s'est produit lors de la connexion");

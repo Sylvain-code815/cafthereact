@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext.jsx";
-import { isPoids } from "../../utils/product.js";
+import { isPoids, getLineTotal } from "../../utils/product.js";
 
 const SHIPPING_LABELS = {
   standard: "Standard (3-5 jours)",
   express: "Express (1-2 jours)",
-  gratuit: "Gratuit (5-7 jours)",
+  free: "Gratuit (5-7 jours)",
+  pickup: "Retrait en magasin",
 };
 
 const OrderSummary = ({ shippingCost = 0, modeLivraison }) => {
@@ -22,9 +23,7 @@ const OrderSummary = ({ shippingCost = 0, modeLivraison }) => {
           const cartKey = item._cartKey || item.code_produit;
           // Condition ternaire pour distinction poids et quantite par rapport à type_vente
           const isVrac = isPoids(item.type_vente) && item.poids;
-          const lineTotal = isVrac
-            ? item.prix_ttc * (item.poids / 100) * item.quantite
-            : item.prix_ttc * item.quantite;
+          const lineTotal = getLineTotal(item);
 
           return (
             <div key={cartKey} className="os-item">

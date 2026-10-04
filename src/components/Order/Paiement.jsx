@@ -1,5 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../contexts/CartContext.jsx";
+import { isPoids } from "../../utils/product.js";
+
+const API = import.meta.env.VITE_API_URL;
+
+// Moyens de paiement du front -> valeurs attendues par l'API
+const PAYMENT_MODES = { cb: "card", paypal: "paypal", magasin: "in_store" };
+
+// Lignes envoyées à l'API : uniquement les identifiants et quantités.
+// Les prix sont relus en base par l'API (un prix modifié dans le navigateur est ignoré)
+const toOrderLines = (cart) =>
+  cart.map((item) => ({
+    code_produit: item.code_produit,
+    quantite: item.quantite,
+    ...(isPoids(item.type_vente) && item.poids ? { poids: item.poids } : {}),
+  }));
 
 const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
   const [method, setMethod] = useState(orderData?.methodePaiement || "cb");
@@ -8,15 +24,52 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
   const [cardCvc, setCardCvc] = useState(orderData?.cardCvc || "");
   const [cardName, setCardName] = useState(orderData?.cardName || "");
   const [cgvAccepted, setCgvAccepted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const { cart } = useContext(CartContext);
+  const isPickup = orderData?.modeLivraison === "pickup";
 
-  const handleSubmit = (e) => {
+  // Enregistrement de la commande dans l'API (transaction : stock vérifié et décrémenté)
+  // Les données de carte ne sont jamais envoyées à l'API CafThé : en production,
+  // elles iraient directement au prestataire de paiement (Stripe, PayPal...)
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setOrderData((prev) => ({
-      ...prev,
-      methodePaiement: method,
-      ...(method === "cb" && { cardNumber, cardExpiry, cardCvc, cardName }),
-    }));
-    onNext();
+    setErrorMsg("");
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(`${API}/api/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          lines: toOrderLines(cart),
+          mode_livraison: orderData.modeLivraison,
+          ...(isPickup ? {} : { id_adresse_livraison: orderData._selectedAddressId }),
+          mode_paiement: PAYMENT_MODES[method],
+        }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Ex. 409 « Stock insuffisant pour ... », 401 session expirée
+        setErrorMsg(data.message || "La commande n'a pas pu être enregistrée");
+        return;
+      }
+
+      setOrderData((prev) => ({
+        ...prev,
+        methodePaiement: method,
+        numCommande: data.num_commande,
+        totalCommande: data.total,
+      }));
+      onNext();
+    } catch (err) {
+      console.error("Erreur enregistrement commande:", err);
+      setErrorMsg("Une erreur s'est produite, votre commande n'a pas été enregistrée");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   // Formate le numéro de carte : groupes de 4 chiffres séparés par des espaces
@@ -74,6 +127,18 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
             />
             <span>PayPal</span>
           </label>
+          {isPickup && (
+            <label className="step-radio-label">
+              <input
+                type="radio"
+                name="methode"
+                value="magasin"
+                checked={method === "magasin"}
+                onChange={(e) => setMethod(e.target.value)}
+              />
+              <span>Payer en magasin au retrait</span>
+            </label>
+          )}
         </fieldset>
 
         {method === "cb" && (
@@ -155,8 +220,10 @@ const Paiement = ({ onNext, onBack, orderData, setOrderData }) => {
           </span>
         </label>
 
-        <button className="btn-filled step-btn" type="submit">
-          Confirmer la commande
+        {errorMsg && <div className="error-message" role="alert">{errorMsg}</div>}
+
+        <button className="btn-filled step-btn" type="submit" disabled={submitting}>
+          {submitting ? "Enregistrement..." : "Confirmer la commande"}
         </button>
       </form>
     </div>

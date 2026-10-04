@@ -2,30 +2,17 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
 import { useToast } from "../../contexts/ToastContext";
-import { saveOrder } from "../../utils/savedOrders";
 
+// Étape 4 : la commande est déjà enregistrée par l'API (étape Paiement),
+// on affiche son numéro unique et le total calculé par le serveur (CDC 4.4)
 const Confirmation = ({ orderData }) => {
-  const { cart, clearCart } = useContext(CartContext);
+  const { clearCart } = useContext(CartContext);
   const { showToast } = useToast();
-  const hasSaved = useRef(false);
+  const hasCleared = useRef(false);
 
   useEffect(() => {
-    if (hasSaved.current) return;
-    hasSaved.current = true;
-
-    if (cart.length > 0) {
-      const total = cart.reduce((sum, item) => {
-        if (item.isVrac) return sum + item.prix_ttc * (item.poids / 100) * item.quantite;
-        return sum + item.prix_ttc * item.quantite;
-      }, 0) + (orderData?.shippingCost || 0);
-      saveOrder({
-        id_commande: Date.now(),
-        date: new Date().toISOString(),
-        articles: cart.reduce((sum, item) => sum + item.quantite, 0),
-        statut: "En cours",
-        total,
-      });
-    }
+    if (hasCleared.current) return;
+    hasCleared.current = true;
     clearCart();
     showToast("Commande confirmée !");
   }, []);
@@ -35,8 +22,14 @@ const Confirmation = ({ orderData }) => {
       <div className="confirmation-icon">&#10003;</div>
       <h2 className="confirmation-title">Commande confirmée</h2>
       <p className="confirmation-text">
-        Merci {orderData?.prenom || ""} ! Votre commande a bien été enregistrée.
+        Merci {orderData?.prenom || ""} ! Votre commande
+        {orderData?.numCommande ? <strong> n°{orderData.numCommande}</strong> : ""} a bien été enregistrée.
       </p>
+      {orderData?.totalCommande !== undefined && (
+        <p className="confirmation-text">
+          Montant total : <strong>{Number(orderData.totalCommande).toFixed(2)} €</strong>
+        </p>
+      )}
       <p className="confirmation-text">
         Un email de confirmation sera envoyé à <strong>{orderData?.email || "votre adresse"}</strong>.
       </p>

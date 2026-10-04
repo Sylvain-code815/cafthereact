@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SEO from "../components/SEO.jsx";
 import "./Login/Login.css";
 
@@ -14,6 +14,7 @@ const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     // Vérification du double mot de passe identique et envoi à l'API
     const handleSubmit = async (e) => {
@@ -46,7 +47,9 @@ const SignUp = () => {
                 return;
             }
 
-            navigate("/login");
+            // Après l'inscription, connexion puis retour à la page demandée (ex. la commande)
+            const redirect = searchParams.get("redirect");
+            navigate(redirect ? `/login?redirect=${encodeURIComponent(redirect)}` : "/login");
 
         } catch (error) {
             console.error("Erreur réseau :", error);

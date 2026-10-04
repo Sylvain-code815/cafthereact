@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
+import { AuthContext } from "../../contexts/AuthContext.jsx";
 import OrderSummary from "../../components/Order/OrderSummary.jsx";
 import Identification from "../../components/Order/Identification.jsx";
 import Livraison from "../../components/Order/Livraison.jsx";
@@ -18,6 +19,7 @@ const STEPS = [
 
 const Order = () => {
   const { cart } = useContext(CartContext);
+  const { isAuthenticated, loading } = useContext(AuthContext);
   // modifie l'URL pour rester à l'étape actuelle quand il y a un refresh
   const [searchParams, setSearchParams] = useSearchParams();
   const stepParam = parseInt(searchParams.get("step"), 10);
@@ -41,6 +43,11 @@ const Order = () => {
   // Redirige si panier vide + empêche de taper directement /order dans url
   if (cart.length === 0 && currentStep < 4) {
     return <Navigate to="/panier" replace />;
+  }
+
+  // Les étapes Livraison et Paiement exigent d'être connecté (retour à l'identification)
+  if (!loading && !isAuthenticated && currentStep > 1 && currentStep < 4) {
+    return <Navigate to="/order?step=1" replace />;
   }
 
   const nextStep = () => setSearchParams({ step: currentStep + 1 });

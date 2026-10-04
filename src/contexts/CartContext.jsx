@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import { isPoids } from "../utils/product.js";
+import { isPoids, getLineTotal } from "../utils/product.js";
 
 export const CartContext = createContext(null);
 
@@ -67,12 +67,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const totalArticles = cart.reduce((acc, item) => acc + item.quantite, 0);
-  const totalPrix = cart.reduce((acc, item) => {
-    if (isPoids(item.type_vente) && item.poids) {
-      return acc + item.prix_ttc * (item.poids / 100) * item.quantite;
-    }
-    return acc + item.prix_ttc * item.quantite;
-  }, 0);
+  // Remise des produits en promotion comprise (même calcul que l'API)
+  const totalPrix = cart.reduce((acc, item) => acc + getLineTotal(item), 0);
 
   const clearCart = () => {
     setCart([]);

@@ -513,3 +513,10 @@
     display: block;
   }
 }
+
+/* Erreur renvoyée par l'API (stock insuffisant, adresse invalide...) */
+.step-form .error-message {
+  color: var(--color-error);
+  font-size: var(--fs-body);
+  text-align: center;
+}

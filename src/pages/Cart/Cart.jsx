@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
 import SEO from "../../components/SEO.jsx";
-import { isPoids } from "../../utils/product.js";
+import { isPoids, getEffectivePrice, getLineTotal } from "../../utils/product.js";
 import "./Cart.css";
 
 const Cart = () => {
@@ -38,9 +38,7 @@ const Cart = () => {
               const cartKey = item._cartKey || item.code_produit;
               const isVrac = isPoids(item.type_vente) && item.poids;
               // poids * quantité, 2 décimal max
-              const itemTotal = isVrac
-                ? (item.prix_ttc * (item.poids / 100) * item.quantite).toFixed(2)
-                : (item.prix_ttc * item.quantite).toFixed(2);
+              const itemTotal = getLineTotal(item).toFixed(2);
 
               return (
                 <div key={cartKey} className="cart-item">
@@ -55,7 +53,7 @@ const Cart = () => {
                     />
                     <div>
                       <h3>{item.nom_produit}{isVrac ? ` — ${item.poids >= 1000 ? `${item.poids / 1000}kg` : `${item.poids}g`}` : ""}</h3>
-                      <p className="item-price">{item.prix_ttc} €{isVrac ? " / 100g" : ""}</p>
+                      <p className="item-price">{getEffectivePrice(item).toFixed(2)} €{isVrac ? " / 100g" : ""}</p>
                     </div>
                   </div>
 

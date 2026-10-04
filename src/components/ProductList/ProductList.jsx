@@ -39,7 +39,7 @@ const ProductList = ({ categorie }) => {
         if (categorie === "produit_promotion") {
           fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles/promo`;
         } else if (categorie === "produit_phare") {
-          fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles/phares`;
+          fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles/phare`;
         } else if (categorie) {
           fetchUrl = `${import.meta.env.VITE_API_URL}/api/articles/categorie/${categorie}`;
         } else {
