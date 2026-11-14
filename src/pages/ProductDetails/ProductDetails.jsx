@@ -192,6 +192,9 @@ const ProductDetails = () => {
         <div className="pd-info">
           <h1 className="pd-title">{produit.nom_produit}</h1>
 
+          {/* Référence SKU renvoyée par l'API (ex. CAF-0001) */}
+          {produit.sku && <p className="pd-sku">Réf. {produit.sku}</p>}
+
           {produit.origine && (
             <p className="pd-origin">Origine : {produit.origine}</p>
           )}
