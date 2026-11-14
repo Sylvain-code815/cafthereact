@@ -151,8 +151,9 @@
   color: var(--color-bg-light);
 }
 
-/* Souris : le bouton apparaît au survol ou au focus clavier. Tactile : toujours visible */
-@media (hover: hover) {
+/* Souris sur grand écran : le bouton apparaît au survol ou au focus clavier.
+   Tactile et mobile : toujours visible */
+@media (hover: hover) and (min-width: 769px) {
   .product-card-quickview {
     opacity: 0;
   }
