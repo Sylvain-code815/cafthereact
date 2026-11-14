@@ -223,3 +223,17 @@ input {
 .password-toggle-btn:hover {
     color: var(--color-text);
 }
+
+/* Réinitialisation du mot de passe */
+.reset-password-rule {
+    font-size: var(--fs-small);
+    color: var(--color-footer);
+}
+
+.reset-password-show {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--fs-small);
+    cursor: pointer;
+}
