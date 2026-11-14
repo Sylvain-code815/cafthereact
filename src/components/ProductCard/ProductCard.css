@@ -121,3 +121,45 @@
 .btn-add-cart img:hover {
   transform: scale(1.1);
 }
+
+/* Aperçu rapide (CDC 4.2.1) */
+.product-card-media {
+  position: relative;
+}
+
+.product-card-quickview {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background-color: var(--color-surface-high);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-btn);
+  cursor: pointer;
+  font-family: "Jost", sans-serif;
+  font-size: var(--fs-small);
+  font-weight: var(--weight-btn);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: opacity 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.product-card-quickview:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg-light);
+}
+
+/* Souris sur grand écran : le bouton apparaît au survol ou au focus clavier.
+   Tactile et mobile : toujours visible */
+@media (hover: hover) and (min-width: 769px) {
+  .product-card-quickview {
+    opacity: 0;
+  }
+
+  .product-card:hover .product-card-quickview,
+  .product-card-quickview:focus-visible {
+    opacity: 1;
+  }
+}

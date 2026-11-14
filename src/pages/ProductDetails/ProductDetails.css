@@ -52,6 +52,12 @@
   letter-spacing: 0.5px;
 }
 
+.pd-sku {
+  font-size: var(--fs-small);
+  color: var(--color-footer);
+  letter-spacing: 0.5px;
+}
+
 .pd-rating-row {
   display: flex;
   align-items: center;

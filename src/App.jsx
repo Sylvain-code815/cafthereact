@@ -14,6 +14,7 @@ import Cart from "./pages/Cart/Cart.jsx";
 import Phare from "./pages/Phare.jsx";
 import Promotion from "./pages/Promotion.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Sitemap from "./pages/Sitemap.jsx";
 import CGV from "./pages/CGV.jsx";
@@ -44,6 +45,7 @@ function App() {
                   <Route path="promotions" element={<Promotion />} />
                   <Route path="produits-phares" element={<Phare />} />
                   <Route path="forgot-password" element={<ForgotPassword />} />
+                  <Route path="reset-password" element={<ResetPassword />} />
                   <Route path="signup" element={<SignUp />} />
                   <Route path="plan-du-site" element={<Sitemap />} />
                   <Route path="conditions-generales" element={<CGV />} />

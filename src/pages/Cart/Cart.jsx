@@ -1,12 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext.jsx";
 import SEO from "../../components/SEO.jsx";
+import ConfirmDialog from "../../components/Modal/ConfirmDialog.jsx";
 import { isPoids, getEffectivePrice, getLineTotal } from "../../utils/product.js";
+import { getShippingEstimate, getShippingLabel, formatShippingPrice } from "../../utils/shipping.js";
 import "./Cart.css";
 
 const Cart = () => {
   const { cart, addToCart, decreaseQuantity, removeFromCart, totalArticles, totalPrix, clearCart } = useContext(CartContext);
+  // Action en attente de confirmation : { type: "remove", item } ou { type: "clear" } (CDC 4.3)
+  const [pendingAction, setPendingAction] = useState(null);
+
+  const confirmPendingAction = () => {
+    if (pendingAction?.type === "remove") {
+      removeFromCart(pendingAction.item._cartKey || pendingAction.item.code_produit);
+    } else if (pendingAction?.type === "clear") {
+      clearCart();
+    }
+    setPendingAction(null);
+  };
+
+  const shippingEstimate = getShippingEstimate(totalPrix);
 
   const seo = <SEO title="Panier" description="Votre panier CafThé. Consultez vos articles et passez votre commande de thés et cafés d'exception." />;
 
@@ -60,7 +75,12 @@ const Cart = () => {
                   <div className="cart-quantity-controls">
                     <button
                       className="btn-qty quantity-btn"
-                      onClick={() => decreaseQuantity(cartKey)}
+                      // À 1, le bouton « − » retire la ligne : on demande confirmation
+                      onClick={() =>
+                        item.quantite > 1
+                          ? decreaseQuantity(cartKey)
+                          : setPendingAction({ type: "remove", item })
+                      }
                       aria-label={`Acheter moins de ${item.nom_produit}`}
                     >
                       −
@@ -79,7 +99,7 @@ const Cart = () => {
                     <p className="item-total-price">{itemTotal} €</p>
                     <button
                       className="remove-btn"
-                      onClick={() => removeFromCart(cartKey)}
+                      onClick={() => setPendingAction({ type: "remove", item })}
                       aria-label={`Supprimer ${item.nom_produit} du panier`}
                     >
                       <img src="/Images/Icon/cart-trash.svg" alt="suppression ligne du panier" aria-hidden="true" />
@@ -95,8 +115,29 @@ const Cart = () => {
             <div className="summary-details">
               <h2>Total : {totalPrix.toFixed(2)} €</h2>
             </div>
+
+            {/* Estimation des frais de livraison (CDC 4.3) : mêmes modes et prix que le tunnel */}
+            <div className="shipping-estimate">
+              <h3 className="shipping-estimate-title">Estimation de la livraison</h3>
+              <ul className="shipping-estimate-list">
+                {shippingEstimate.options.map((opt) => (
+                  <li key={opt.id} className="shipping-estimate-row">
+                    <span>
+                      {getShippingLabel(opt.id)}
+                      {opt.carrier && <span className="shipping-estimate-carrier"> · {opt.carrier}</span>}
+                    </span>
+                    <span className="shipping-estimate-price">{formatShippingPrice(opt.price)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="shipping-estimate-total">
+                Total avec livraison standard : <strong>{shippingEstimate.defaultTotal.toFixed(2)} €</strong>
+              </p>
+              <p className="shipping-estimate-note">Le mode de livraison se choisit à l'étape suivante.</p>
+            </div>
+
             <div className="summary-actions">
-              <button className="clear-btn" onClick={clearCart}>
+              <button className="clear-btn" onClick={() => setPendingAction({ type: "clear" })}>
                 Vider le panier
               </button>
               <Link to="/order" className="btn-filled cart-order-btn">
@@ -107,6 +148,20 @@ const Cart = () => {
         </div>
 
       </div>
+
+      {pendingAction && (
+        <ConfirmDialog
+          title={pendingAction.type === "clear" ? "Vider le panier" : "Retirer l'article"}
+          message={
+            pendingAction.type === "clear"
+              ? "Voulez-vous vraiment retirer tous les articles de votre panier ?"
+              : `Voulez-vous vraiment retirer « ${pendingAction.item.nom_produit} » de votre panier ?`
+          }
+          confirmLabel={pendingAction.type === "clear" ? "Vider" : "Retirer"}
+          onConfirm={confirmPendingAction}
+          onCancel={() => setPendingAction(null)}
+        />
+      )}
     </div>
   );
 };
