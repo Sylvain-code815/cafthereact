@@ -284,6 +284,17 @@
     font-weight: var(--weight-title);
 }
 
+/* Commander à l'identique (CDC 4.5) */
+.order-reorder-btn {
+    padding: 6px 16px;
+    font-size: var(--fs-small);
+}
+
+.order-reorder-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
 .order-articles {
     font-size: var(--fs-small);
     color: var(--color-footer);
