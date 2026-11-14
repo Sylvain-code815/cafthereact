@@ -4,6 +4,7 @@ import { CartContext } from "../../contexts/CartContext.jsx";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import Breadcrumb from "../Breadcrumb/Breadcrumb.jsx";
 import { CATEGORY_LABELS } from "../../utils/categories.js";
+import { isPoids } from "../../utils/product.js";
 import PriceSlider from "./RangeSlider.jsx";
 import { useToast } from "../../contexts/ToastContext";
 import "./ProductList.css";
@@ -14,8 +15,10 @@ const ProductList = ({ categorie }) => {
   const { addToCart } = useContext(CartContext);
   const { showToast } = useToast();
 
+  // Ajout rapide depuis la carte : un produit au poids part en format 100 g
+  // (sans poids, l'API refuse la ligne : « se vend au poids : indiquez le poids »)
   const handleAddToCart = (produit) => {
-    addToCart(produit);
+    addToCart(produit, isPoids(produit.type_vente) ? 100 : null);
     showToast(`${produit.nom_produit} ajouté au panier`);
   };
   const [produits, setProduits] = useState([]);
