@@ -4,6 +4,7 @@ import { CartContext } from "../../contexts/CartContext.jsx";
 import SEO from "../../components/SEO.jsx";
 import ConfirmDialog from "../../components/Modal/ConfirmDialog.jsx";
 import { isPoids, getEffectivePrice, getLineTotal } from "../../utils/product.js";
+import { getShippingEstimate, getShippingLabel, formatShippingPrice } from "../../utils/shipping.js";
 import "./Cart.css";
 
 const Cart = () => {
@@ -19,6 +20,8 @@ const Cart = () => {
     }
     setPendingAction(null);
   };
+
+  const shippingEstimate = getShippingEstimate(totalPrix);
 
   const seo = <SEO title="Panier" description="Votre panier CafThé. Consultez vos articles et passez votre commande de thés et cafés d'exception." />;
 
@@ -111,6 +114,26 @@ const Cart = () => {
           <aside className="cart-summary">
             <div className="summary-details">
               <h2>Total : {totalPrix.toFixed(2)} €</h2>
+            </div>
+
+            {/* Estimation des frais de livraison (CDC 4.3) : mêmes modes et prix que le tunnel */}
+            <div className="shipping-estimate">
+              <h3 className="shipping-estimate-title">Estimation de la livraison</h3>
+              <ul className="shipping-estimate-list">
+                {shippingEstimate.options.map((opt) => (
+                  <li key={opt.id} className="shipping-estimate-row">
+                    <span>
+                      {getShippingLabel(opt.id)}
+                      {opt.carrier && <span className="shipping-estimate-carrier"> · {opt.carrier}</span>}
+                    </span>
+                    <span className="shipping-estimate-price">{formatShippingPrice(opt.price)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="shipping-estimate-total">
+                Total avec livraison standard : <strong>{shippingEstimate.defaultTotal.toFixed(2)} €</strong>
+              </p>
+              <p className="shipping-estimate-note">Le mode de livraison se choisit à l'étape suivante.</p>
             </div>
 
             <div className="summary-actions">

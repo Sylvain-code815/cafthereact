@@ -266,3 +266,48 @@
   color: #fff;
 }
 
+/* Estimation des frais de livraison (CDC 4.3) */
+.shipping-estimate {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.shipping-estimate-title {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-under-Title);
+  text-transform: uppercase;
+}
+
+.shipping-estimate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shipping-estimate-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--fs-small);
+}
+
+.shipping-estimate-carrier {
+  color: var(--color-footer);
+}
+
+.shipping-estimate-price {
+  font-weight: var(--weight-under-Title);
+  white-space: nowrap;
+}
+
+.shipping-estimate-total {
+  font-size: var(--fs-body);
+}
+
+.shipping-estimate-note {
+  font-size: var(--fs-small);
+  color: var(--color-footer);
+}

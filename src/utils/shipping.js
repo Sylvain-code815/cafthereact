@@ -32,20 +32,16 @@ export const formatShippingPrice = (price) =>
 /**
  * Estimation des frais de livraison affichée dans le panier (CDC 4.3)
  * Renvoie chaque mode avec le total estimé de la commande (arrondi au centime)
- * et le prix de la livraison à domicile payante la moins chère.
+ * et le total avec le mode proposé par défaut dans le tunnel (standard).
  */
 export const getShippingEstimate = (subtotal) => {
   const options = SHIPPING_OPTIONS.map((opt) => ({
     ...opt,
     total: Math.round((subtotal + opt.price) * 100) / 100,
   }));
-  const paidHomePrices = SHIPPING_OPTIONS
-    .filter((opt) => opt.id !== "pickup" && opt.price > 0)
-    .map((opt) => opt.price);
 
   return {
     options,
-    minPaidHomePrice: paidHomePrices.length ? Math.min(...paidHomePrices) : 0,
-    hasPickup: SHIPPING_OPTIONS.some((opt) => opt.id === "pickup"),
+    defaultTotal: options.find((opt) => opt.id === DEFAULT_SHIPPING_MODE).total,
   };
 };
