@@ -8,6 +8,7 @@ import Livraison from "../../components/Order/Livraison.jsx";
 import Paiement from "../../components/Order/Paiement.jsx";
 import Confirmation from "../../components/Order/Confirmation.jsx";
 import SEO from "../../components/SEO.jsx";
+import { DEFAULT_SHIPPING_MODE, getShippingOption } from "../../utils/shipping.js";
 import "./Order.css";
 
 const STEPS = [
@@ -35,8 +36,8 @@ const Order = () => {
     ville: "",
     codePostal: "",
     pays: "France",
-    modeLivraison: "standard",
-    shippingCost: 4.99,
+    modeLivraison: DEFAULT_SHIPPING_MODE,
+    shippingCost: getShippingOption(DEFAULT_SHIPPING_MODE).price,
     methodePaiement: "cb",
   });
 

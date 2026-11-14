@@ -1,15 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext.jsx";
+import { SHIPPING_OPTIONS, getShippingLabel, formatShippingPrice } from "../../utils/shipping.js";
 
 const API = import.meta.env.VITE_API_URL;
-
-// Identifiants identiques à ceux de l'API (DELIVERY_MODES) : l'API recalcule les frais
-const SHIPPING_OPTIONS = [
-  { id: "standard", label: "Standard (3-5 jours)", price: 4.99 },
-  { id: "express", label: "Express (1-2 jours)", price: 9.99 },
-  { id: "free", label: "Gratuit (5-7 jours)", price: 0 },
-  { id: "pickup", label: "Retrait en magasin", price: 0 },
-];
 
 // Étape 2 du tunnel : mode de livraison et adresse (CDC 4.4)
 const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
@@ -232,10 +225,14 @@ const Livraison = ({ onNext, onBack, orderData, setOrderData }) => {
                 checked={form.modeLivraison === opt.id}
                 onChange={handleChange}
               />
-              <span>{opt.label}</span>
-              <span className="step-radio-price">
-                {opt.price === 0 ? "Gratuit" : `${opt.price.toFixed(2)} €`}
+              {/* Transporteur : libellé d'affichage, seul l'identifiant du mode part à l'API */}
+              <span className="step-radio-text">
+                <span>{getShippingLabel(opt.id)}</span>
+                {opt.carrier && (
+                  <span className="step-radio-carrier">Transporteur : {opt.carrier}</span>
+                )}
               </span>
+              <span className="step-radio-price">{formatShippingPrice(opt.price)}</span>
             </label>
           ))}
         </fieldset>

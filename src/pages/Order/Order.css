@@ -520,3 +520,14 @@
   font-size: var(--fs-body);
   text-align: center;
 }
+
+/* Mode de livraison : libellé + transporteur (CDC 4.4 « choix transporteur et délai ») */
+.step-radio-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-radio-carrier {
+  font-size: var(--fs-small);
+  color: var(--color-footer);
+}
