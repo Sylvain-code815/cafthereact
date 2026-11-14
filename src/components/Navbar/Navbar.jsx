@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext.jsx";
-import { CartContext } from "../../contexts/CartContext.jsx";
 import { SearchContext } from "../../contexts/SearchContext.jsx";
+import MiniCart from "../MiniCart/MiniCart.jsx";
 import "./Navbar.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useContext(AuthContext);
-  const { totalArticles } = useContext(CartContext);
   const { isSearchOpen, openSearch, closeSearch } = useContext(SearchContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -83,12 +82,8 @@ const Navbar = () => {
               )}
             </div>
 
-            <Link to="/panier" className="nav-action-btn nav-cart">
-              <img src="/Images/Icon/header-Cart.svg" alt="Panier" />
-              {totalArticles > 0 && (
-                <span className="cart-badge">{totalArticles}</span>
-              )}
-            </Link>
+            {/* Mini-panier : volet ouvert depuis l'icône panier (CDC 4.3) */}
+            <MiniCart />
 
             <button
               className={`nav-burger${menuOpen ? " nav-burger-open" : ""}`}

@@ -1,0 +1,138 @@
+@keyframes miniCartIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mini-cart-wrapper {
+  position: relative;
+}
+
+.mini-cart {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 900;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background-color: var(--color-surface-high);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-dropdown);
+  animation: miniCartIn 0.2s ease both;
+}
+
+.mini-cart-title {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-title);
+  text-transform: uppercase;
+}
+
+.mini-cart-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+}
+
+.mini-cart-empty-link {
+  color: var(--color-text);
+  font-weight: var(--weight-btn);
+  text-decoration: underline;
+}
+
+.mini-cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.mini-cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.mini-cart-image {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mini-cart-item-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.mini-cart-item-name {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-under-Title);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.mini-cart-item-name:hover {
+  color: var(--color-the);
+}
+
+.mini-cart-item-qty {
+  font-size: var(--fs-small);
+  color: var(--color-footer);
+}
+
+.mini-cart-item-total {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-title);
+  white-space: nowrap;
+}
+
+.mini-cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-subtitle);
+  font-weight: var(--weight-title);
+}
+
+.mini-cart-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.mini-cart-btn {
+  flex: 1;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* Mobile : le volet prend toute la largeur sous l'en-tête */
+@media screen and (max-width: 768px) {
+  .mini-cart {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mini-cart {
+    animation: none;
+  }
+}
