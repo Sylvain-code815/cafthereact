@@ -1,0 +1,146 @@
+.modal-dialog.quickview-dialog {
+  max-width: 820px;
+}
+
+.quickview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.quickview-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.quickview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quickview-name {
+  font-size: var(--fs-section-title);
+  font-weight: var(--weight-title);
+  line-height: 1.2;
+  padding-right: 32px;
+}
+
+.quickview-origin {
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+}
+
+.quickview-price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quickview-price {
+  font-size: var(--fs-nav-link);
+  font-weight: var(--weight-title);
+}
+
+.quickview-price-old {
+  font-size: var(--fs-body);
+  color: var(--color-footer);
+  text-decoration: line-through;
+}
+
+.quickview-unit {
+  font-size: var(--fs-small);
+  color: var(--color-footer);
+}
+
+.quickview-description {
+  font-size: var(--fs-body);
+}
+
+.quickview-stock {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-under-Title);
+  color: var(--color-the);
+}
+
+.quickview-stock--low {
+  color: var(--color-cafe);
+}
+
+.quickview-stock--out {
+  color: var(--color-error);
+}
+
+.quickview-purchase {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.quickview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--fs-body);
+}
+
+.quickview-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quickview-qty-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.quickview-qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quickview-qty-value {
+  min-width: 24px;
+  text-align: center;
+  font-weight: var(--weight-under-Title);
+}
+
+.quickview-total {
+  font-weight: var(--weight-title);
+}
+
+.quickview-add {
+  padding: 12px 24px;
+  text-transform: uppercase;
+}
+
+.quickview-link {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-btn);
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.quickview-link:hover {
+  color: var(--color-the);
+}
+
+@media screen and (max-width: 640px) {
+  .quickview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quickview-image {
+    max-height: 260px;
+  }
+}

@@ -28,3 +28,16 @@ export const getLineTotal = (item) => {
   }
   return prix * item.quantite;
 };
+
+/**
+ * Unité affichée après le prix (« / 100g », « / sachet »...)
+ */
+export const getUnitLabel = (typeVente) => {
+  switch (typeVente) {
+    case "Vrac": return "/ 100g";
+    case "Sachet": return "/ sachet";
+    case "Boite": return "/ boîte";
+    case "Unité": return "/ unité";
+    default: return "/ 100g";
+  }
+};
