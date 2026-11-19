@@ -130,7 +130,9 @@ const OrdersTab = () => {
             </div>
             <div className="order-meta">
               <span className={`order-status ${statusClass(order.statut_commande)}`}>
-                {STATUS_LABELS[order.statut_commande] || order.statut_commande}
+                {order.mode_commande === "store" && order.statut_commande === "delivered"
+                  ? "Remise en boutique"
+                  : STATUS_LABELS[order.statut_commande] || order.statut_commande}
               </span>
               <span className="order-total">{Number(order.total).toFixed(2)} €</span>
               <button

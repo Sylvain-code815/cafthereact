@@ -11,6 +11,7 @@ const SignUp = () => {
     const [mdp, setMdp] = useState("");
     const [confirmMdp, setConfirmMdp] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [activationRequired, setActivationRequired] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ const SignUp = () => {
         }
 
         setErrorMsg("");
+        setActivationRequired(false);
 
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients/register`, {
@@ -43,6 +45,8 @@ const SignUp = () => {
             const data = await response.json();
 
             if (!response.ok) {
+                // Email d'une fiche créée en boutique : on propose l'activation plutôt qu'une inscription
+                setActivationRequired(Boolean(data.activation_required));
                 setErrorMsg(data.message || "Échec de l'inscription");
                 return;
             }
@@ -68,7 +72,14 @@ const SignUp = () => {
                 </div>
 
                 <form className="signup-form" onSubmit={handleSubmit}>
-                    {errorMsg && <div className="error-message">{errorMsg}</div>}
+                    {errorMsg && (
+                        <div className="error-message">
+                            {errorMsg}
+                            {activationRequired && (
+                                <> <Link to={`/activate-account?email=${encodeURIComponent(email)}`}>Activer mon compte</Link></>
+                            )}
+                        </div>
+                    )}
 
                     <div className="form-group">
                         <div className="input-with-icon">

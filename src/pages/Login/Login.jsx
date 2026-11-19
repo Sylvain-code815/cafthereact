@@ -95,6 +95,8 @@ const Login = () => {
 
           <p className="signup-link">
             Vous n'avez pas encore de compte ? <Link to="/signup">Créer un compte</Link>
+            <br />
+            Compte créé en boutique ? <Link to="/activate-account">Activer mon compte</Link>
           </p>
         </form>
       </div>

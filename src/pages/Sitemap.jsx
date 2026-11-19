@@ -31,6 +31,7 @@ const Sitemap = () => {
         <ul>
           <li><Link to="/login">Connexion</Link></li>
           <li><Link to="/signup">Inscription</Link></li>
+          <li><Link to="/activate-account">Activer un compte créé en boutique</Link></li>
           <li><Link to="/panier">Mon panier</Link></li>
         </ul>
       </div>
