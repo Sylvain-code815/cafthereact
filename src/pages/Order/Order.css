@@ -163,7 +163,12 @@
 .os-total-row {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   font-size: var(--fs-body);
+}
+
+.os-total-row span:last-child {
+  white-space: nowrap;
 }
 
 .os-total-final {
